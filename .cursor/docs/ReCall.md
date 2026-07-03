@@ -1,5 +1,11 @@
 # DigitalStudioz — ReCall Update
 
+## Session: 2026-07-03 — Skill library v1.14.0 + sync workflow
+
+- Central skill library is the **single source of truth** (`_core-scripts/shared-profile-content/skills`). Edit skills **there**, never per-project.
+- New interactive-web skills available: **Scroll-Motion** (Lenis+GSAP), **Scroll-Video-Sequence** (Apple scroll frame-scrub), **Component-Registries** (shadcn ecosystem), **View-Transitions**, **Motion-Accessibility**, plus vendored **frontend-design**.
+- `npm run sync:skills` refreshes this project's `.cursor/skills` from the library (keeps `digitalstudioz-layout`); auto-runs at Start Project. `npm run sync:docs` = preview doc drift, `-- -Write` to apply.
+
 ## Session: 2026-07-03 — Warm Premium Redesign + Layout Lock
 
 ### Major Milestone

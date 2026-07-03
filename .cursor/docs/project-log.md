@@ -1,5 +1,14 @@
 # DigitalStudioz — Project Log
 
+## 2026-07-03 — Skill library v1.14.0 + skill/doc sync workflow
+
+**Design/interaction skills sweep + a real sync workflow so projects stop drifting from the shared library.**
+
+- **5 new library skills** (in `_core-scripts/shared-profile-content/skills`): `Scroll-Motion` (Lenis + GSAP 2026 stack), `Scroll-Video-Sequence` (Apple-style canvas frame-scrub on scroll), `Component-Registries` (shadcn ecosystem — Aceternity/Magic UI/Cult UI/Origin UI), `View-Transitions` (native morphs), `Motion-Accessibility` (reduced-motion + CWV gate). Vendored Anthropic `frontend-design` anti-slop brief.
+- **`sync-skills.ps1`** — `npm run sync:skills` pulls the canonical library into `.cursor/skills` (refreshes shared, **preserves `digitalstudioz-layout`**); `sync:skills:global` installs to `~/.claude/skills`. **Auto-runs at Start Project** via `session-start.ps1`.
+- **`sync-docs.ps1`** — `npm run sync:docs` (preview-by-default, `-Write` to apply) placeholder-aware refresh of universal docs; guards against unresolved placeholders; only touches docs that already exist unless `-AddMissing`. Local doc edits (e.g. our `sync:hermes-mcp` note) are surfaced in `git diff`, never silently clobbered. `.cursor/docs/.docsync.json` holds the project description.
+- Committed + pushed across hermes-core-scripts + all 3 profiles.
+
 ## 2026-07-03 — Skeleton v1.13.0 backported to all live profiles
 
 **Retrofitted the new v1.13.0 assets into JonBeatz, DigitalStudioz, VaderLabz** via new idempotent `shared-profile-content/scripts/backport-skeleton-assets.ps1` (skip-if-exists, templatized agents, safe hook activation).
