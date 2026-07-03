@@ -88,7 +88,7 @@
 | `npm run hermes:desktop-ready` | CDP + stack + open Hermes Desktop |
 | `npm run hermes:full-control` | Pre-flight browser + cua-driver |
 | `npm run telegram:gateway` | Full Telegram reconnect |
-| `npm run sync:hermes-mcp` | Sync GitHub + Hostinger MCPs to Hermes profile |
+| `npm run sync:hermes-mcp` | Run **from JonBeatz** — syncs GitHub + Hostinger MCPs to the jonbeatz Hermes profile (reads JonBeatz `.env.local`) |
 | `npm run sync:hermes-skills` | Copy layout skill to Hermes hub |
 
 See `.cursor/docs/HERMES-FULL-CONTROL-SETUP.md` and `.cursor/plans/2026-07-03_HERMES-ECOSYSTEM-AUDIT.md`.

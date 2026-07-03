@@ -1,5 +1,16 @@
 # DigitalStudioz — Project Log
 
+## 2026-07-03 — Ecosystem checkup + P1/P2 fixes
+
+**Full Hermes operational audit executed (Cursor Opus + 3 parallel subagents). All doctors green.**
+
+- **Fixed this session:** Google OAuth token (was revoked → re-authenticated, `Token valid`); `stack-status.ps1` doubled `/v1/v1` → normalized to single `/v1`.
+- **P1 script parity:** repointed dead `telegram:*` / `log:*` / `sync:telegram-env` refs in DigitalStudioz + VaderLabz to JonBeatz canonical scripts (`_core-scripts\telegram-gateway\scripts\` and `_core-scripts\lib\log-*.ps1` never existed). Fixed VaderLabz `sync:mcp-env` (was missing `mcp-engine\scripts\sync-mcp-env.ps1`) → JonBeatz `sync-mcp-env.mjs`. Removed duplicate `deepseek:ngrok:handoff` key in DS.
+- **P1 boot:** added warm-stack skip guard to JonBeatz `session-start.ps1` so `-Full` never force-restarts a healthy `:4000`/`:4040` (parity with shared `session-start.ps1`).
+- **P2 parity:** added VaderLabz aliases `hermes:desktop-ready`, `telegram:gateway`, `telegram:sessions`, `sync:hermes-skills`. Added `FITNESS-CHECK.md` to DS + VaderLabz. Fixed stale skeleton header (v1.6.0 → v1.12.0). Untracked VaderLabz `.cursor/mcp.json` (env-refs only, no secret leak) + added `mcp.json.example`. Fixed stale `msc-new` MCP comment in `~/.cursor/mcp.json`. Clarified DS `sync:hermes-mcp` doc (runs from JonBeatz).
+- **Security:** all 6 repos — no `.env.local`/credentials in git history; all gitignored.
+- **Verified:** DS `telegram:doctor` now resolves; `boot:doctor` healthy; `stack:status` WARM, base URL clean.
+
 ## 2026-07-03 — Warm Premium + layout lock (v2.0.0)
 
 **Layout policy locked after 4 failed Tailwind-in-engine attempts.**
