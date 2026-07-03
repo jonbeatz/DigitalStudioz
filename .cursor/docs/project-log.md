@@ -1,5 +1,14 @@
 # DigitalStudioz — Project Log
 
+## 2026-07-03 — _core-scripts skeleton audit executed (P1+P2+P3)
+
+**Deep audit of `_core-scripts` + `shared-profile-content` executed end-to-end. Skeleton bumped v1.12.0 → v1.13.0.** All JSON + PowerShell validated; `docs-update.ps1` runs clean; all 14 repointed script targets confirmed to exist.
+
+- **P1 (broken/misleading):** repointed 8 dead targets in `templates/package.json` (telegram×4, log×2, `desktop`, `web:static`) to canonical JonBeatz/deepseek scripts + added `stack:status`, `deepseek:ngrok:handoff`, `boot:setup`, `telegram:gateway/sessions`, `sync:hermes-skills`. Deleted orphan `repair_shortcut.vbs` + `inspect_shortcut.vbs` (targeted retired `google-api`, contradicted `cleanup-hermes-shortcuts.ps1`). Retired all `google-api` path refs in MASTER-COMMANDS/INFRASTRUCTURE/TELEGRAM docs → `deepseek-api`. Removed dead `model-engine`/`image-engine` rows from `_core-scripts/.cursor/docs/TRUTH.md`.
+- **P1/P2 (docs):** rewrote `UPGRADES-SYSTEMS.md` (JARVIS→Draven, `jarvis:speak`→`draven:speak`, telegram/mcp paths, MCP count 17→**13**, version stamp). Synced shared README (1.6.0→1.13.0, 17→13 servers, refreshed highlights). Removed duplicate `_archive/google-api` row + `litellm_verify`→`litellm-verify` typo in main README/UPGRADES.
+- **P2 (scripts):** removed duplicate backup block in `bootstrap-new-project.ps1`; fixed `env-setup.ps1` (was resolving project root to `_core-scripts`, now targets calling project). Implemented real `docs-update.ps1` (encoding + version-alignment report). Renamed profile-template `start-google-api-desktop.ps1` → `deepseek` delegate.
+- **P3 (modernization):** added `.claude/agents/` subagent defs (code-reviewer, doc-keeper, build-verifier), `rules/library-docs.mdc` (Context7 anti-hallucination), `.githooks/pre-commit` secrets scan (auto-activated on bootstrap), `.editorconfig`, `.prettierrc.json`, `.github/dependabot.yml`. `-Website` now scaffolds `layout.tsx`+`page.tsx`(ThreeBackground wired)+`globals.css`+`postcss.config.mjs` on **Tailwind v4**; migrated `Nextjs-Tailwind-Bootstrap` skill v3→v4; deduped `Background-Removal` in SKILL-INDEX. Additive `HERMES_PRIMARY_PROFILE_ROOT` override (non-breaking).
+
 ## 2026-07-03 — Ecosystem checkup + P1/P2 fixes
 
 **Full Hermes operational audit executed (Cursor Opus + 3 parallel subagents). All doctors green.**
