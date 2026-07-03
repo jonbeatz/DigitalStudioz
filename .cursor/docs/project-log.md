@@ -1,5 +1,16 @@
 # DigitalStudioz — Project Log
 
+## 2026-07-03 — Warm Premium + layout lock (v2.0.0)
+
+**Layout policy locked after 4 failed Tailwind-in-engine attempts.**
+
+- `engine.tsx`: inline `const S` object, 1200px container, FadeUp scroll reveals
+- `layout.tsx`: Lenis only — StudioRails + CustomCursor unmounted
+- `globals.css`: minimal tokens (no `@theme inline`, no `.section-container`)
+- Skill: `.cursor/skills/digitalstudioz-layout/SKILL.md` v2.0.0
+- All agent docs aligned: TRUTH, START-HERE v0.5, ReCall, AGENTS, Master-Build-Prompt, TROUBLESHOOTING #12
+- Tailwind remains for non-engine components only
+
 ## v0.1.0 — 2026-07-01
 
 **Initial scaffold.**

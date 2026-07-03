@@ -1,5 +1,7 @@
 # Nextjs-Tailwind-Bootstrap — Tailwind Setup Checklist
 
+> **DigitalStudioz exception:** Main page layout in `lib/experience-engine/engine.tsx` uses **inline `S` object** (v2.0.0 lock), not Tailwind utilities. See `.cursor/skills/digitalstudioz-layout/SKILL.md`. Tailwind still applies to other components in this project.
+
 ## When to use this skill
 - Bootstrapping a new Next.js project from the shared-profile-content skeleton
 - Diagnosing why Tailwind utility classes (like `fixed`, `inset-0`, `flex`, `z-30`) appear to do nothing

@@ -40,3 +40,10 @@ Draven has isolated Mem0 at `draven_memories` / `qdrant_draven`:
 ## Skills
 
 See `SKILL-INDEX.md` for the full catalog.
+
+## Page layout (LOCKED — v2.0.0)
+
+- **`lib/experience-engine/engine.tsx`:** inline `const S = { ... }` only — **no Tailwind layout classes**
+- **Before any engine.tsx edit:** read `.cursor/skills/digitalstudioz-layout/SKILL.md`
+- **Tailwind:** OK in other components — not in the engine page shell
+- **If docs disagree:** `TRUTH.md` → `START-HERE.md` → `ReCall.md` → layout skill (in that order)

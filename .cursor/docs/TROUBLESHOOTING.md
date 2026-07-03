@@ -148,6 +148,34 @@ npm run telegram:gateway
 ```
 Verify the log shows `Gateway running with 1 platform(s)`. Note: a direct console `gateway run` can hang on TTY input — prefer the headless `npm run telegram:gateway` spawn, and kill any orphan sidecar still holding its port (e.g. `:8789`) first.
 
+## 12. DigitalStudioz layout squished / off-center / build fails on engine.tsx
+
+**Symptom:** Content pinned left, inconsistent padding, grids misaligned, or Turbopack parse error in `engine.tsx`.
+
+**Causes:**
+- Agent added Tailwind layout classes to `engine.tsx` (violates v2.0.0 lock)
+- Mixed `className` padding with `style` padding on same element
+- Incomplete refactor — unclosed JSX tags (e.g. `</FadeUp>` without `</div>`)
+- Docs said "use Tailwind in engine" while production uses inline `S` object
+
+**Fix:**
+```powershell
+# 1. Read the layout skill
+# .cursor/skills/digitalstudioz-layout/SKILL.md
+
+# 2. Restore pattern — every section:
+# <section style={S.secA}><div style={S.inner}>...</div></section>
+
+# 3. Verify build
+npm run build
+
+# 4. If an agent converted to Tailwind, revert engine.tsx:
+git checkout HEAD -- lib/experience-engine/engine.tsx
+# Then re-apply only the intended content change using S patterns
+```
+
+**Prevention:** START-HERE.md + ReCall.md + layout skill all say inline-only for engine.tsx. Do not convert to Tailwind without `tailwind-layout-spike` branch.
+
 ---
 
 ## Still stuck?

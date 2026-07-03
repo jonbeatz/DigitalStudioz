@@ -1,5 +1,8 @@
 # DigitalStudioz — Warm Premium Redesign Plan
 
+> **COMPLETED 2026-07-03.** Warm Premium palette and 8-scene layout shipped.
+> **Layout lock (authoritative):** `engine.tsx` uses inline `const S` object — **not** Tailwind layout classes. See `.cursor/skills/digitalstudioz-layout/SKILL.md` v2.0.0. This plan's Tailwind layout notes are **historical only**.
+
 > **Date:** 2026-07-03
 > **Taste:** Warm Premium — deep charcoal, warm cream, muted gold (#c8a45c)
 > **Layout:** SpaceX-style full-viewport scenes × asymmetric bento grids

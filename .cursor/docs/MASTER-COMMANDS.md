@@ -15,7 +15,9 @@
 |---------|-------------|
 | `npm run deepseek:on` | Start DeepSeek LiteLLM :4000 |
 | `npm run deepseek:off` | Stop DeepSeek LiteLLM |
-| `npm run deepseek:status` | Check DeepSeek status |
+| `npm run deepseek:status` | Canonical stack status (LiteLLM, ngrok, gateway) |
+| `npm run stack:status` | Same as deepseek:status — WARM/cold gate |
+| `npm run deepseek:ngrok:handoff` | Write Cursor paste URL to `_core-scripts/deepseek-api/logs/ngrok-public-url.txt` |
 | `npm run deepseek:test` | Test LiteLLM connection |
 | `npm run deepseek:ngrok` | Start DeepSeek + ngrok tunnel |
 
@@ -49,7 +51,7 @@
 
 | Command | Description |
 |---------|-------------|
-| `npm run sync:mcp-env` | Sync MCP tokens from `.env.local` to Cursor |
+| `npm run sync:mcp-env` | Sync MCP tokens (delegates to JonBeatz canonical script) |
 | `npm run sync:telegram-env` | Sync Telegram environment |
 | `npm run sync:deepseek-env` | Sync DeepSeek environment |
 | `npm run env:setup` | Copy `.env.local.example` → `.env.local` |
@@ -76,7 +78,20 @@
 | `npm run docs:sync` | Sync/update documentation |
 | `npm run docs:update` | Update docs from shared skeleton |
 | `npm run encoding:check` | Check UTF-8 encoding on .md files |
-| `npm run boot:doctor` | Check shared profile version |
+| `npm run boot:doctor` | Full boot/stack audit (same as JonBeatz) |
+| `npm run boot:setup` | Refresh boot shortcuts + cleanup stale `.lnk` files |
+
+## Hermes / Boot (delegates to JonBeatz)
+
+| Command | Description |
+|---------|-------------|
+| `npm run hermes:desktop-ready` | CDP + stack + open Hermes Desktop |
+| `npm run hermes:full-control` | Pre-flight browser + cua-driver |
+| `npm run telegram:gateway` | Full Telegram reconnect |
+| `npm run sync:hermes-mcp` | Sync GitHub + Hostinger MCPs to Hermes profile |
+| `npm run sync:hermes-skills` | Copy layout skill to Hermes hub |
+
+See `.cursor/docs/HERMES-FULL-CONTROL-SETUP.md` and `.cursor/plans/2026-07-03_HERMES-ECOSYSTEM-AUDIT.md`.
 
 ## Web Development
 

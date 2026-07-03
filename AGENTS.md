@@ -5,8 +5,10 @@
 1. Read **`TRUTH.md`** — constitution, core rules, connections.
 2. Read **`.cursor/docs/START-HERE.md`** — daily ritual and doc order.
 3. Read **`.cursor/docs/ReCall.md`** — recent session history.
-4. Read **`.cursor/docs/MASTER-COMMANDS.md`** — all available commands.
-5. Browse **`SKILL-INDEX.md`** — available domain skills and what they cover.
+4. Read **`.cursor/skills/digitalstudioz-layout/SKILL.md`** — **before any `engine.tsx` work** (v2.0.0 inline lock).
+5. Read **`.cursor/docs/MASTER-COMMANDS.md`** — all available commands.
+6. Browse **`SKILL-INDEX.md`** — available domain skills and what they cover.
+7. **Hermes Desktop?** **Cursor is primary** — read **`.cursor/docs/HERMES-DESKTOP-PARITY.md`** (cockpit, handoff, multi-agent rules).
 
 ## Shared Brain Reference
 
@@ -49,7 +51,7 @@ Backups go to `G:\Hermes_Project_BackUpz\DigitalStudioz\` with sequential naming
 
 Available domain skills (see `SKILL-INDEX.md` for full list with tags):
 
-- **Layout (mandatory for page work):** digitalstudioz-layout — Tailwind layout, one system per property, no className+style conflicts
+- **Layout (mandatory for page work):** digitalstudioz-layout v2.0.0 — inline `S` object in `engine.tsx`; no Tailwind layout in page shell
 - **Design:** NovaMira-Design, Premium-UI, DesignMD, MSC-UI-Taste
 - **3D:** Three.js-Ops, WebGL-UI, 3D-Modeling, 3D-Scroll, R3F-Gotchas
 - **Git/DevOps:** GitHub-Ops, Workflow-Ops, Checkpoint-Restore

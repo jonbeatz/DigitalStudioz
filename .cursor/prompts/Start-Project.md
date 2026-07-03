@@ -10,10 +10,14 @@
 Run from the **DigitalStudioz** profile root:
 
 ```powershell
-npm run session:start -- -Full
+npm run deepseek:status
+# If LiteLLM :4000 + ngrok :4040 already online → light probes only:
+npm run session:start
+# Cold PC boot only (both offline):
+# npm run session:start -- -Full
 ```
 
-**Start Project = `-Full`:** Mem0 preflight + **DeepSeek LiteLLM :4000** + **ngrok** (Cursor Agent HTTPS).
+**Start Project on cold boot = `-Full`:** Mem0 preflight + **DeepSeek LiteLLM :4000** + **ngrok** (Cursor Agent HTTPS). If the stack is already up from Cursor or Hermes, **do not** re-run `-Full` — duplicates LiteLLM. See `.cursor/docs/HERMES-DESKTOP-PARITY.md` (Cursor as primary Draven cockpit).
 
 | Mode | Command | When |
 |------|---------|------|
@@ -39,9 +43,10 @@ npm run draven:speak -- "DigitalStudioz online. We are ready to build."
 Read these files **before** doing anything else:
 
 1. **`TRUTH.md`** — Project constitution, Mem0 collection, backup root
-2. **`.cursor/docs/START-HERE.md`** — Daily ops
+2. **`.cursor/docs/START-HERE.md`** — Daily ops + layout lock (v0.5)
 3. **`.cursor/docs/ReCall.md`** — Ongoing session history
 4. **`.cursor/docs/project-log.md`** — Full project history
+5. **`.cursor/skills/digitalstudioz-layout/SKILL.md`** — **Mandatory before any `engine.tsx` edit** (v2.0.0 inline lock)
 
 ---
 
@@ -53,6 +58,8 @@ npm run draven:search -- "DigitalStudioz session context"
 ```
 
 If LM Studio is offline, skip Mem0 and rely on ReCall.md.
+
+**Draven SOUL (optional):** For full Matrix protocol, agent may read `%LOCALAPPDATA%\hermes\profiles\jonbeatz\SOUL.md` when operator requests Mission Briefing or Draven identity lock. Hermes chat history does **not** auto-sync — use `draven:search` + ReCall.md.
 
 ---
 

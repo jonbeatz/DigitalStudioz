@@ -33,3 +33,12 @@ npm run encoding:check
 ```
 
 Fix any non-UTF8 markdown files before committing.
+
+## Layout doc check (when engine.tsx touched)
+
+If `lib/experience-engine/engine.tsx` changed, verify these still say **inline `S` only** (not Tailwind layout in engine):
+
+- `.cursor/skills/digitalstudioz-layout/SKILL.md`
+- `.cursor/docs/START-HERE.md`
+- `.cursor/docs/ReCall.md`
+- `TRUTH.md` / `AGENTS.md`

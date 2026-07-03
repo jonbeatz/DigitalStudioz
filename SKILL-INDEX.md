@@ -6,7 +6,7 @@ Searchable catalog of all portable skills available in `shared-profile-content/s
 
 | Skill | Tags | Purpose | Source |
 |-------|------|---------|--------|
-| digitalstudioz-layout | layout, tailwind, spacing, engine, no-mixing, warm-premium | **Mandatory** layout rules — Tailwind for layout, CSS vars for tokens, inline only for dynamic state; no property conflicts | DigitalStudioz |
+| digitalstudioz-layout | layout, inline-styles, engine, spacing, warm-premium, locked | **Mandatory** — inline `S` object in `engine.tsx`; Tailwind OK elsewhere; do not convert engine to Tailwind layout | DigitalStudioz |
 
 Path: `.cursor/skills/digitalstudioz-layout/SKILL.md`
 

@@ -25,6 +25,8 @@
 
 - **Voice:** OmniVoice primary for ritual speaks (Start/End Project, explicit `draven:speak`). Edge TTS backup only if Omni fails. Ritual-only — never auto-read chat replies or Mem0 recall.
 - **Pathing:** All global scripts reside in `D:\Hermes\projects\_core-scripts\`. Profile switcher registry must use workspace paths (git repo roots).
+- **Page layout:** `engine.tsx` uses inline `S` object only — see `.cursor/skills/digitalstudioz-layout/SKILL.md` v2.0.0. Do not add Tailwind layout to engine.tsx without operator approval.
+- **Hermes Desktop:** Use `.cursor/docs/HERMES-DESKTOP-PARITY.md` for Cursor-equivalent sessions (experiment).
 - **JSON Security:** Never use PowerShell to write JSON (BOM issues). Use Python or write_file.
 - **UTF-8 / Markdown:** Never rewrite .md / .mdc with PowerShell Get-Content / Set-Content without -Encoding UTF8. Prefer Python scripts for version badge updates. Run encoding checks before doc commits.
 - **PowerShell:** This is a Windows environment. All scripts are PowerShell (.ps1). No bash heredocs.
@@ -36,6 +38,7 @@
 3. `.cursor/docs/ReCall.md` — Ongoing memory
 4. `.cursor/docs/MASTER-COMMANDS.md` — Command reference
 5. Skills referenced in SKILL-INDEX.md — Domain expertise
+6. `.cursor/skills/digitalstudioz-layout/SKILL.md` — **before editing `engine.tsx`** (layout v2.0.0 lock)
 
 ## Isolation Rules
 

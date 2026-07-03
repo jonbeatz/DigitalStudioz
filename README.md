@@ -22,13 +22,14 @@
 | Metric | Value |
 | :--- | :--- |
 | **Version** | `v0.3.0` · [Latest release](https://github.com/jonbeatz/DigitalStudioz/releases) |
-| **Stack** | Next.js 16 (App Router) + Three.js / R3F / Drei + GSAP + Lenis + SplitType |
-| **3D Engine** | Procedural abstract geometry — icosahedron, wireframe torus knot, orbiting spheres |
+| **Stack** | Next.js 16 (App Router) + Lenis + inline layout engine |
+| **Taste** | Warm Premium — gold `#c8a45c`, cream `#e8e2d9`, void `#0a0a0b` |
+| **Layout** | Inline `S` object in `engine.tsx` (1200px container) — see layout skill v2.0.0 |
 | **Live Preview** | [jonbeatz.github.io/DigitalStudioz](https://jonbeatz.github.io/DigitalStudioz/) |
 | **Memory** | Mem0 + Qdrant (`digitalstudioz_memories` collection) |
 | **AI Backend** | LiteLLM (DeepSeek V4 proxy) + LM Studio (local) |
 | **Verified** | `npm run build` — clean static generation |
-| **Status** | Active development — `DigitalStudioz-Project-v1` branch |
+| **Status** | Active development on `main` |
 
 ---
 
@@ -37,7 +38,7 @@
 ### Hero — MAVRA-generated full-bleed image
 
 ![DigitalStudioz Hero](public/images/ds-hero-v1.jpg)
-*Full-bleed hero with FLUX-generated imagery, Studio Green accent, and scroll-driven 3D atmosphere.*
+*Warm Premium hero with FLUX-generated imagery, gold accent, and FadeUp scroll reveals.*
 
 ### Chapter sections — alternating image + card layout
 
@@ -50,11 +51,11 @@
 
 DigitalStudioz is a **full-service digital studio showcase** demonstrating what the JonBeatz ecosystem can build:
 
-- Config-driven **Experience Engine** ported from VaderLabz
-- **Studio Green** design system (`#22c55e` / `#34d399`) on deep black surfaces
-- **MAVRA Build Pipeline** — 11 FLUX-generated images with `ds-` naming convention
-- Procedural 3D scene as atmospheric background (subtle wireframe + orbiting spheres)
-- Lenis smooth scroll + GSAP ScrollTrigger + SplitType text reveals
+- **Warm Premium** design system (gold, warm cream, void-black)
+- **SpaceX-style** 8-scene page layout with FadeUp scroll reveals
+- Config-driven **Experience Engine** — `engine.tsx` is the full live page
+- **Inline layout lock** — `const S` object (1200px container); Tailwind for other components
+- 8 FLUX-generated demo images (`ds-demo-*.jpg`)
 - Hermes profile infrastructure — Mem0, Draven memory, session rituals, backup scripts
 
 **Profile root:** `D:\Hermes\projects\DigitalStudioz`
@@ -71,7 +72,7 @@ DigitalStudioz is a **full-service digital studio showcase** demonstrating what 
 | **Animation** | GSAP + ScrollTrigger | Scroll-driven reveals |
 | **Scroll** | Lenis | Smooth scroll foundation |
 | **Typography** | SplitType | Line-by-line chapter title reveals |
-| **Styling** | Tailwind CSS v4 + CSS tokens | Studio Green design system |
+| **Styling** | CSS custom properties + inline `S` layout in engine; Tailwind v4 for other components | Warm Premium tokens |
 | **AI Agent** | Draven (Hermes co-pilot) | Cross-session AI assistant |
 | **Memory** | Mem0 + Qdrant (local) | Isolated `digitalstudioz_memories` |
 | **Deploy** | GitHub Pages (static export) + optional Hostinger | Preview + production |
@@ -82,7 +83,7 @@ DigitalStudioz is a **full-service digital studio showcase** demonstrating what 
 
 | Route | Description |
 |-------|-------------|
-| **`/`** | Main showcase — hero image, 5 chapters, stats strip, contact |
+| **`/`** | Main showcase — 8 scenes, stats, contact, FadeUp reveals |
 
 ---
 
@@ -111,17 +112,14 @@ npm run build
 ```
 DigitalStudioz/
 ├── app/
-│   ├── page.tsx              # Config wrapper (~70 lines)
-│   ├── layout.tsx            # Fonts, Lenis, CustomCursor
-│   └── globals.css           # Studio Green design tokens
+│   ├── page.tsx              # Config wrapper
+│   ├── layout.tsx            # Fonts + Lenis (no StudioRails/CustomCursor)
+│   └── globals.css           # Warm Premium design tokens
 ├── lib/experience-engine/
-│   ├── engine.tsx            # createStudioExperience(config)
-│   ├── config.ts             # HDR presets, bloom, colors
-│   ├── scene/                # Scene3D, SceneModel (procedural)
-│   └── ui/                   # Hero, chapters, rails, picker
-├── public/
-│   ├── images/               # MAVRA FLUX assets (ds-*.jpg)
-│   └── media/                # HDR environment maps (.exr)
+│   ├── engine.tsx            # Full live page — inline S + FadeUp
+│   ├── types.ts              # Color constants
+│   └── ui/                   # Legacy components (not wired to main page)
+├── public/images/            # ds-demo-*.jpg Warm Premium assets
 ├── scripts/
 │   └── project-backup.mjs    # G:\Hermes_Project_BackUpz\DigitalStudioz\
 └── .cursor/docs/             # START-HERE, ReCall, GITHUB-SETUP
@@ -156,15 +154,19 @@ Full reference: [MASTER-COMMANDS.md](.cursor/docs/MASTER-COMMANDS.md)
 
 ---
 
-## 8. Design System — Studio Green
+## 8. Design System — Warm Premium
 
 | Token | Value |
 |-------|-------|
-| Accent | `#22c55e` |
-| Secondary | `#34d399` |
-| Background | `#050505` / `#111111` |
-| Gradient | `linear-gradient(135deg, #22c55e, #34d399)` |
+| Accent (Gold) | `#c8a45c` |
+| Warm Cream | `#e8e2d9` |
+| Background (Void) | `#0a0a0b` |
+| Background (Canvas) | `#111113` |
+| Gradient | `linear-gradient(135deg, #c8a45c, #d4b872)` |
+| Layout | Inline `S` object — 1200px container (see layout skill) |
 | Tagline | Think Big. Build Bold. |
+
+Full reference: [WARM-PREMIUM-PALETTE.md](.cursor/docs/WARM-PREMIUM-PALETTE.md)
 
 ---
 

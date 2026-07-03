@@ -88,6 +88,14 @@
 
 ## Section Layout Patterns
 
+**Production implementation:** `lib/experience-engine/engine.tsx` uses inline `const S` object (v2.0.0 lock). See `.cursor/skills/digitalstudioz-layout/SKILL.md`.
+
+| Token | Value |
+|-------|-------|
+| Container max-width | 1200px (`S.inner`) |
+| Section vertical padding | 100px (`S.sec` / `S.secA`) |
+| Inner horizontal padding | 24px (`S.inner`) |
+
 ### Type A: Full-Viewport Hero (SpaceX-style)
 - 100vh minimum
 - Void-black background

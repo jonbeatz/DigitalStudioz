@@ -7,11 +7,10 @@ Use this prompt when asking Cursor/Claude to build or modify DigitalStudioz expe
 ## Project Identity
 
 - **Project:** DigitalStudioz — Full-Service Digital Studio
-- **Framework:** Next.js 14 (App Router)
-- **Styling:** Tailwind CSS v4 + custom globals.css
-- **3D Stack:** React Three Fiber + @react-three/drei + @react-three/postprocessing
-- **Animation:** GSAP + ScrollTrigger + Lenis
-- **Text splitting:** SplitType (for cinematic text reveals)
+- **Framework:** Next.js 16 (App Router)
+- **Styling:** CSS custom properties in `globals.css` + **inline `S` object in `engine.tsx`** (layout locked v2.0.0)
+- **Tailwind:** v4 installed — use in **non-engine** components only unless operator approves spike branch
+- **Animation:** FadeUp (IntersectionObserver) in engine.tsx; Lenis smooth scroll
 - **Node:** >= 18
 
 ## Taste: Warm Premium
@@ -32,48 +31,45 @@ Use this prompt when asking Cursor/Claude to build or modify DigitalStudioz expe
 ## Architecture
 
 ### Experience Engine (lib/experience-engine/)
-DO NOT modify engine internals unless explicitly asked. The engine is:
 
 ```
 lib/experience-engine/
   index.ts          ← barrel export
-  engine.tsx        ← createStudioExperience(config) — the main factory
-  types.ts          ← ExperienceConfig + shared types
-  config.ts         ← HDR_PRESETS, BLOOM_PRESETS, etc.
-  scene/
-    Scene3D.tsx     ← Canvas + lights + Environment + EffectComposer + Bloom
-    SceneModel.tsx  ← 3D abstract model with emissive/glow logic
-  ui/               ← All UI components (ported from VaderLabx, adapted for magenta/cyan)
+  engine.tsx        ← FULL LIVE PAGE — inline S object + FadeUp (read layout skill first)
+  types.ts          ← ExperienceConfig + color constants
+  config.ts         ← HDR presets (legacy)
+  ui/               ← Legacy components — NOT wired to main page
 ```
 
+### Layout Rules (CRITICAL — v2.0.0)
+
+Read `.cursor/skills/digitalstudioz-layout/SKILL.md` before any engine.tsx edit.
+
+- **engine.tsx:** inline `const S = { inner, sec, card... }` — **no Tailwind layout classes**
+- **Container:** `maxWidth: 1200`, `padding: '0 24px'` via `S.inner`
+- **Sections:** `S.sec(bg)` or `S.secA` — `padding: '100px 0'`
+- **Allowed className in engine:** `text-gradient` only
+- **Do not** convert engine.tsx to Tailwind without operator + spike branch
+
 ### Route File Pattern
-Each route file should be ~30 lines — a config wrapper, nothing more.
+Each route file should be a config wrapper — `app/page.tsx` exports `createStudioExperience(config)`.
 
 ## Key Conventions
 
 ### Protected Components
-The following are HERO components. DO NOT modify them unless explicitly asked:
-- `lib/experience-engine/engine.tsx`
-- `lib/experience-engine/scene/Scene3D.tsx`
-- `lib/experience-engine/scene/SceneModel.tsx`
-- `lib/experience-engine/types.ts`
-- `lib/experience-engine/config.ts`
+Modify `engine.tsx` only when the task explicitly requires page changes. Follow layout skill v2.0.0.
 
-### Custom Cursor
-The custom magenta dot is an ADDITIVE OVERLAY on top of the OS cursor.
-- NEVER set `document.body.style.cursor = 'none'`
-- NEVER set `body { cursor: none }` in CSS
+### layout.tsx
+- **LenisProvider only** — do not re-mount `StudioRails` or `CustomCursor` without operator request
+- Components remain in `components/` for future use
 
 ### Scroll Animation
-- `ChapterSection` uses GSAP + ScrollTrigger with a `panelRef`
-- The `panelRef` must be on the inner content wrapper, not the outer section
-- Hero text uses `HeroAnimation` component with GSAP letter animation
+- **FadeUp** in engine.tsx — IntersectionObserver fade-up
+- Do not add GSAP/SplitType to engine without explicit ask
 
-### 3D Scene
-- Canvas parent MUST have `position: fixed` or absolute positioning (via Tailwind)
-- Bloom is handled by `EffectComposer` in Scene3D
-- Model emissive is applied to all meshes with `toneMapped = false`
-- `dpr={[1, 1.5]}`, `gl={{ antialias: false, toneMapping: THREE.ACESFilmicToneMapping }}`
+### 3D Scene (not on main page)
+- Main page has **no WebGL canvas**
+- Scene3D/SceneModel exist for future routes only
 
 ### Media
 - Store all media in `public/media/`
@@ -83,12 +79,13 @@ The custom magenta dot is an ADDITIVE OVERLAY on top of the OS cursor.
 ## Multi-Agent Safety Rules
 
 1. **Never** rewrite route files as full pages — they are config wrappers
-2. **Never** touch the engine or scene components unless the task says "engine" or "scene"
-3. **Never** set `cursor: none` — the cursor is always an additive overlay
-4. **Never** duplicate globals.css or layout files — routes share the root layout
-5. **Always** verify build exits 0 after changes
-6. **Always** start dev server on port 3000 after build passes
-7. **Always** protect approved hero sections when refining lower sections
+2. **Never** add Tailwind layout classes to `engine.tsx` — use inline `S` object
+3. **Never** mix `className` and `style` on the same CSS property in engine.tsx
+4. **Never** re-mount StudioRails/CustomCursor in layout.tsx without operator ask
+5. **Never** duplicate globals.css or layout files
+6. **Always** read `digitalstudioz-layout` skill before engine edits
+7. **Always** verify `npm run build` exits 0 after changes
+8. **Always** start dev server on port 3000 after build passes
 
 ## Build Verification
 

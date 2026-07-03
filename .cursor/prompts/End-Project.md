@@ -25,6 +25,8 @@ Or append to **`.cursor/docs/project-log.md`**.
 
 Update **`ReCall.md`** as needed.
 
+If **`engine.tsx`** or layout docs changed, confirm **`digitalstudioz-layout` skill**, **`START-HERE.md`**, and **`TRUTH.md`** still agree (inline `S` lock — no Tailwind layout in engine).
+
 ---
 
 ## Step 3: Mem0 (if session was substantive)

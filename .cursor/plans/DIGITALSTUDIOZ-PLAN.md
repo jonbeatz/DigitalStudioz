@@ -1,5 +1,7 @@
 # DigitalStudioz — Build Plan
 
+> **ARCHIVE — superseded 2026-07-03.** Original v0.1 Cyber Amethyst plan. Current site: Warm Premium + inline `S` layout in `engine.tsx`. See `START-HERE.md`, `ReCall.md`, and `digitalstudioz-layout` skill v2.0.0.
+
 ## Brand Identity
 
 **DigitalStudioz** — A premium digital services agency showcase. This site demonstrates everything JonBeatz can build: 3D web experiences, AI integration, full-stack development, design systems, and automation.

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState, useCallback, useRef } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { ACCENT, TEXT_DIM, TEXT_PRIMARY, TEXT_MUTED, WARM_CREAM } from './types'
 import type { ExperienceConfig } from './types'
 import { LoadingScreen } from './ui/LoadingScreen'

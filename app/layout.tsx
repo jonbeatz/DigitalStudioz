@@ -1,9 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter, JetBrains_Mono } from 'next/font/google'
 import { LenisProvider } from '@/lib/lenis-provider'
-import { CustomCursor } from '@/components/CustomCursor'
-import { StudioRails } from '@/components/StudioRails'
-import { CursorProvider } from '@/lib/cursor-context'
 import './globals.css'
 
 const inter = Inter({
@@ -30,13 +27,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body>
-        <CursorProvider>
         <LenisProvider>
-          <StudioRails />
-          <CustomCursor />
           {children}
         </LenisProvider>
-        </CursorProvider>
       </body>
     </html>
   )

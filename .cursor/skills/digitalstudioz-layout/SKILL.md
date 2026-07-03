@@ -1,179 +1,170 @@
 ---
 name: digitalstudioz-layout
 description: >-
-  DigitalStudioz layout rules — Tailwind for spacing/layout, CSS vars for
-  tokens, inline styles only for dynamic JS state. Prevents mixing systems on
-  the same property. Use when editing engine.tsx, globals.css layout utilities,
-  fixing squished/off-center layout, or adding sections.
+  DigitalStudioz layout v2.0.0 — engine.tsx uses inline S object only (1200px
+  container). Do NOT add Tailwind layout classes to engine.tsx. Tailwind stays
+  for other components. Use when editing engine.tsx, fixing squished layout,
+  or adding page sections.
 ---
 
-# DigitalStudioz Layout
+# DigitalStudioz Layout — v2.0.0 (LOCKED)
 
-## Tailwind Is Fine — Mixing Is Not
+## Production policy
 
-**Tailwind CSS is the primary layout system.** Next.js + Tailwind v4 is the intended workflow.
+| Scope | System |
+|-------|--------|
+| **`lib/experience-engine/engine.tsx`** | **Inline `const S = { ... }` only** — locked after 4 failed Tailwind refactors |
+| **All other files** | Tailwind v4 freely (LoadingScreen, new components, shadcn, etc.) |
+| **`globals.css`** | CSS custom properties + `.text-gradient` + `.glass-card` — no `@theme inline`, no `.section-container` |
 
-The bug was **not** Tailwind. It was using **three systems on the same element/property**:
+**Do not convert `engine.tsx` to Tailwind layout** without operator approval and an isolated `tailwind-layout-spike` branch.
 
-| System | Role |
-|--------|------|
-| **Tailwind** | Spacing, grids, flex, responsive layout |
-| **CSS custom properties** (`globals.css`) | Colors, fonts, borders — design tokens |
-| **Inline `style={{}}`** | **Dynamic values only** (scroll state, animation delay, counters) |
+---
 
-### Bad pattern (caused squished layout)
+## Why inline is locked for engine.tsx
+
+Tailwind is **not** banned project-wide. Repeated attempts to use Tailwind layout **inside this monolithic engine file** failed (squished/off-center layout, broken builds). Causes included:
+
+1. **Mixing** — same property in `className` and `style` (confirmed bug)
+2. **Wrong width** — `max-w-7xl` (1280px) vs design spec 1200px
+3. **Incomplete refactors** — partial Tailwind migrations mid-rewrite
+4. **Possible** Tailwind v4 `@apply` / Turbopack edge cases — **unproven**; needs isolated spike to confirm
+
+**Empirical result:** inline `S` object works every time. Tailwind layout in `engine.tsx` regresses repeatedly.
+
+---
+
+## The `S` object (single source of truth)
 
 ```tsx
-// ❌ Same property set by TWO systems — browser picks unpredictably
-<section
-  className="py-20 md:py-28 px-6"   // Tailwind: 80px / 24px padding
-  style={{ padding: '100px 0' }}     // Inline overrides vertical only
->
-```
-
-Also bad: `max-w-7xl` (1280px) on container **plus** inline `maxWidth: 1200` on a child.
-
-### Good pattern (current standard)
-
-```tsx
-// ✅ Tailwind owns layout; CSS vars own colors; inline owns dynamic state only
-<section className="py-24 md:py-32 bg-bg-canvas">
-  <div className="section-container">
-    <h2 className="text-3xl font-bold text-[var(--text-primary)]">...</h2>
-  </div>
-</section>
-
-// ✅ Dynamic nav — inline is correct here (depends on scroll state)
-<header
-  className="fixed top-0 z-50 transition-all duration-500"
-  style={{
-    background: scrolled ? 'rgba(10,10,11,0.95)' : 'transparent',
-    backdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
-  }}
->
-```
-
----
-
-## Mandatory Rules
-
-### DO
-
-1. **Wrap section content in `.section-container`** — single source of truth for max-width + horizontal padding.
-2. **Use Tailwind for** section padding (`py-24 md:py-32`), grids (`grid grid-cols-3 gap-6`), flex, gaps, responsive breakpoints.
-3. **Use theme tokens** from `@theme inline` in `globals.css`: `bg-bg-void`, `text-gold`, `from-gold to-gold-bright`.
-4. **Use arbitrary CSS var syntax** when no theme alias exists: `text-[var(--warm-cream)]`, `border-[var(--warm-border)]`.
-5. **Use inline `style` only for** runtime/dynamic values: scroll-dependent nav, `transitionDelay`, `AnimatedNumber`, hover coords.
-6. **Reuse typography class strings** at top of component: `section`, `labelCls`, `h2Cls`, `subtitleCls`.
-
-### DO NOT
-
-- Set the **same CSS property** in both `className` and `style` (padding, maxWidth, margin, gap)
-- Stack container padding (`.section-container` + extra `px-*` on same wrapper without reason)
-- Use `max-w-7xl` for page containers — design width is **1200px** (`.section-container` uses `max-w-[1200px]`)
-- Re-wire legacy UI components (`TopNav`, `ChapterSection`, etc.) without migrating them to this pattern
-- Add 3D `Scene3D` to main page without explicit operator request
-
----
-
-## Container Utility (`globals.css`)
-
-```css
-.section-container {
-  @apply mx-auto w-full max-w-[1200px] px-6 md:px-12 lg:px-16;
+const S = {
+  inner: { maxWidth: 1200, margin: '0 auto', padding: '0 24px' },
+  sec: (bg: string) => ({ padding: '100px 0', background: bg }),
+  secA: { padding: '100px 0', background: 'var(--bg-canvas)' },
+  secTight: { padding: '80px 0', background: 'var(--bg-canvas)' },
+  label: { fontFamily: 'var(--font-mono)', fontSize: 12, letterSpacing: '0.25em', textTransform: 'uppercase', color: ACCENT, marginBottom: 12 },
+  h2: { fontSize: 36, fontWeight: 700, lineHeight: 1.2, letterSpacing: '-0.02em', color: TEXT_PRIMARY, marginBottom: 16 },
+  sub: { fontSize: 16, lineHeight: 1.6, color: TEXT_MUTED, maxWidth: 560, marginBottom: 48 },
+  card: { background: 'var(--bg-surface)', border: '1px solid var(--border-subtle)', borderRadius: 12, padding: 32 },
+  glass: { background: 'rgba(15,15,17,0.85)', backdropFilter: 'blur(16px)', border: '1px solid var(--border-gold)', borderRadius: 16, padding: '48px 40px' },
+  cta: { /* gold gradient button */ },
+  ctaO: { /* outline button */ },
 }
 ```
 
-**1200px**, not `max-w-7xl` (1280px). Every section follows:
+Extend `S` for new tokens — do not add parallel Tailwind layout in the same file.
+
+---
+
+## Section shell (required pattern)
 
 ```tsx
-<section id="work" className="py-24 md:py-32 bg-bg-canvas">
-  <div className="section-container">
-    {/* content */}
+<section id="work" style={S.secA}>
+  <div style={S.inner}>
+    <FadeUp>
+      <div style={S.label}>Our Work</div>
+      <h2 style={S.h2}>Featured <span className="text-gradient">Projects</span></h2>
+      <p style={S.sub}>Subtitle copy.</p>
+    </FadeUp>
+    <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 24 }}>
+      {/* cards */}
+    </div>
   </div>
 </section>
 ```
 
+**Only allowed `className` in engine.tsx:** `text-gradient` (decorative CSS utility).
+
 ---
 
-## Section Shell + Grid Recipes
+## Grid recipes (inline)
+
+| Section | `style` |
+|---------|---------|
+| Work bento | `display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 24` |
+| Services | `gridTemplateColumns: 'repeat(3, 1fr)', gap: 24` |
+| Process | `gridTemplateColumns: 'repeat(5, 1fr)', gap: 16` |
+| About | `display: 'flex', gap: 64, alignItems: 'center'` + `flex: 1` children |
+| Stats | `gridTemplateColumns: 'repeat(4, 1fr)', gap: 32, textAlign: 'center'` |
+| Footer | `gridTemplateColumns: 'repeat(4, 1fr)', gap: 48` |
+
+---
+
+## Inline `style` is correct for
+
+- All layout in `engine.tsx` (via `S`)
+- Scroll-dependent nav background (`scrolled` state)
+- `FadeUp` transition delay / opacity
+- Back-to-top button visibility
+
+---
+
+## DO NOT in engine.tsx
+
+- Tailwind layout: `py-*`, `px-*`, `max-w-*`, `flex`, `gap-*`, `grid`, `mx-auto`
+- `.section-container` or `@apply` utilities
+- Mix `className` padding with `style` padding on the **same element**
+- Re-mount `StudioRails` or `CustomCursor` in `layout.tsx` without operator request
+- Re-wire legacy UI (`TopNav`, `ChapterSection`, etc.) without full migration
+
+---
+
+## layout.tsx policy
 
 ```tsx
-const section = 'py-24 md:py-32'
-
-// Work bento
-<div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6">
-
-// Services
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-// Process
-<div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-
-// About
-<div className="flex flex-col md:flex-row gap-12 md:gap-16 items-center">
-
-// Stats
-<div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-
-// Footer
-<div className="grid grid-cols-2 md:grid-cols-4 gap-10">
+// Current — clean
+<body>
+  <LenisProvider>{children}</LenisProvider>
+</body>
 ```
 
----
-
-## Theme Tokens (`@theme inline`)
-
-Defined in `app/globals.css` — use Tailwind class names, not raw hex in JSX when possible:
-
-| Class | Maps to |
-|-------|---------|
-| `bg-bg-void` | `#0a0a0b` |
-| `bg-bg-canvas` | `#111113` |
-| `bg-bg-surface` | `#18181b` |
-| `text-gold` | `#c8a45c` |
-| `from-gold to-gold-bright` | CTA gradient |
-
-Decorative utilities: `.text-gradient`, `.glass-card`
+`StudioRails` and `CustomCursor` are **unmounted** (removed ghost STORY/SERVICES rail junk). Components remain in `components/` for future use.
 
 ---
 
-## Pre-Edit Checklist
+## Pre-edit checklist
 
-- [ ] Section uses `className` for padding/background — not `style`
-- [ ] Content wrapped in `.section-container`
-- [ ] No duplicate property in `className` + `style`
-- [ ] Dynamic values only in `style`
-- [ ] Container is 1200px, not 1280
+- [ ] Read `S` object first — extend it, don't bypass
+- [ ] New section uses `S.inner` wrapper
+- [ ] No Tailwind layout classes added to engine.tsx
+- [ ] Colors use `var(--*)` or types.ts constants
+- [ ] `FadeUp` wrappers don't break flex/grid parent structure
 
 ---
 
-## Post-Edit Verification
+## Post-edit verification
 
 ```powershell
 npm run build
 ```
 
-HTTP smoke: `http://127.0.0.1:3000/` → 200. Visual: centered 1200px column, consistent padding, aligned grids.
+HTTP: `http://127.0.0.1:3000/` → 200. Visual: centered 1200px column, consistent padding.
 
 ---
 
-## File Map
+## Regression recovery
+
+If layout squished or build fails after an agent edit:
+
+1. `git diff lib/experience-engine/engine.tsx` — look for Tailwind layout classes
+2. Restore `S.inner` + `S.sec` pattern on every section
+3. Confirm About/Contact sections have balanced JSX tags
+4. Re-read this skill — **do not** "fix" by converting to Tailwind
+
+---
+
+## Future Tailwind spike (optional, non-production)
+
+Branch: `tailwind-layout-spike`. Minimal 50-line test page with `.section-container` only. Compare Turbopack dev vs `next build`. Do not merge without operator sign-off.
+
+---
+
+## File map
 
 | File | Role |
 |------|------|
-| `lib/experience-engine/engine.tsx` | Live page — Tailwind layout + dynamic inline |
-| `app/globals.css` | Tokens, `@theme inline`, `.section-container` |
-| `app/page.tsx` | Config only |
+| `lib/experience-engine/engine.tsx` | **Live page** — inline `S` + FadeUp |
+| `app/globals.css` | Tokens, reset, `.text-gradient`, `.glass-card` |
+| `app/layout.tsx` | Fonts + Lenis only |
+| `app/page.tsx` | Config wrapper |
 | `lib/experience-engine/ui/*.tsx` | Legacy — not wired to live page |
-
----
-
-## Regression Recovery
-
-If layout looks squished again:
-
-1. Grep `engine.tsx` for elements with **both** `className` padding/max-w **and** `style` padding/maxWidth
-2. Pick one system per property — usually keep Tailwind, remove conflicting inline
-3. Confirm every section has `.section-container` inner wrapper
-4. Confirm container is `max-w-[1200px]`, not `max-w-7xl`
