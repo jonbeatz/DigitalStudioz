@@ -1,5 +1,16 @@
 # DigitalStudioz — Project Log
 
+## 2026-07-03 — Skeleton v1.13.0 backported to all live profiles
+
+**Retrofitted the new v1.13.0 assets into JonBeatz, DigitalStudioz, VaderLabz** via new idempotent `shared-profile-content/scripts/backport-skeleton-assets.ps1` (skip-if-exists, templatized agents, safe hook activation).
+
+- Each profile gained (9 assets): `.claude/agents/` (code-reviewer/doc-keeper/build-verifier), `.cursor/rules/library-docs.mdc` (Context7), `.githooks/pre-commit` (secrets scan, **auto-activated** via `core.hooksPath`), `.editorconfig`, `.prettierrc.json`, `.github/dependabot.yml`, `.gitattributes` (LF-for-hook; appended on JonBeatz which already had one).
+- **Secrets hook verified** in a throwaway repo: blocks `sk-…` fake key (exit 1), passes clean commits (exit 0). Confirmed the hook file itself doesn't self-trigger (patterns are `[`-delimited).
+- Staged only the backport paths per repo (VaderLabz had unrelated in-flight work — left untouched).
+- **Fresh doctors green:** `stack:status` WARM (LiteLLM/ngrok/LM Studio/dev/Telegram all online, base URL clean); `boot:doctor` healthy (SkipDesktop, scheduled task, LM ctx 81920/parallel 2).
+- Pushed: hermes-core-scripts, JonBeatz-Command-Center (v4), DigitalStudioz (main), VaderLabz (v3).
+- **Deferred (by recommendation):** full boot-stack path-portability refactor — left as an isolated spike; additive `HERMES_PRIMARY_PROFILE_ROOT` override already in place. VaderLabz repo has loose objects — `git gc` maintenance suggested.
+
 ## 2026-07-03 — _core-scripts skeleton audit executed (P1+P2+P3)
 
 **Deep audit of `_core-scripts` + `shared-profile-content` executed end-to-end. Skeleton bumped v1.12.0 → v1.13.0.** All JSON + PowerShell validated; `docs-update.ps1` runs clean; all 14 repointed script targets confirmed to exist.
