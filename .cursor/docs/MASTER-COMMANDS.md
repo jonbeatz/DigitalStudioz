@@ -49,10 +49,17 @@
 
 | Command | Description |
 |---------|-------------|
-| `npm run sync:mcp-env` | Sync MCP environment |
+| `npm run sync:mcp-env` | Sync MCP tokens from `.env.local` to Cursor |
 | `npm run sync:telegram-env` | Sync Telegram environment |
 | `npm run sync:deepseek-env` | Sync DeepSeek environment |
-| `npm run env:setup` | Initial environment setup |
+| `npm run env:setup` | Copy `.env.local.example` → `.env.local` |
+
+## Hostinger / Deploy
+
+| Command | Description |
+|---------|-------------|
+| See `.cursor/docs/HOSTINGER-DEPLOY.md` | Live deploy runbook (FTPS + hPanel Restart) |
+| `npm run sync:mcp-env` | Required before Hostinger MCP tools work |
 
 ## Backup
 

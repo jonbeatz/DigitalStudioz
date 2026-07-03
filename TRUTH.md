@@ -17,6 +17,9 @@
 - **Free Local Brain:** LM Studio at `http://127.0.0.1:1234` (qwen3-4b-instruct or similar)
 - **Memory Store:** Mem0 — collection `digitalstudioz_memories`
 - **Draven Memory:** `draven_memories` / `qdrant_draven` (AI assistant cross-session)
+- **GitHub:** [github.com/jonbeatz/DigitalStudioz](https://github.com/jonbeatz/DigitalStudioz)
+- **GitHub Pages:** [jonbeatz.github.io/DigitalStudioz](https://jonbeatz.github.io/DigitalStudioz/)
+- **Hostinger (live):** hPanel + credentials in `.env.local` — see `.cursor/docs/HOSTINGER-DEPLOY.md`
 
 ## Core Rules
 

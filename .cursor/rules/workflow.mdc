@@ -1,16 +1,16 @@
 ---
-description: Session workflow triggers for DigitalStudioz
+description: Session workflow triggers for VaderLabz
 alwaysApply: true
 ---
 
-# Workflow Session Rules — DigitalStudioz
+# Workflow Session Rules - VaderLabz
 
 ## Start Project
 
 When user says **Start Project**, **Begin Project**, **Start Session**, or **Cold Start**:
 
 - Execute [`.cursor/prompts/Start-Project.md`](../prompts/Start-Project.md)
-- Run **`npm run session:start -- -Full`** from the DigitalStudioz profile root (`D:\Hermes\projects\DigitalStudioz`)
+- Run **`npm run session:start -- -Full`** from the VaderLabz profile root (`D:\Hermes\projects\VaderLabz`)
 - Read `TRUTH.md`, `.cursor/docs/START-HERE.md`, `.cursor/docs/ReCall.md`
 - Do **not** auto-start long-running dev servers unless the operator explicitly asks
 
@@ -30,6 +30,22 @@ When user says **update docs** or **update docs and mem0**:
 - Run **`npm run docs:sync`**
 - Run **`npm run version:sync`** when version changed
 - Align version across `TRUTH.md`, `package.json`, `MASTER-COMMANDS.md`, `CHANGELOG.md`
+
+## Release Version
+
+When user says **release version**, **publish release**, or after a version bump on a milestone branch:
+
+- Execute [`.cursor/prompts/Release-Version.md`](../prompts/Release-Version.md)
+- Run **`npm run version:sync`** then **`npm run release`**
+
+## Branch Cut
+
+When user says **branch cut**, **cut VaderLabz-Project-vN**, **cut new development branch**:
+
+- Execute [`.cursor/prompts/Branch-Cut.md`](../prompts/Branch-Cut.md)
+- Full ritual: backup -> freeze previous branch @ SHA -> create `VaderLabz-Project-v{N}` -> bump **`N.0.0`** -> update Restore-Points -> **`npm run release`**
+- Do **not** stop at `git checkout -b` alone
+- Leave **`main`** untouched unless the operator explicitly requests a merge
 
 ## Backup
 

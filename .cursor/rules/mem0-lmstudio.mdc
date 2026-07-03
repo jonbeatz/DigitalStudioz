@@ -1,5 +1,5 @@
 ---
-description: Mem0 + LM Studio agent rules for DigitalStudioz
+description: Mem0 and LM Studio agent rules — per-project isolated memory
 alwaysApply: true
 ---
 
@@ -7,9 +7,9 @@ alwaysApply: true
 
 ## Architecture
 
-Each project has its own isolated Mem0 collection defined in `.env.local`.
+Each project has its **own isolated Mem0 collection** defined in `.env.local`.
 
-DigitalStudioz uses: `MEM0_USER_ID=digitalstudioz`, `MEM0_COLLECTION=digitalstudioz_memories`, Qdrant at `%USERPROFILE%\.mem0\qdrant_digitalstudioz`.
+VaderLabz uses: `MEM0_USER_ID=vaderlabz`, `MEM0_COLLECTION=vaderlabz_memories`, Qdrant at `%USERPROFILE%\.mem0\qdrant_vaderlabz`.
 
 ## Before search or infer-add
 
@@ -34,7 +34,7 @@ npm run mem0:list
 ## Per-project isolation
 
 - Memories are scoped to the project's `.env.local` config.
-- DigitalStudioz memories stay in `digitalstudioz_memories` — separate from VaderLabz, JonBeatz, MSC, and other profiles.
+- VaderLabz memories stay in `vaderlabz_memories` (qdrant_vaderlabz) — separate from JonBeatz, MSC, and other profiles.
 - **Never** change `MEM0_USER_ID` or `MEM0_COLLECTION` in `.env.local` casually.
 
 ## Draven memory (AI assistant — shared across all projects)
@@ -44,3 +44,9 @@ Draven has his **own** isolated Mem0 collection at `draven_memories` / `%USERPRO
 - **Add:** `npm run draven:add -- "text"` (no LM Studio needed — direct storage)
 - **List:** `npm run draven:list`
 - This stores cross-session context for the AI assistant — preferences, project locations, key decisions.
+
+## Bulk seed
+
+Use `infer=False` via `scripts/seed-profile-jedi-memories.py` for large doc seeds.
+
+See **`.cursor/docs/MEM0-LMSTUDIO.md`** for full reference.

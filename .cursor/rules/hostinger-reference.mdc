@@ -1,0 +1,36 @@
+---
+description: Hostinger deploy knowledge for DigitalStudioz live site
+alwaysApply: false
+globs:
+  - .cursor/docs/HOSTINGER*.md
+  - .cursor/docs/PITFALLS-HOSTINGER.md
+  - .env.local.example
+---
+
+# Hostinger reference (DigitalStudioz)
+
+## Profile boundary
+
+DigitalStudioz deploy runs from **`D:\Hermes\projects\DigitalStudioz`**.  
+Do **not** run MSC `pushit:live*` from this repo unless explicitly porting those scripts.
+
+## When Jon mentions Hostinger for DigitalStudioz
+
+1. Read `.cursor/docs/HOSTINGER-REFERENCE.md`
+2. Read `.cursor/docs/HOSTINGER-DEPLOY.md`
+3. Read `.cursor/skills/Hostinger-Ops/SKILL.md`
+
+## Deploy safety
+
+1. **Local PC:** build + upload
+2. **hPanel:** Node.js Restart only — [hpanel.hostinger.com](https://hpanel.hostinger.com/)
+3. **Two-folder model:** FTPS staging → sync → live root
+4. **Never** run upload scripts in hPanel Terminal
+
+## MCP
+
+`HOSTINGER_API_TOKEN` in `.env.local` → `npm run sync:mcp-env` → global `hostinger-*` servers.
+
+## Pitfalls
+
+See `.cursor/docs/PITFALLS-HOSTINGER.md` before troubleshooting live issues.

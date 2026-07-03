@@ -54,9 +54,36 @@ Do NOT modify these unless explicitly asked:
 - **Tagline**: "Think Big. Build Bold."
 - **Gradient**: `linear-gradient(135deg, #22c55e, #34d399)`
 
-> **Note:** The original plan used Cyber Amethyst (`#d946ef`). The site was redesigned to Studio Green on 2026-07-01. Always follow `globals.css` tokens as source of truth.
+## Mem0 Quick Reference
 
-## Mem0
+```powershell
+npm run mem0:preflight   # Verify LM Studio
+npm run mem0:search -- "query"
+npm run mem0:add -- "text to remember"
+npm run mem0:list
+npm run sync:mcp-env     # Sync MCP tokens from .env.local to Cursor
+```
 
-Collection: `digitalstudioz_memories` (isolated from all other profiles).
-Configured in `.env.local`. Run `npm run mem0:preflight` before search/add.
+Default model: **qwen3-4b-instruct-2507** @ LM Studio `:1234`  
+Collection: `digitalstudioz_memories` (isolated — never share with other profiles)
+
+## Hostinger (live deploy later)
+
+1. Read [HOSTINGER-REFERENCE.md](.cursor/docs/HOSTINGER-REFERENCE.md)
+2. Set `DIGITALSTUDIOZ_DOMAIN`, `DIGITALSTUDIOZ_*_ROOT` in `.env.local`
+3. `npm run build` → FTPS upload → hPanel **Restart**
+4. Full runbook: [HOSTINGER-DEPLOY.md](.cursor/docs/HOSTINGER-DEPLOY.md)
+
+**Preview (no Hostinger):** [GitHub Pages](https://jonbeatz.github.io/DigitalStudioz/) — auto-deploys from `main`.
+
+## Documentation Index
+
+| Doc | Purpose |
+|-----|---------|
+| [TRUTH.md](../TRUTH.md) | Constitution |
+| [ENV-VARS-REFERENCE.md](.cursor/docs/ENV-VARS-REFERENCE.md) | All env vars |
+| [MEM0-LMSTUDIO.md](.cursor/docs/MEM0-LMSTUDIO.md) | Memory + local LLM |
+| [CURSOR-LITELLM-BRIDGE.md](.cursor/docs/CURSOR-LITELLM-BRIDGE.md) | Cursor + DeepSeek + ngrok |
+| [GITHUB-SETUP.md](.cursor/docs/GITHUB-SETUP.md) | Repo, branches, releases |
+| [HOSTINGER-DEPLOY.md](.cursor/docs/HOSTINGER-DEPLOY.md) | Live site deploy |
+| [SKILL-INDEX.md](../SKILL-INDEX.md) | Domain skills catalog |

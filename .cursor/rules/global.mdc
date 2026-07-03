@@ -1,0 +1,20 @@
+# global.mdc - Global shortcuts for VaderLabz
+
+| Operator says | Agent action |
+|---------------|--------------|
+| **Start Project**, **Start Session**, **Cold Start** | `npm run session:start -- -Full` + [Start-Project.md](../prompts/Start-Project.md) |
+| **End Project**, **End Session** | [End-Project.md](../prompts/End-Project.md) + `npm run session:stop` |
+| **update docs** | [Update-Docs.md](../prompts/Update-Docs.md) + `npm run docs:sync` |
+| **update docs and mem0** | Update-Docs Phase 5b + `npm run mem0:add` |
+| **backup profile**, **backup**, **backup quick** | `npm run backup:quick` |
+| **backup project** | `npm run backup:project` |
+| **backup full** | `npm run backup:full` |
+| **deepseek test** | `npm run deepseek:test` |
+| **deepseek ngrok** | `npm run deepseek:ngrok` (force-restarts proxy with ngrok for Cursor Agent) |
+| **sync mcp** | `npm run sync:mcp-env` |
+| **log session** | `npm run log:session -- "summary"` |
+| **log fix** | `npm run log:fix` |
+
+**Local commands** always run from the project root (`D:\Hermes\projects\VaderLabz`).
+
+For a full phrase list, check `.cursor/docs/MASTER-COMMANDS.md`, or see the prompts in `.cursor/prompts/`.

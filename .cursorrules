@@ -1,0 +1,42 @@
+---
+description: Core operating rules for DigitalStudioz
+alwaysApply: true
+---
+
+# DigitalStudioz — Core Rules
+
+## Environment
+
+- **OS/Shell:** Windows 10/11 PowerShell. No bash heredocs (`<<`). Use native PowerShell strings or temp files for multi-line git messages.
+- **Profile boundary:** This is `digitalstudioz` — keep it isolated from VaderLabz, JonBeatz, MSC, and other profiles.
+
+## Secrets
+
+- **Never commit** `.env.local`, OAuth tokens, or API keys.
+- All secrets live in `.env.local` (gitignored). MCP tokens synced via `npm run sync:mcp-env`.
+
+## UTF-8 / Docs
+
+- Never bulk-rewrite `.md` from PowerShell without `-Encoding UTF8`.
+- Run encoding checks before doc commits.
+
+## Source of Truth
+
+When docs differ, `TRUTH.md` wins over everything.
+
+## Draven memory (AI assistant cross-session)
+
+Draven has isolated Mem0 at `draven_memories` / `qdrant_draven`:
+- Search: `npm run draven:search -- "query"`
+- Store: `npm run draven:add -- "summary"`
+- Separate from DigitalStudioz's own `mem0:add/search` (`digitalstudioz_memories`)
+
+## Hostinger
+
+- Deploy docs: `.cursor/docs/HOSTINGER-REFERENCE.md`, `HOSTINGER-DEPLOY.md`
+- hPanel Restart after deploy — never skip
+- MSC deploy stays in MyStudioChannel repo
+
+## Skills
+
+See `SKILL-INDEX.md` for the full catalog.

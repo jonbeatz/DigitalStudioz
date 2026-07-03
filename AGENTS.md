@@ -23,9 +23,9 @@ layout in **`PROJECT-STRUCTURE.md`** (in that same repo).
 | 3 | MASTER-COMMANDS.md | Command reference |
 | 4 | MEM0-LMSTUDIO.md | Memory + local LLM |
 | 5 | ENV-VARS-REFERENCE.md | Env var registry |
-| 6 | TROUBLESHOOTING.md | Known issues |
-| 7 | PROJECT-STRUCTURE.md | Ecosystem layout (in _core-scripts) |
-| 8 | ReCall.md | Session history |
+| 6 | HOSTINGER-DEPLOY.md | Live site deploy |
+| 7 | GITHUB-SETUP.md | GitHub repo + Pages |
+| 8 | TROUBLESHOOTING.md | Known issues |
 
 ## Session Rituals
 

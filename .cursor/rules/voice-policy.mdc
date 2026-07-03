@@ -1,5 +1,5 @@
 ---
-description: Draven voice policy for DigitalStudioz (JonBeatz)
+description: Draven voice — when to speak aloud (OmniVoice ritual-only)
 alwaysApply: true
 ---
 
@@ -31,7 +31,11 @@ alwaysApply: true
 ## Commands
 
 ```powershell
-npm run draven:speak -- "text" # OmniVoice (Ryan fallback on failure)
-npm run draven:omni-daemon # optional pre-warm before Start Project
-npm run draven:omni-daemon -- -Stop # free RAM (also runs on session:stop)
+npm run draven:speak -- "text"   # OmniVoice (Ryan fallback on failure)
+npm run draven:omni-daemon       # optional pre-warm before Start Project
+npm run draven:omni-daemon -- -Stop  # free RAM (also runs on session:stop)
 ```
+
+`jarvis:*` aliases deprecated — use `draven:*` equivalents.
+
+See **`.cursor/docs/VOICE-WORKFLOW.md`** for errors, fixes, and resource notes.

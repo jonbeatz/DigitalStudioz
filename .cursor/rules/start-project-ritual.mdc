@@ -1,5 +1,5 @@
 ---
-description: Start Project ritual for DigitalStudioz
+description: When the user says Start Project / start project / cold session — mandatory doc refresh, smoke test; never long-running dev by default.
 alwaysApply: true
 ---
 
