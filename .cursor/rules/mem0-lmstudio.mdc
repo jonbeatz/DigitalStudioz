@@ -1,0 +1,46 @@
+---
+description: Mem0 + LM Studio agent rules for DigitalStudioz
+alwaysApply: true
+---
+
+# Mem0 + LM Studio — Agent Rules
+
+## Architecture
+
+Each project has its own isolated Mem0 collection defined in `.env.local`.
+
+DigitalStudioz uses: `MEM0_USER_ID=digitalstudioz`, `MEM0_COLLECTION=digitalstudioz_memories`, Qdrant at `%USERPROFILE%\.mem0\qdrant_digitalstudioz`.
+
+## Before search or infer-add
+
+1. Run **`npm run mem0:preflight`** from project root (confirms LM Studio :1234 + any LLM loaded).
+2. The script uses the project's own `MEM0_USER_ID` / `MEM0_COLLECTION` from `.env.local` — no cross-profile mixing.
+
+**Note:** `mem0:add` (default), `list`, and `delete` skip preflight — no LLM required.
+
+## Commands (from project root)
+
+```powershell
+npm run mem0:search -- "query"
+npm run mem0:add -- "text"
+npm run mem0:list
+```
+
+## On failure
+
+- Report LM Studio status once; fall back to `ReCall.md`.
+- Do not only tell the operator to run preflight — **run it yourself**.
+
+## Per-project isolation
+
+- Memories are scoped to the project's `.env.local` config.
+- DigitalStudioz memories stay in `digitalstudioz_memories` — separate from VaderLabz, JonBeatz, MSC, and other profiles.
+- **Never** change `MEM0_USER_ID` or `MEM0_COLLECTION` in `.env.local` casually.
+
+## Draven memory (AI assistant — shared across all projects)
+
+Draven has his **own** isolated Mem0 collection at `draven_memories` / `%USERPROFILE%\.mem0\qdrant_draven`:
+- **Search:** `npm run draven:search -- "query"` (needs LM Studio)
+- **Add:** `npm run draven:add -- "text"` (no LM Studio needed — direct storage)
+- **List:** `npm run draven:list`
+- This stores cross-session context for the AI assistant — preferences, project locations, key decisions.

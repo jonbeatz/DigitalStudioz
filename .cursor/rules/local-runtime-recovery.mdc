@@ -1,0 +1,41 @@
+---
+description: Local runtime recovery and post-change verification for DigitalStudioz
+alwaysApply: true
+---
+
+# Local runtime recovery and post-change verification
+
+## After each code update (build gate + local URL)
+
+**Operators expect:** substantive changes get a **production build check** and **dev server back on port 3000** without re-running commands by hand every time.
+
+1. **Agents:** After edits under runtime paths (`app/`, `components/`, `lib/`, `pages/`, etc.), **run a verify build command** from the repo root before you consider the task done, until it exits **0**.
+2. **After verify succeeds**, if **port 3000 is free**, **run the dev server** so localhost is listening again.
+
+## Mandatory: ERR_CONNECTION_REFUSED / white screen
+
+If the operator reports **`ERR_CONNECTION_REFUSED`**, a **white screen**, or that **nothing is listening on port 3000**, the agent **must immediately** execute the recovery sequence:
+
+- Free port 3000 if occupied
+- Clean build cache
+- Rebuild and start dev server
+
+## Mandatory before you finish a coding task (agents)
+
+If you changed **any** file that can affect the running app — including `app/`, `components/`, `lib/`, `middleware.ts`, `next.config.ts`, `package.json`, or scripts that feed the bundle — you **must**:
+
+1. **Run the build verify command from the repo root** and fix errors until it exits **0**.
+2. **After verify exits 0**, if **port 3000 is free**, **run the dev server** so localhost responds again.
+3. **Do not** mark the task complete if verify fails.
+
+## HTTP smoke after build (agents — close the loop)
+
+After build succeeds, prefer proving main routes respond:
+
+- If **port 3000 is free**: start the dev server in the background, wait until the log shows **Ready**, then run HTTP smoke tests. Expect **200**. Stop the background dev process if you started it only for this check.
+- If **port 3000 is already in use**: run the project's verify-local command from the repo root **once**.
+
+## Smoke checks
+
+- `http://localhost:3000/`
+- Main app routes as appropriate for the project

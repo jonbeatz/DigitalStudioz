@@ -1,0 +1,38 @@
+---
+description: Session workflow triggers for DigitalStudioz
+alwaysApply: true
+---
+
+# Workflow Session Rules — DigitalStudioz
+
+## Start Project
+
+When user says **Start Project**, **Begin Project**, **Start Session**, or **Cold Start**:
+
+- Execute [`.cursor/prompts/Start-Project.md`](../prompts/Start-Project.md)
+- Run **`npm run session:start -- -Full`** from the DigitalStudioz profile root (`D:\Hermes\projects\DigitalStudioz`)
+- Read `TRUTH.md`, `.cursor/docs/START-HERE.md`, `.cursor/docs/ReCall.md`
+- Do **not** auto-start long-running dev servers unless the operator explicitly asks
+
+## End Project
+
+When user says **End Project**, **End Session**, **Close Session**, or **Session Closeout**:
+
+- Execute [`.cursor/prompts/End-Project.md`](../prompts/End-Project.md)
+- Update `.cursor/docs/ReCall.md` and `.cursor/docs/project-log.md`
+- Run **`npm run session:stop`** (add `-- -StopDeepSeek` to also stop LiteLLM + ngrok)
+
+## Update Docs
+
+When user says **update docs** or **update docs and mem0**:
+
+- Execute [`.cursor/prompts/Update-Docs.md`](../prompts/Update-Docs.md)
+- Run **`npm run docs:sync`**
+- Run **`npm run version:sync`** when version changed
+- Align version across `TRUTH.md`, `package.json`, `MASTER-COMMANDS.md`, `CHANGELOG.md`
+
+## Backup
+
+When user says **backup profile** or **backup**:
+
+- Run **`npm run backup:quick`** from profile root (non-interactive)
