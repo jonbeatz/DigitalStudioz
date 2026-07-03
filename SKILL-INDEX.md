@@ -2,6 +2,14 @@
 
 Searchable catalog of all portable skills available in `shared-profile-content/skills/`. Each skill includes domain tags so you can `rg "tag" SKILL-INDEX.md` to find the right one.
 
+## DigitalStudioz (project-local)
+
+| Skill | Tags | Purpose | Source |
+|-------|------|---------|--------|
+| digitalstudioz-layout | layout, tailwind, spacing, engine, no-mixing, warm-premium | **Mandatory** layout rules — Tailwind for layout, CSS vars for tokens, inline only for dynamic state; no property conflicts | DigitalStudioz |
+
+Path: `.cursor/skills/digitalstudioz-layout/SKILL.md`
+
 ## Design & UI
 
 | Skill | Tags | Purpose | Source |

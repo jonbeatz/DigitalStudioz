@@ -49,6 +49,7 @@ Backups go to `G:\Hermes_Project_BackUpz\DigitalStudioz\` with sequential naming
 
 Available domain skills (see `SKILL-INDEX.md` for full list with tags):
 
+- **Layout (mandatory for page work):** digitalstudioz-layout — Tailwind layout, one system per property, no className+style conflicts
 - **Design:** NovaMira-Design, Premium-UI, DesignMD, MSC-UI-Taste
 - **3D:** Three.js-Ops, WebGL-UI, 3D-Modeling, 3D-Scroll, R3F-Gotchas
 - **Git/DevOps:** GitHub-Ops, Workflow-Ops, Checkpoint-Restore

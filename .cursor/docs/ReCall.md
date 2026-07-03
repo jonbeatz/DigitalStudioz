@@ -3,32 +3,40 @@
 ## Session: 2026-07-03 — Complete Warm Premium Redesign
 
 ### Major Milestone
-After 3 rewrite iterations, the site finally looks correct. The final working version uses **pure inline styles with CSS custom properties** — no Tailwind utility classes for spacing/layout, no conflicting CSS frameworks. Each section is a simple semantic HTML element with consistent `maxWidth: 1200` centering.
+After 3 rewrite iterations, the site looks correct. **Final approach: Tailwind for layout, CSS vars for tokens, inline styles only for dynamic JS state** — one system per property, no mixing.
 
-### What Was Wrong (Root Cause Analysis)
+### What Was Wrong (Root Cause — Clarified)
 
-**THE ROOT CAUSE: Tailwind CSS v4 inline classes were conflicting with custom CSS variables.**
+**Tailwind is NOT the problem.** The conflict was using **three systems on the same element**:
 
-We were using a hybrid approach:
-- `globals.css` had custom CSS variables (`--bg-void`, `--gold`, etc.) 
-- The engine.tsx used Tailwind utility classes (`py-20 md:py-28`, `flex`, `gap-8`, etc.)
-- Some styles were inline via `style={{}}`, some via Tailwind, some via CSS classes
+- Tailwind utilities (`py-20`, `px-6`, `max-w-7xl`) on `className`
+- CSS custom properties (`var(--bg-void)`) for colors
+- Inline `style={{ padding: '100px 0' }}` **overriding the same properties** Tailwind already set
 
-This created a **3-way style conflict** where different parts of the page were applying spacing from different systems, causing:
-- Inconsistent padding (some from Tailwind's 8px grid, some from inline px values)
-- Content stretching to edges because Tailwind v4's `max-w-7xl` behaved differently than expected
-- Section heights and gaps being unpredictable
-- The "squished" look came from Tailwind's padding classes (`px-6 md:px-12`) fighting with the `max-w-7xl` container
+Example of the bug:
+```tsx
+<section className="py-20 px-6" style={{ padding: '100px 0' }}>  // ❌ conflict
+```
 
-**THE FIX:** Dropped all Tailwind layout/spacing classes and used 100% inline JavaScript style objects. Each element gets explicit `maxWidth`, `padding`, `gap`, etc. from a single `styles` object. This gives us **one source of truth** for all spacing.
+Also: `max-w-7xl` = 1280px fought our intended **1200px** container width.
+
+**Symptoms:** squished-left content, inconsistent padding, misaligned grids.
+
+### The Fix (Current — Locked)
+
+1. **Tailwind owns layout** — `py-24 md:py-32`, grids, flex, responsive classes
+2. **`.section-container` in globals.css** — `max-w-[1200px] mx-auto px-6 md:px-12 lg:px-16`
+3. **Inline `style` only for dynamic values** — scroll-dependent nav, animation delays, counters
+4. **`@theme inline`** maps design tokens to Tailwind classes (`bg-bg-void`, `text-gold`)
+5. **Never set the same property in both `className` and `style`**
 
 ### Key Architectural Decisions (Locked)
-1. **No Tailwind layout classes** — All spacing, grids, and layout use inline `style={}` objects
-2. **maxWidth: 1200** — Single consistent container width via `styles.inner`
-3. **section-inner CSS class** — `.section-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }` for the base, overridable when needed
-4. **No 3D canvas** — Removed entirely for simpler page load and no WebGL conflicts
-5. **All colors from CSS custom properties** — `var(--gold)`, `var(--bg-void)`, `var(--text-muted)` etc. defined in `globals.css`
-6. **Semantic HTML structure** — `<section>`, `<header>`, `<footer>`, `<h1>`-`<h3>` — no div soup
+1. **Tailwind for layout** — spacing, grids, flex; maintainable long-term
+2. **`.section-container`** — 1200px max-width (not `max-w-7xl` / 1280px)
+3. **No 3D canvas** on main page — simpler load, no WebGL conflicts
+4. **Colors from CSS custom properties** via Tailwind theme or `var(--*)` arbitrary syntax
+5. **Semantic HTML** — `<section>`, `<header>`, `<footer>`, `<h1>`–`<h3>`
+6. **Scroll animations** — `Reveal`, `Stagger`, `AnimatedNumber`, `HoverCard` in engine.tsx
 
 ### Current Page Structure
 - 8 sections, ~5030px scroll height
@@ -37,8 +45,9 @@ This created a **3-way style conflict** where different parts of the page were a
 - Left padding 24-64px responsive
 
 ### Files Changed in This Session
-- `app/globals.css` — Simplified, removed all Tailwind theme overrides, kept only custom properties
-- `lib/experience-engine/engine.tsx` — Complete rewrite to pure inline styles
+- `.cursor/skills/digitalstudioz-layout/SKILL.md` — Layout skill (Tailwind + no-mixing rule)
+- `app/globals.css` — `@theme inline`, `.section-container` at 1200px
+- `lib/experience-engine/engine.tsx` — Tailwind layout refactor + scroll animations
 - `lib/experience-engine/types.ts` — Color constants to Warm Premium
 - `lib/experience-engine/scene/SceneModel.tsx` — Atmospheric particles only
 - `lib/experience-engine/ui/*.tsx` — Various UI component color updates

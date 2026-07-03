@@ -4,14 +4,22 @@
 
 1. Read `TRUTH.md` — project constitution
 2. Read `.cursor/docs/ReCall.md` — session history and decisions
-3. Read the `digitalstudioz-layout` skill — **critical** for avoiding Tailwind layout conflicts
+3. Read `.cursor/skills/digitalstudioz-layout/SKILL.md` — **critical** for avoiding Tailwind layout conflicts
 4. Run `npm run dev` to start dev server on port 3000
 
 ## Layout Rules (MANDATORY)
 
-**Do NOT use Tailwind utility classes for layout/spacing in engine.tsx.**
+**Tailwind is the layout system.** The bug was *mixing* Tailwind + inline on the same property — not Tailwind itself.
 
-All spacing, grids, and positioning use inline JavaScript `style={}` objects. See the `digitalstudioz-layout` skill for the exact pattern. The one exception: `hidden md:flex` for responsive visibility toggles.
+| System | Use for |
+|--------|---------|
+| **Tailwind classes** | Spacing, grids, flex, responsive breakpoints |
+| **CSS vars / `@theme`** | Colors, fonts (`bg-bg-void`, `text-gold`) |
+| **Inline `style={{}}`** | Dynamic JS state only (scroll nav, animation delays) |
+
+Every section: `<section className="py-24 md:py-32 bg-bg-canvas"><div className="section-container">…</div></section>`
+
+See `.cursor/skills/digitalstudioz-layout/SKILL.md` for full rules. Container width: **1200px** (not `max-w-7xl`).
 
 ## Current Taste: Warm Premium
 
@@ -54,7 +62,7 @@ All spacing, grids, and positioning use inline JavaScript `style={}` objects. Se
 | `app/page.tsx` | Config wrapper with chapter data |
 | `app/layout.tsx` | Root layout (fonts, Lenis, cursor) |
 | `app/globals.css` | CSS custom properties (colors, reset, utilities) |
-| `lib/experience-engine/engine.tsx` | **The entire page** — all sections in one component with inline styles |
+| `lib/experience-engine/engine.tsx` | **The entire page** — Tailwind layout + `.section-container` |
 | `lib/experience-engine/types.ts` | Color constants and shared types |
 | `.cursor/docs/WARM-PREMIUM-PALETTE.md` | Full design token documentation |
 | `.cursor/docs/ReCall.md` | Session history and root cause analysis |
@@ -63,8 +71,8 @@ All spacing, grids, and positioning use inline JavaScript `style={}` objects. Se
 
 | Decision | Value |
 |----------|-------|
-| **Layout** | 100% inline styles, no Tailwind layout classes |
-| **Container** | 1200px max-width, centered |
+| **Layout** | Tailwind for spacing/grids; inline only for dynamic state |
+| **Container** | `.section-container` — 1200px max-width, centered |
 | **3D** | Removed — no WebGL canvas |
 | **Nav** | Transparent → solid on scroll, gold "Start a Project" CTA |
 | **Sections** | 100px vertical padding, consistent rhythm |
