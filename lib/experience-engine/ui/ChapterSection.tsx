@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SplitType from 'split-type'
-import { EASE, TEXT_PRIMARY, TEXT_DIM, TEXT_MUTED, ACCENT, ACCENT_DIM } from '../types'
+import { EASE, TEXT_PRIMARY, TEXT_DIM, TEXT_MUTED, ACCENT, ACCENT_DIM, WARM_CREAM } from '../types'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -27,15 +27,13 @@ export function ChapterSection({ chapter, index, imageSrc, imageOnLeft, onReadMo
     if (!card) return
 
     const ctx = gsap.context(() => {
-      // Card fade-in
       gsap.fromTo(card,
-        { opacity: 0, y: 40 },
-        { opacity: 1, y: 0, duration: 0.8, ease: EASE,
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 0.9, ease: EASE,
           scrollTrigger: { trigger: card, start: 'top 85%', end: 'top 50%', toggleActions: 'play none none reverse' },
         },
       )
 
-      // Image parallax
       if (img) {
         gsap.fromTo(img,
           { opacity: 0, scale: 1.1 },
@@ -45,7 +43,6 @@ export function ChapterSection({ chapter, index, imageSrc, imageOnLeft, onReadMo
         )
       }
 
-      // SplitType line reveal on title
       if (title) {
         const st = new SplitType(title, { types: 'lines' })
         const lines = st.lines
@@ -64,45 +61,38 @@ export function ChapterSection({ chapter, index, imageSrc, imageOnLeft, onReadMo
   }, [])
 
   return (
-    <section id={chapter.id} ref={sectionRef} className="scroll-mt-28">
-      <div className={`flex flex-col ${imageOnLeft !== false ? 'md:flex-row' : 'md:flex-row-reverse'} gap-6 md:gap-8 items-stretch`}>
+    <section id={chapter.id} ref={sectionRef} className="scroll-mt-28 py-8 md:py-12">
+      <div className={`flex flex-col ${imageOnLeft !== false ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 md:gap-12 items-stretch`}>
         {/* Image side */}
         {imageSrc && (
-          <div ref={imageRef} className="flex-1 md:w-1/2 rounded-2xl overflow-hidden min-h-[220px] md:min-h-[320px] relative">
+          <div ref={imageRef} className="flex-1 md:w-1/2 rounded-[var(--radius-lg)] overflow-hidden min-h-[260px] md:min-h-[380px] relative">
             <img
               src={imageSrc}
               alt={chapter.subtitle}
               className="w-full h-full absolute inset-0 object-cover"
               loading="lazy"
-              style={{ filter: 'brightness(0.7) contrast(1.1)' }}
+              style={{ filter: 'brightness(0.65) contrast(1.05) saturate(0.85)' }}
             />
             <div className="absolute inset-0" style={{
-              background: 'linear-gradient(180deg, transparent 60%, rgba(5,5,5,0.6) 100%)',
+              background: 'linear-gradient(180deg, transparent 50%, rgba(10,10,11,0.5) 100%)',
             }} />
           </div>
         )}
 
-        {/* Card side */}
-        <div className={`flex-1 md:w-1/2 ${imageOnLeft !== false ? '' : ''}`}>
+        {/* Card side — warm premium glass */}
+        <div className="flex-1 md:w-1/2">
           <div
             ref={cardRef}
-            className="relative p-8 md:p-10 rounded-2xl h-full transition-all duration-500 hover:scale-[1.005]"
-            style={{
-              background: 'var(--bg-card)',
-              backdropFilter: 'blur(8px)',
-              WebkitBackdropFilter: 'blur(8px)',
-              border: '1px solid var(--border-subtle)',
-              boxShadow: '0 4px 24px rgba(0,0,0,0.3)',
-            }}
+            className="glass-card p-10 md:p-12 h-full transition-all duration-500 hover:scale-[1.008] hover:shadow-[var(--shadow-card-hover)]"
           >
-            {/* Marker badge */}
-            <div className="inline-flex items-center gap-2 mb-4">
-              <span className="font-mono text-[0.6rem] tracking-[0.2em] font-medium uppercase px-3 py-1 rounded-full"
-                style={{ background: 'var(--accent-subtle)', color: ACCENT, border: '1px solid var(--border-accent)' }}
+            {/* Marker badge — gold */}
+            <div className="inline-flex items-center gap-3 mb-5">
+              <span className="font-mono text-[0.55rem] tracking-[0.25em] font-medium uppercase px-3 py-1.5 rounded-[var(--radius-sm)]"
+                style={{ background: 'var(--gold-subtle)', color: ACCENT, border: '1px solid var(--border-gold)' }}
               >
                 {chapter.marker}
               </span>
-              <span className="font-mono text-[0.55rem] tracking-[0.15em] uppercase" style={{ color: TEXT_DIM }}>
+              <span className="font-mono text-[0.5rem] tracking-[0.2em] uppercase" style={{ color: TEXT_DIM }}>
                 {chapter.subtitle}
               </span>
             </div>
@@ -110,21 +100,21 @@ export function ChapterSection({ chapter, index, imageSrc, imageOnLeft, onReadMo
             {/* Title with SplitType */}
             <h2
               ref={titleRef}
-              className="font-sans text-2xl md:text-3xl font-semibold leading-[1.15] mb-4"
+              className="font-sans text-2xl md:text-3xl font-[300] leading-[1.15] mb-5"
               style={{ color: TEXT_PRIMARY }}
               suppressHydrationWarning
               dangerouslySetInnerHTML={{ __html: chapter.title }}
             />
 
-            {/* Summary */}
-            <p className="text-sm md:text-base leading-relaxed mb-7" style={{ color: TEXT_MUTED }}>
+            {/* Summary — warm cream */}
+            <p className="text-sm md:text-base font-light leading-relaxed mb-8" style={{ color: WARM_CREAM, opacity: 0.7 }}>
               {chapter.summary}
             </p>
 
-            {/* Read more */}
+            {/* Read more — gold */}
             <button
               onClick={onReadMore}
-              className="group inline-flex items-center gap-2 font-mono text-xs tracking-[0.12em] uppercase transition-all duration-300 hover:gap-3"
+              className="group inline-flex items-center gap-2 font-mono text-xs font-medium tracking-[0.15em] uppercase transition-all duration-300 hover:gap-3"
               style={{ color: ACCENT }}
             >
               Read More

@@ -4,7 +4,7 @@ import { useMemo, useRef, useEffect } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import type { RotationPreset, CameraPreset } from '../types'
-import { ACCENT, SECONDARY } from '../types'
+import { ACCENT, GOLD_DIM } from '../types'
 
 interface SceneModelProps {
   modelPath: string
@@ -13,166 +13,114 @@ interface SceneModelProps {
   defaultY: number
   yScrollFactor: number
   rotationSpeed: RotationPreset
-  cameraMode: CameraPreset
+  cameraPreset: CameraPreset
   mouseEnabled: boolean
 }
 
-// Subtle procedural abstract geometry — atmospheric background, not a hero
-function ProceduralModel() {
-  const groupRefLocal = useRef<THREE.Group>(null!)
-  const sphereRefs = useRef<THREE.Object3D[]>([])
+/**
+ * Atmospheric particle field — subtle warm gold dust floating in the void.
+ * Replaces the old torus/icosahedron geometry for a cleaner Warm Premium feel.
+ */
+function AtmosphericParticles({
+  defaultScale,
+  scaleScrollFactor,
+  defaultY,
+  yScrollFactor,
+  rotationSpeed,
+  mouseEnabled,
+}: {
+  defaultScale: number
+  scaleScrollFactor: number
+  defaultY: number
+  yScrollFactor: number
+  rotationSpeed: RotationPreset
+  cameraPreset: CameraPreset
+  mouseEnabled: boolean
+}) {
+  const meshRef = useRef<THREE.Group>(null!)
+  const scrollY = useRef(0)
+  const mouseTarget = useRef({ x: 0, y: 0 })
 
-  const geometry = useMemo(() => {
+  useEffect(() => {
+    const onScroll = () => {
+      scrollY.current = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  const particleSystem = useMemo(() => {
     const group = new THREE.Group()
 
-    // Central icosahedron — very dim
-    const ico = new THREE.Mesh(
-      new THREE.IcosahedronGeometry(0.4, 1),
-      new THREE.MeshPhysicalMaterial({
-        color: new THREE.Color(ACCENT),
-        emissive: new THREE.Color(ACCENT),
-        emissiveIntensity: 0.15,
-        metalness: 0.6,
-        roughness: 0.4,
-        transparent: true,
-        opacity: 0.2,
-        wireframe: true,
-      })
-    )
-    ico.position.set(0, 0, 0)
-    ico.userData.isCore = true
-    group.add(ico)
-
-    // Inner core — just a tiny glow
-    const core = new THREE.Mesh(
-      new THREE.SphereGeometry(0.15, 12, 12),
-      new THREE.MeshPhysicalMaterial({
-        color: new THREE.Color(SECONDARY),
-        emissive: new THREE.Color(SECONDARY),
-        emissiveIntensity: 0.1,
-        transparent: true,
-        opacity: 0.15,
-      })
-    )
-    core.position.set(0, 0, 0)
-    group.add(core)
-
-    // Sparse orbiting particles
-    for (let i = 0; i < 6; i++) {
-      const angle = (i / 6) * Math.PI * 2
-      const sphere = new THREE.Mesh(
-        new THREE.SphereGeometry(0.03, 6, 6),
-        new THREE.MeshPhysicalMaterial({
-          color: new THREE.Color(ACCENT),
-          emissive: new THREE.Color(ACCENT),
-          emissiveIntensity: 0.3,
-          transparent: true,
-          opacity: 0.2,
-        })
-      )
-      sphere.position.set(Math.cos(angle) * 0.8, Math.sin(angle * 2) * 0.3, Math.sin(angle) * 0.8)
-      sphere.userData = { angle, radius: 0.8, speed: 0.15 + Math.random() * 0.1, orbitIndex: i }
-      sphereRefs.current.push(sphere)
-      group.add(sphere)
+    // Warm gold particle field
+    const count = 200
+    const geo = new THREE.BufferGeometry()
+    const pos = new Float32Array(count * 3)
+    const sizes = new Float32Array(count)
+    for (let i = 0; i < count; i++) {
+      const r = 1.5 + Math.random() * 3
+      const theta = Math.random() * Math.PI * 2
+      const phi = Math.acos(2 * Math.random() - 1)
+      pos[i * 3] = r * Math.sin(phi) * Math.cos(theta)
+      pos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta) * 0.4
+      pos[i * 3 + 2] = r * Math.cos(phi)
+      sizes[i] = 0.01 + Math.random() * 0.02
     }
+    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3))
+    geo.setAttribute('size', new THREE.BufferAttribute(sizes, 1))
+
+    const mat = new THREE.PointsMaterial({
+      color: new THREE.Color(ACCENT),
+      size: 0.025,
+      transparent: true,
+      opacity: 0.2,
+      sizeAttenuation: true,
+      blending: THREE.AdditiveBlending,
+    })
+    const points = new THREE.Points(geo, mat)
+    points.position.y = -0.5
+    group.add(points)
+
+    // Tiny inner glow sphere
+    const glow = new THREE.Mesh(
+      new THREE.SphereGeometry(0.08, 16, 16),
+      new THREE.MeshBasicMaterial({
+        color: new THREE.Color(GOLD_DIM),
+        transparent: true,
+        opacity: 0.1,
+      })
+    )
+    glow.position.set(0, -0.2, 0)
+    group.add(glow)
 
     return group
-  }, [])
+  }, [ACCENT, GOLD_DIM])
 
-  useFrame((state, delta) => {
-    geometry.children.forEach((child) => {
-      if (child.userData?.angle !== undefined) {
-        const data = child.userData
-        data.angle += delta * data.speed
-        child.position.x = Math.cos(data.angle) * data.radius
-        child.position.z = Math.sin(data.angle) * data.radius
-        child.position.y = Math.sin(data.angle * 2) * 0.3
-      }
-      if (child.userData?.isCore && child instanceof THREE.Mesh) {
-        const mat = child.material as THREE.MeshPhysicalMaterial
-        if (mat) {
-          mat.emissiveIntensity = 0.1 + Math.sin(state.clock.elapsedTime * 0.3) * 0.05
-        }
-      }
-    })
-  })
+  useFrame((_, delta) => {
+    if (!meshRef.current) return
+    const g = meshRef.current
 
-  return <primitive object={geometry} />
-}
+    const s = defaultScale + scaleScrollFactor * scrollY.current
+    g.scale.setScalar(s)
+    g.position.y = defaultY + yScrollFactor * scrollY.current
 
-export function SceneModel({
-  modelPath, defaultScale, scaleScrollFactor, defaultY, yScrollFactor,
-  rotationSpeed, cameraMode, mouseEnabled,
-}: SceneModelProps) {
-  const groupRef = useRef<THREE.Group>(null!)
-  const { camera } = useThree()
-  const mouseRef = useRef({ x: 0, y: 0 })
-  const progressRef = useRef(0)
-
-  // Track scroll progress
-  useEffect(() => {
-    const update = () => {
-      if (typeof window === 'undefined') return
-      const total = document.documentElement.scrollHeight - window.innerHeight
-      progressRef.current = total > 0 ? window.scrollY / total : 0
+    if (rotationSpeed.speed > 0) {
+      g.rotation.y += rotationSpeed.speed * delta * 0.5
     }
-    window.addEventListener('scroll', update, { passive: true })
-    return () => window.removeEventListener('scroll', update)
-  }, [])
 
-  // Mouse parallax — subtle
-  useEffect(() => {
-    const onMouse = (e: MouseEvent) => {
-      mouseRef.current.x = (e.clientX / window.innerWidth - 0.5) * 2
-      mouseRef.current.y = (e.clientY / window.innerHeight - 0.5) * 2
-    }
-    window.addEventListener('mousemove', onMouse, { passive: true })
-    return () => window.removeEventListener('mousemove', onMouse)
-  }, [])
-
-  useFrame((state, delta) => {
-    const g = groupRef.current
-    if (!g) return
-    const p = progressRef.current
-
-    // Very slow rotation
-    g.rotation.y += delta * rotationSpeed.speed * 0.3
-    g.rotation.x = Math.sin(state.clock.elapsedTime * 0.02) * 0.02 + p * 0.04
-
-    // Subtle mouse parallax
     if (mouseEnabled) {
-      g.rotation.z += (mouseRef.current.x * 0.01 - g.rotation.z) * 0.02
-    }
-
-    // Scale and Y position
-    const scale = Math.max(0.1, defaultScale + p * scaleScrollFactor)
-    g.scale.setScalar(scale)
-    g.position.y = defaultY + p * yScrollFactor
-
-    // Camera orbit — very restrained
-    if (cameraMode.mode === 'full') {
-      const orbitAngle = p * Math.PI * 2
-      camera.position.x = Math.sin(orbitAngle) * 6
-      camera.position.z = Math.cos(orbitAngle) * 6
-      camera.position.y = 1.0 - p * 0.3
-      camera.lookAt(0, 0, 0)
-    } else if (cameraMode.mode === 'slow') {
-      const orbitAngle = p * Math.PI
-      camera.position.x = Math.sin(orbitAngle) * 5
-      camera.position.z = Math.cos(orbitAngle) * 5
-      camera.position.y = 0.6
-      camera.lookAt(0, 0, 0)
-    } else {
-      camera.position.x = 0
-      camera.position.z = 6
-      camera.position.y = 0.3
-      camera.lookAt(0, 0, 0)
+      g.rotation.y += (mouseTarget.current.x * 0.3 - g.rotation.y) * delta * 0.3
+      g.rotation.x += (-mouseTarget.current.y * 0.2 - g.rotation.x) * delta * 0.3
     }
   })
 
   return (
-    <group ref={groupRef}>
-      <ProceduralModel />
+    <group ref={meshRef}>
+      <primitive object={particleSystem} />
     </group>
   )
+}
+
+export default function SceneModel(props: SceneModelProps) {
+  return <AtmosphericParticles {...props} />
 }

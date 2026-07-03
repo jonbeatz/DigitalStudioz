@@ -1,326 +1,421 @@
 'use client'
 
-import React, { useState, useCallback } from 'react'
-import dynamic from 'next/dynamic'
-import { Canvas } from '@react-three/fiber'
-import * as THREE from 'three'
-import { HDR_PRESETS, BLOOM_PRESETS, ROTATION_PRESETS, CAMERA_PRESETS } from './config'
-import { EASE, ACCENT, TEXT_DIM, TEXT_PRIMARY, TEXT_MUTED } from './types'
-import type { ExperienceConfig, HdrPreset, BloomPreset, RotationPreset, CameraPreset } from './types'
-
-// UI
-import { TopNav } from './ui/TopNav'
-import { ChapterSection } from './ui/ChapterSection'
-import { ArticleOverlay } from './ui/ArticleOverlay'
+import React, { useEffect, useState, useCallback } from 'react'
+import { ACCENT, TEXT_DIM, TEXT_PRIMARY, TEXT_MUTED, WARM_CREAM, BG_VOID } from './types'
+import type { ExperienceConfig } from './types'
 import { LoadingScreen } from './ui/LoadingScreen'
-import { ScrollPrompt } from './ui/ScrollPrompt'
-import { StatsStrip } from './ui/StatsStrip'
-import { HeroAnimation } from './ui/HeroAnimation'
-import { BgOverlay } from './ui/BgOverlay'
-import { BackToTop } from './ui/BackToTop'
 
-import { useCursor } from '@/lib/cursor-context'
-
-const Scene3D = dynamic(
-  () => import('./scene/Scene3D').then((m) => m.Scene3D),
-  { ssr: false }
-)
-
-function SectionDivider() {
-  return (
-    <div className="flex items-center justify-center gap-3 py-8 md:py-12">
-      <div className="h-px w-12 md:w-20" style={{ background: 'var(--border-subtle)' }} />
-      <div className="w-1.5 h-1.5 rounded-full" style={{ background: ACCENT, opacity: 0.4 }} />
-      <div className="h-px w-12 md:w-20" style={{ background: 'var(--border-subtle)' }} />
-    </div>
-  )
-}
+const NAV = [
+  { id: 'work', label: 'Work' },
+  { id: 'services', label: 'Services' },
+  { id: 'process', label: 'Process' },
+  { id: 'about', label: 'About' },
+  { id: 'contact', label: 'Contact' },
+]
 
 export default function createStudioExperience(config: ExperienceConfig) {
-  return function StudioExperiencePage() {
+  return function DigitalStudiozHome() {
     const [loading, setLoading] = useState(true)
-    const [activeArticle, setActiveArticle] = useState<number | null>(null)
-    const [currentHdrIndex, setCurrentHdrIndex] = useState(config.defaultHdrIndex ?? 0)
-    const [currentBloomIndex, setCurrentBloomIndex] = useState(config.defaultBloomIndex ?? 1)
-    const [currentRotationIndex, setCurrentRotationIndex] = useState(config.defaultRotationIndex ?? 0)
-    const [currentCameraIndex, setCurrentCameraIndex] = useState(config.defaultCameraIndex ?? 0)
-    const [mouseEnabled, setMouseEnabled] = useState(config.defaultMouseEnabled ?? true)
-    const { setCursorEnabled } = useCursor()
+    const [scrolled, setScrolled] = useState(false)
+
+    useEffect(() => {
+      const onScroll = () => setScrolled(window.scrollY > 80)
+      window.addEventListener('scroll', onScroll, { passive: true })
+      return () => window.removeEventListener('scroll', onScroll)
+    }, [])
 
     const handleLoadingComplete = useCallback(() => {
-      const el = document.getElementById('ds-loading')
-      if (el) {
-        el.style.opacity = '0'
-        setTimeout(() => setLoading(false), 400)
-      } else {
-        setLoading(false)
-      }
+      setLoading(false)
     }, [])
+
+    const scrollTo = (id: string) => {
+      const el = document.getElementById(id)
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+
+    const styles = {
+      nav: {
+        position: 'fixed' as const,
+        top: 0, left: 0, right: 0,
+        zIndex: 50,
+        padding: '16px 0',
+        transition: 'all 0.4s ease',
+        background: scrolled ? 'rgba(10,10,11,0.95)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
+        borderBottom: scrolled ? '1px solid var(--warm-border)' : '1px solid transparent',
+      },
+      navInner: {
+        maxWidth: 1200,
+        margin: '0 auto',
+        padding: '0 24px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+      },
+      section: (bg: string) => ({
+        padding: '100px 0',
+        background: bg,
+      }),
+      sectionAlt: {
+        padding: '100px 0',
+        background: 'var(--bg-canvas)',
+      },
+      inner: {
+        maxWidth: 1200,
+        margin: '0 auto',
+        padding: '0 24px',
+      },
+      label: {
+        fontFamily: 'var(--font-mono)',
+        fontSize: 12,
+        letterSpacing: '0.25em',
+        textTransform: 'uppercase' as const,
+        color: ACCENT,
+        marginBottom: 12,
+      },
+      h2: {
+        fontSize: 36,
+        fontWeight: 700,
+        lineHeight: 1.2,
+        letterSpacing: '-0.02em',
+        color: TEXT_PRIMARY,
+        marginBottom: 16,
+      },
+      subtitle: {
+        fontSize: 16,
+        lineHeight: 1.6,
+        color: TEXT_MUTED,
+        maxWidth: 560,
+        marginBottom: 48,
+      },
+      card: {
+        background: 'var(--bg-surface)',
+        border: '1px solid var(--border-subtle)',
+        borderRadius: 12,
+        padding: 32,
+      },
+      glass: {
+        background: 'rgba(15,15,17,0.85)',
+        backdropFilter: 'blur(16px)',
+        border: '1px solid var(--border-gold)',
+        borderRadius: 16,
+        padding: '48px 40px',
+      },
+      cta: {
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 8,
+        padding: '14px 28px',
+        fontSize: 14,
+        fontWeight: 600,
+        border: 'none',
+        borderRadius: 8,
+        cursor: 'pointer',
+        transition: 'all 0.3s ease',
+        background: 'linear-gradient(135deg, #c8a45c, #d4b872)',
+        color: '#0a0a0b',
+      },
+      ctaOutline: {
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 8,
+        padding: '14px 28px',
+        fontSize: 14,
+        fontWeight: 600,
+        border: '1px solid var(--warm-border)',
+        borderRadius: 8,
+        cursor: 'pointer',
+        transition: 'all 0.3s ease',
+        background: 'transparent',
+        color: WARM_CREAM,
+      },
+    }
 
     return (
       <>
         {loading && <LoadingScreen onComplete={handleLoadingComplete} />}
 
-        {/* Subtle 3D atmospheric background */}
-        <div className="fixed inset-0 z-0">
-          <Canvas
-            camera={{ position: [0, 0.5, 6], fov: 50 }}
-            dpr={[1, 1.5]}
-            gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 0.8 }}
-          >
-            <Scene3D
-              modelPath={config.modelPath}
-              defaultScale={config.defaultScale}
-              scaleScrollFactor={config.scaleScrollFactor}
-              defaultY={config.defaultY}
-              yScrollFactor={config.yScrollFactor}
-              hdrPreset={HDR_PRESETS[currentHdrIndex]}
-              bloomPreset={BLOOM_PRESETS[currentBloomIndex]}
-              cameraMode={CAMERA_PRESETS[currentCameraIndex]}
-              mouseEnabled={mouseEnabled}
-              onRotationSpeed={ROTATION_PRESETS[currentRotationIndex]}
-              showContactShadows={config.showContactShadows}
-            />
-          </Canvas>
-        </div>
+        <div style={{ opacity: loading ? 0 : 1, transition: 'opacity 0.7s ease' }}>
+          {/* NAV */}
+          <header style={styles.nav}>
+            <div style={styles.navInner}>
+              <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                style={{ fontSize: 18, fontWeight: 600, color: TEXT_PRIMARY, background: 'none', border: 'none', cursor: 'pointer', letterSpacing: '-0.02em' }}>
+                <span style={{ color: ACCENT }}>Digital</span>Studioz
+              </button>
 
-        {/* Content */}
-        <BgOverlay>
-          <div className={`relative z-30 transition-opacity duration-700 ${loading ? 'opacity-0' : 'opacity-100'}`}>
-            <TopNav
-              chapters={config.chapters}
-              archiveLinkUrl={config.archiveLinkUrl}
-              archiveLinkTitle={config.archiveLinkTitle}
-            />
-
-            {/* ================================================================
-                HERO — MAVRA style: full-bleed hero image + text overlay
-                ================================================================ */}
-            <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-              {/* Hero background image */}
-              <div className="absolute inset-0 z-0">
-                <img
-                  src="/images/ds-hero-v1.jpg"
-                  alt="DigitalStudioz — Digital Experiences"
-                  className="w-full h-full object-cover"
-                  style={{
-                    filter: 'brightness(0.6) contrast(1.1)',
-                  }}
-                />
-                <div className="absolute inset-0" style={{
-                  background: 'linear-gradient(180deg, rgba(5,5,5,0.3) 0%, rgba(5,5,5,0.7) 50%, #050505 100%)',
-                }} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
+                {NAV.map(item => (
+                  <button key={item.id} onClick={() => scrollTo(item.id)}
+                    style={{ fontSize: 14, color: scrolled ? TEXT_MUTED : 'rgba(161,161,170,0.7)', background: 'none', border: 'none', cursor: 'pointer', transition: 'color 0.3s' }}
+                    onMouseEnter={e => e.currentTarget.style.color = 'var(--gold)'}
+                    onMouseLeave={e => e.currentTarget.style.color = scrolled ? 'var(--text-muted)' : 'rgba(161,161,170,0.7)'}>
+                    {item.label}
+                  </button>
+                ))}
+                <button onClick={() => scrollTo('contact')}
+                  style={{ ...styles.cta, fontSize: 13, padding: '10px 20px' }}>
+                  Start a Project
+                </button>
               </div>
-
-              {/* Green ambient glow */}
-              <div className="absolute inset-0 pointer-events-none opacity-[0.08] z-[1]"
-                style={{
-                  background: 'radial-gradient(ellipse at 50% 40%, #22c55e 0%, transparent 60%)',
-                }}
-              />
-
-              <div className="relative z-10 w-full max-w-5xl mx-auto px-8 md:px-12 pt-24 pb-16 text-center">
-                <HeroAnimation>
-                  <div className="font-mono text-[0.65rem] tracking-[0.3em] mb-6" style={{ color: ACCENT }}>
-                    DIGITAL STUDIO
-                  </div>
-                </HeroAnimation>
-
-                <HeroAnimation>
-                  <h1 className="font-sans text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-[-0.03em] leading-[0.95] mb-6">
-                    <span className="text-white">We Build</span>
-                    <br />
-                    <span
-                      style={{
-                        background: 'linear-gradient(135deg, #22c55e, #4ade80)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                      }}
-                    >Digital Experiences</span>
-                  </h1>
-                </HeroAnimation>
-
-                <HeroAnimation>
-                  <p className="max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed mb-10 text-white/70">
-                    3D web experiences, AI integration, full-stack development, and automation —
-                    built with precision by a studio that codes.
-                  </p>
-                </HeroAnimation>
-
-                <HeroAnimation>
-                  <div className="flex flex-wrap gap-4 justify-center">
-                    <a href={`#${config.chapters[0]?.id ?? 'story'}`}
-                      className="inline-flex items-center gap-2 px-7 py-3.5 font-mono text-xs font-semibold tracking-[0.12em] text-black uppercase rounded-full transition-all duration-300 hover:scale-105"
-                      style={{ background: 'linear-gradient(135deg, #22c55e, #34d399)' }}
-                    >
-                      EXPLORE OUR WORK
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                        <path d="M5 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </a>
-                    <a href="#contact"
-                      className="inline-flex items-center gap-2 px-7 py-3.5 font-mono text-xs font-semibold tracking-[0.12em] uppercase rounded-full transition-all duration-300 hover:bg-white/10"
-                      style={{ color: '#fff', border: '1px solid rgba(255,255,255,0.15)' }}
-                    >
-                      GET IN TOUCH
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                        <path d="M3 11L11 3M11 3H5M11 3V9" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </a>
-                  </div>
-                </HeroAnimation>
-              </div>
-
-              {/* Scroll indicator */}
-              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2">
-                <span className="font-mono text-[0.5rem] tracking-[0.2em] text-white/40">SCROLL</span>
-                <svg width="16" height="24" viewBox="0 0 16 24" className="animate-bounce" style={{ animationDuration: '2s' }}>
-                  <rect x="1" y="1" width="14" height="22" rx="7" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" fill="none" />
-                  <circle cx="8" cy="8" r="2" fill="#22c55e" />
-                </svg>
-              </div>
-            </section>
-
-            {/* Spacer after hero */}
-            <div className="h-12 md:h-24" />
-
-            {/* ================================================================
-                CHAPTER SECTIONS — Each with its own image + card overlay
-                ================================================================ */}
-            <div className="max-w-5xl mx-auto px-8 md:px-12">
-              {config.chapters.map((ch, i) => (
-                <React.Fragment key={ch.id}>
-                  {i > 0 && <SectionDivider />}
-                  <ChapterSection
-                    chapter={{ ...ch, detail: '' }}
-                    index={i}
-                    imageSrc={`/images/${['ds-01-abstract-core','ds-02-wireframe-scene','ds-03-digital-tools','ds-04-ai-neural','ds-05-finished-product'][i]}.jpg`}
-                    imageOnLeft={i % 2 === 0}
-                    onReadMore={() => setActiveArticle(i)}
-                  />
-                </React.Fragment>
-              ))}
             </div>
+          </header>
 
-            <div className="h-8 md:h-16" />
-
-            {/* Stats */}
-            <StatsStrip stats={config.stats} ease={EASE} />
-
-            <div className="h-4 md:h-8" />
-
-            {/* ================================================================
-                CLOSING SECTION — final hero-like spread
-                ================================================================ */}
-            <section className="relative py-24 md:py-32 overflow-hidden">
-              <div className="absolute inset-0 z-0">
-                <img
-                  src="/images/ds-bg-atmosphere-01.jpg"
-                  alt=""
-                  className="w-full h-full object-cover"
-                  style={{ filter: 'brightness(0.4) contrast(1.2)', opacity: 0.5 }}
-                />
-                <div className="absolute inset-0" style={{
-                  background: 'linear-gradient(180deg, #050505 0%, rgba(5,5,5,0.3) 50%, #050505 100%)',
-                }} />
-              </div>
-
-              <div className="relative z-10 text-center max-w-3xl mx-auto px-8">
-                <div
-                  className="p-10 md:p-14 rounded-2xl"
-                  style={{
-                    background: 'rgba(5,5,5,0.7)',
-                    backdropFilter: 'blur(12px)',
-                    WebkitBackdropFilter: 'blur(12px)',
-                    border: '1px solid var(--border-subtle)',
-                  }}
-                >
-                  <div className="font-sans text-2xl md:text-4xl font-light italic leading-tight mb-4 text-white">
-                    <span style={{ color: ACCENT }}>&ldquo;</span>Think big. Build bold. Create without limits.<span style={{ color: ACCENT }}>&rdquo;</span>
-                  </div>
-                  <div className="font-mono text-xs tracking-[0.15em] uppercase" style={{ color: TEXT_DIM }}>
-                    &mdash; DigitalStudioz
-                  </div>
-                  <div className="flex items-center justify-center gap-3 mt-8 mb-4">
-                    <div className="h-px w-10" style={{ background: 'var(--border-accent)' }} />
-                    <div className="w-2 h-2 rounded-full" style={{ background: ACCENT }} />
-                    <div className="h-px w-10" style={{ background: 'var(--border-accent)' }} />
-                  </div>
-                  <div className="font-mono text-[0.55rem] tracking-[0.3em] uppercase" style={{ color: TEXT_MUTED }}>
-                    DigitalStudioz v1.0 &mdash; Built With DigitalStudioz
-                  </div>
+          {/* HERO */}
+          <section style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', position: 'relative', overflow: 'hidden', background: 'var(--bg-void)' }}>
+            <div style={{ position: 'absolute', inset: 0 }}>
+              <img src="/images/ds-demo-hero.jpg" alt=""
+                style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.35) contrast(1.1)' }} />
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(10,10,11,0.2) 0%, #0a0a0b 100%)' }} />
+            </div>
+            <div style={styles.inner as React.CSSProperties}>
+              <div style={{ position: 'relative', zIndex: 2, maxWidth: 640 }}>
+                <div style={styles.label}>Digital Studio</div>
+                <h1 style={{ fontSize: 56, fontWeight: 700, lineHeight: 1.05, letterSpacing: '-0.03em', color: TEXT_PRIMARY, marginBottom: 24 }}>
+                  We Build <span className="text-gradient">Digital</span><br />
+                  <span className="text-gradient">Experiences</span>
+                </h1>
+                <p style={{ fontSize: 17, lineHeight: 1.6, color: WARM_CREAM, opacity: 0.65, maxWidth: 480, marginBottom: 40 }}>
+                  3D web, AI integration, full-stack development, and automation — built with precision by a studio that codes.
+                </p>
+                <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+                  <button onClick={() => scrollTo('work')} style={styles.cta}>View Our Work</button>
+                  <button onClick={() => scrollTo('contact')} style={styles.ctaOutline}>Get in Touch</button>
                 </div>
               </div>
-            </section>
+            </div>
+            <div style={{ position: 'absolute', bottom: 32, left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.25em', textTransform: 'uppercase', color: TEXT_DIM }}>Scroll</span>
+              <div style={{ width: 1, height: 32, background: ACCENT, opacity: 0.3 }} />
+            </div>
+          </section>
 
-            {/* ================================================================
-                FOOTER
-                ================================================================ */}
-            <footer className="border-t" style={{ borderColor: 'var(--border-subtle)' }}>
-              <div className="max-w-5xl mx-auto px-8 md:px-12 py-16 md:py-20">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-14">
-                  <div className="col-span-2 md:col-span-1">
-                    <div className="font-sans text-lg font-bold tracking-[-0.02em] mb-4" style={{ color: TEXT_PRIMARY }}>
-                      <span style={{ color: ACCENT }}>DIGITAL</span>STUDIOZ
+          {/* WORK */}
+          <section id="work" style={styles.sectionAlt}>
+            <div style={styles.inner as React.CSSProperties}>
+              <div style={styles.label}>Our Work</div>
+              <h2 style={styles.h2}>Featured <span className="text-gradient">Projects</span></h2>
+              <p style={styles.subtitle}>Each project is a proof point of what the DigitalStudioz system can deliver.</p>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 24 }}>
+                <div style={{ position: 'relative', borderRadius: 12, overflow: 'hidden', minHeight: 420, cursor: 'pointer', background: 'var(--bg-surface)' }}>
+                  <img src="/images/ds-demo-work-1.jpg" alt="VaderLabz"
+                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.45)' }} />
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 30%, rgba(10,10,11,0.9) 100%)' }} />
+                  <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: 32 }}>
+                    <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: ACCENT, marginBottom: 8 }}>VaderLabz</div>
+                    <h3 style={{ fontSize: 22, fontWeight: 600, color: TEXT_PRIMARY, marginBottom: 4 }}>3D Scroll-Driven Experience</h3>
+                    <p style={{ fontSize: 14, color: TEXT_MUTED }}>React Three Fiber, GSAP, Lenis</p>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+                  <div style={{ ...styles.card, flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <div>
+                      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: ACCENT, marginBottom: 8 }}>MyStudioChannel</div>
+                      <h3 style={{ fontSize: 18, fontWeight: 600, color: TEXT_PRIMARY, marginBottom: 8 }}>Content Platform</h3>
+                      <p style={{ fontSize: 14, lineHeight: 1.6, color: TEXT_MUTED }}>Hostinger-hosted with MCP integrations.</p>
                     </div>
-                    <p className="text-sm leading-relaxed max-w-[200px]" style={{ color: TEXT_MUTED }}>
-                      Full-service digital studio. We build 3D experiences, AI platforms, and automation systems.
-                    </p>
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.15em', textTransform: 'uppercase', color: ACCENT, marginTop: 24 }}>View Project →</span>
                   </div>
-                  <div>
-                    <h4 className="font-mono text-[0.6rem] tracking-[0.2em] uppercase mb-5" style={{ color: TEXT_DIM }}>Services</h4>
-                    <ul className="space-y-3">
-                      {['3D Web', 'AI Integration', 'Full-Stack', 'Automation', 'UI/UX Design'].map((s) => (
-                        <li key={s}>
-                          <a href="#" className="text-sm transition-colors duration-200 hover:text-[var(--accent)]" style={{ color: TEXT_MUTED }}>{s}</a>
-                        </li>
-                      ))}
-                    </ul>
+                  <div style={{ ...styles.card, flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <div>
+                      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: ACCENT, marginBottom: 8 }}>Profile Jedi</div>
+                      <h3 style={{ fontSize: 18, fontWeight: 600, color: TEXT_PRIMARY, marginBottom: 8 }}>Profile Ecosystem</h3>
+                      <p style={{ fontSize: 14, lineHeight: 1.6, color: TEXT_MUTED }}>Shared rules, skills, prompts.</p>
+                    </div>
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.15em', textTransform: 'uppercase', color: ACCENT, marginTop: 24 }}>View Project →</span>
                   </div>
-                  <div>
-                    <h4 className="font-mono text-[0.6rem] tracking-[0.2em] uppercase mb-5" style={{ color: TEXT_DIM }}>Company</h4>
-                    <ul className="space-y-3">
-                      {['About', 'Work', 'Process', 'Contact'].map((s) => (
-                        <li key={s}>
-                          <a href="#" className="text-sm transition-colors duration-200 hover:text-[var(--accent)]" style={{ color: TEXT_MUTED }}>{s}</a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="font-mono text-[0.6rem] tracking-[0.2em] uppercase mb-5" style={{ color: TEXT_DIM }}>Connect</h4>
-                    <ul className="space-y-3">
-                      {['GitHub', 'Email', 'X / Twitter'].map((s) => (
-                        <li key={s}>
-                          <a href="#" className="text-sm transition-colors duration-200 hover:text-[var(--accent)]" style={{ color: TEXT_MUTED }}>{s}</a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-                <div className="mt-14 pt-6 border-t flex flex-col md:flex-row items-center justify-between gap-4" style={{ borderColor: 'var(--border-subtle)' }}>
-                  <span className="font-mono text-[0.55rem] tracking-[0.15em]" style={{ color: TEXT_DIM }}>
-                    &copy; {new Date().getFullYear()} DigitalStudioz
-                  </span>
-                  <span className="font-mono text-[0.5rem] tracking-[0.15em]" style={{ color: TEXT_DIM }}>
-                    BUILT WITH DIGITALSTUDIOZ
-                  </span>
                 </div>
               </div>
-            </footer>
-          </div>
-        </BgOverlay>
+            </div>
+          </section>
 
-        {/* Overlays */}
-        {activeArticle !== null && (
-          <ArticleOverlay
-            chapter={{ ...config.chapters[activeArticle], detail: config.chapters[activeArticle].detail }}
-            onClose={() => setActiveArticle(null)}
-          />
-        )}
+          {/* SERVICES */}
+          <section id="services" style={styles.section('var(--bg-void)')}>
+            <div style={styles.inner as React.CSSProperties}>
+              <div style={styles.label}>Services</div>
+              <h2 style={styles.h2}>What We <span className="text-gradient">Build</span></h2>
+              <p style={styles.subtitle}>Full-service digital studio capabilities.</p>
 
-        {!loading && <ScrollPrompt />}
-        <BackToTop />
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
+                {[
+                  ['01', '3D Web Experiences', 'React Three Fiber, GSAP, WebGL, and immersive brand experiences.'],
+                  ['02', 'AI Integration', 'LLM workflows, Mem0 vector memory, RAG pipelines, MCP tool access.'],
+                  ['03', 'Full-Stack Development', 'Next.js, Node.js, databases, auth, and cloud deployments.'],
+                  ['04', 'Automation & DevOps', 'PowerShell pipelines, CI/CD, backups, infrastructure-as-code.'],
+                  ['05', 'UI/UX Design', 'Dark-mode interfaces, glassmorphism, bento grids, design tokens.'],
+                  ['06', 'Consulting', 'Architecture review, system design, scaling strategy.'],
+                ].map(([num, title, desc]) => (
+                  <div key={num} style={styles.card}>
+                    <div style={{ fontSize: 36, fontWeight: 700, color: ACCENT, opacity: 0.2, marginBottom: 16 }}>{num}</div>
+                    <h3 style={{ fontSize: 18, fontWeight: 600, color: TEXT_PRIMARY, marginBottom: 12 }}>{title}</h3>
+                    <p style={{ fontSize: 14, lineHeight: 1.6, color: TEXT_MUTED }}>{desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* PROCESS */}
+          <section id="process" style={styles.sectionAlt}>
+            <div style={styles.inner as React.CSSProperties}>
+              <div style={styles.label}>Process</div>
+              <h2 style={styles.h2}>How We <span className="text-gradient">Build</span></h2>
+              <p style={styles.subtitle}>A repeatable methodology for consistent quality.</p>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 16 }}>
+                {[
+                  ['01', 'Concept', 'Define the vision.'],
+                  ['02', 'Design', 'Lock the taste.'],
+                  ['03', 'Build', 'Scaffold from engine.'],
+                  ['04', 'Deploy', 'Automated pipelines.'],
+                  ['05', 'Iterate', 'Refine continuously.'],
+                ].map(([num, title, desc]) => (
+                  <div key={num} style={styles.card}>
+                    <div style={{ fontSize: 32, fontWeight: 700, color: ACCENT, opacity: 0.25, marginBottom: 16 }}>{num}</div>
+                    <h3 style={{ fontSize: 16, fontWeight: 600, color: TEXT_PRIMARY, marginBottom: 8 }}>{title}</h3>
+                    <p style={{ fontSize: 13, lineHeight: 1.5, color: TEXT_MUTED }}>{desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* ABOUT */}
+          <section id="about" style={styles.section('var(--bg-void)')}>
+            <div style={styles.inner as React.CSSProperties}>
+              <div style={{ display: 'flex', gap: 64, alignItems: 'center' }}>
+                <div style={{ flex: 1 }}>
+                  <div style={styles.label}>About</div>
+                  <h2 style={{ ...styles.h2, marginBottom: 24 }}>The <span className="text-gradient">Origin Story</span></h2>
+                  <p style={{ fontSize: 16, lineHeight: 1.7, color: TEXT_MUTED, marginBottom: 20 }}>
+                    From a single terminal window to a full-service digital studio — born from the belief that great code and bold design can build anything.
+                  </p>
+                  <p style={{ fontSize: 16, lineHeight: 1.7, color: TEXT_MUTED, marginBottom: 32 }}>
+                    We built a system instead of rebuilding every time. The shared skeleton, the engine, the studio — it all comes together here.
+                  </p>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                    <div style={{ flex: 1, height: 1, background: 'var(--border-gold)' }} />
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: ACCENT }}>Think Big. Build Bold.</span>
+                    <div style={{ flex: 1, height: 1, background: 'var(--border-gold)' }} />
+                  </div>
+                </div>
+                <div style={{ flex: 1 }}>
+                  <img src="/images/ds-demo-about.jpg" alt="Digital Studio"
+                    style={{ width: '100%', borderRadius: 12, filter: 'brightness(0.65)', maxHeight: 420, objectFit: 'cover' }} />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* STATS */}
+          <section style={{ ...styles.sectionAlt, padding: '80px 0' }}>
+            <div style={styles.inner as React.CSSProperties}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 32, textAlign: 'center' as const }}>
+                {config.stats.map(stat => (
+                  <div key={stat.label}>
+                    <div style={{ fontSize: 42, fontWeight: 700, color: ACCENT, marginBottom: 8 }}>{stat.num}</div>
+                    <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.15em', textTransform: 'uppercase', color: TEXT_MUTED }}>{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* QUOTE */}
+          <section style={{ position: 'relative', padding: '140px 0', overflow: 'hidden', background: 'var(--bg-void)' }}>
+            <div style={{ position: 'absolute', inset: 0 }}>
+              <img src="/images/ds-demo-bg-atmo.jpg" alt=""
+                style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.3)', opacity: 0.4 }} />
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, #0a0a0b 0%, rgba(10,10,11,0.3) 50%, #0a0a0b 100%)' }} />
+            </div>
+            <div style={{ ...styles.inner as React.CSSProperties, position: 'relative', zIndex: 2, textAlign: 'center' as const }}>
+              <div style={{ maxWidth: 720, margin: '0 auto', ...styles.glass }}>
+                <div style={{ fontSize: 24, fontWeight: 300, fontStyle: 'italic', lineHeight: 1.5, color: TEXT_PRIMARY, marginBottom: 24 }}>
+                  <span style={{ color: ACCENT }}>"</span>Think big. Build bold. Create without limits.<span style={{ color: ACCENT }}>"</span>
+                </div>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, letterSpacing: '0.2em', textTransform: 'uppercase', color: TEXT_DIM, marginBottom: 32 }}>— DigitalStudioz</div>
+                <div style={{ width: 48, height: 1, margin: '0 auto', background: 'var(--border-gold)' }} />
+              </div>
+            </div>
+          </section>
+
+          {/* CONTACT */}
+          <section id="contact" style={styles.section('var(--bg-canvas)')}>
+            <div style={{ ...styles.inner as React.CSSProperties, textAlign: 'center' as const }}>
+              <div style={{ maxWidth: 560, margin: '0 auto' }}>
+                <div style={styles.label}>Contact</div>
+                <h2 style={{ ...styles.h2, textAlign: 'center' as const }}>Let's <span className="text-gradient">Build Together</span></h2>
+                <p style={{ fontSize: 16, lineHeight: 1.6, color: TEXT_MUTED, marginBottom: 40 }}>
+                  Every project starts with a conversation. Reach out and let's create something bold.
+                </p>
+                <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
+                  <a href="mailto:jonbeatz@digitalstudioz.dev" style={{ ...styles.cta, textDecoration: 'none' }}>
+                    Start a Project
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11L11 3M11 3H5M11 3V9" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </a>
+                  <a href="https://github.com/jonbeatz" target="_blank" rel="noopener noreferrer" style={{ ...styles.ctaOutline, textDecoration: 'none' }}>
+                    View GitHub
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* FOOTER */}
+          <footer style={{ borderTop: '1px solid var(--warm-border)', padding: '64px 0', background: 'var(--bg-void)' }}>
+            <div style={styles.inner as React.CSSProperties}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 48 }}>
+                <div>
+                  <div style={{ fontSize: 18, fontWeight: 600, letterSpacing: '-0.02em', color: TEXT_PRIMARY, marginBottom: 12 }}>
+                    <span style={{ color: ACCENT }}>Digital</span>Studioz
+                  </div>
+                  <p style={{ fontSize: 14, lineHeight: 1.6, color: TEXT_MUTED, maxWidth: 200 }}>
+                    Full-service digital studio. We build 3D, AI, and automation systems.
+                  </p>
+                </div>
+                {[
+                  ['Services', ['3D Web', 'AI Integration', 'Full-Stack', 'Automation', 'UI/UX']],
+                  ['Company', ['About', 'Work', 'Process', 'Contact']],
+                  ['Connect', ['GitHub', 'Email']],
+                ].map(([title, links]) => (
+                  <div key={title as string}>
+                    <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: ACCENT, marginBottom: 16 }}>{title}</div>
+                    <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
+                      {(links as string[]).map(link => (
+                        <li key={link}>
+                          <span style={{ fontSize: 14, color: TEXT_MUTED, cursor: 'pointer', transition: 'color 0.2s' }}
+                            onMouseEnter={e => e.currentTarget.style.color = 'var(--gold)'}
+                            onMouseLeave={e => e.currentTarget.style.color = 'var(--text-muted)'}>{link}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+              <div style={{ marginTop: 48, paddingTop: 24, borderTop: '1px solid var(--warm-border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontSize: 12, fontFamily: 'var(--font-mono)', letterSpacing: '0.05em', color: TEXT_DIM }}>&copy; {new Date().getFullYear()} DigitalStudioz</span>
+                <span style={{ fontSize: 12, fontFamily: 'var(--font-mono)', letterSpacing: '0.05em', color: TEXT_DIM }}>Built with DigitalStudioz</span>
+              </div>
+            </div>
+          </footer>
+
+          {/* Back to top */}
+          <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            style={{
+              position: 'fixed', bottom: 24, right: 24, zIndex: 50,
+              width: 40, height: 40, borderRadius: '50%',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              background: 'var(--gold-subtle)', border: '1px solid var(--border-gold)',
+              color: ACCENT, cursor: 'pointer',
+              opacity: scrolled ? 1 : 0, pointerEvents: scrolled ? 'auto' as const : 'none' as const,
+              transition: 'all 0.3s ease',
+            }}>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M8 13V3M8 3L4 7M8 3L12 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        </div>
       </>
     )
   }

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { BG_DEEP } from '../types'
+import { BG_VOID } from '../types'
 
 export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
   const [progress, setProgress] = useState(0)
@@ -19,15 +19,15 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
   }, [onComplete])
 
   return (
-    <div id="ds-loading" className="fixed inset-0 z-[9999] flex flex-col items-center justify-center" style={{ background: BG_DEEP }}>
+    <div id="ds-loading" className="fixed inset-0 z-[9999] flex flex-col items-center justify-center" style={{ background: BG_VOID }}>
       <div className="font-sans text-xl font-bold tracking-[-0.02em] mb-12"
-        style={{ color: '#e8e8e8' }}
+        style={{ color: '#f4f4f5' }}
       >
-        <span style={{ color: '#22c55e' }}>DIGITAL</span>STUDIOZ
+        <span style={{ color: '#c8a45c' }}>DIGITAL</span>STUDIOZ
       </div>
       <div className="w-[200px] md:w-[280px] h-[3px] bg-[rgba(255,255,255,0.04)] rounded-full overflow-hidden">
         <div ref={barRef} className="h-full rounded-full transition-all duration-150"
-          style={{ width: `${progress}%`, background: 'linear-gradient(90deg, #22c55e, #34d399)' }}
+          style={{ width: `${progress}%`, background: 'linear-gradient(90deg, #c8a45c, #d4b872)' }}
         />
       </div>
       <div className="text-xs font-mono tracking-[0.15em] mt-4" style={{ color: '#555555' }}>{progress}%</div>

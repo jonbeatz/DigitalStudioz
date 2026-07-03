@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { ACCENT, TEXT_DIM, TEXT_MUTED } from '../types'
+import { ACCENT, TEXT_DIM, TEXT_MUTED, WARM_CREAM } from '../types'
 import type { StatData } from '../types'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -27,16 +27,16 @@ export function StatsStrip({ stats, ease }: { stats: StatData[]; ease: string })
 
   return (
     <section ref={ref} className="py-16 md:py-20">
-      <div className="max-w-5xl mx-auto px-8 md:px-12">
-        <div className="rounded-2xl p-8 md:p-12" style={{
-          background: 'var(--bg-card)',
-          border: '1px solid var(--border-subtle)',
-        }}>
+      <div className="max-w-6xl mx-auto px-8 md:px-16">
+        <div className="glass-card p-10 md:p-14">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             {stats.map((s, i) => (
-              <div key={s.label} className="stat-item flex flex-col items-center gap-2">
-                <span className="font-sans text-3xl md:text-5xl font-bold leading-none" style={{ color: ACCENT }}>{s.num}</span>
-                <span className="font-mono text-[0.6rem] tracking-[0.2em] text-center" style={{ color: TEXT_MUTED }}>{s.label}</span>
+              <div key={s.label} className="stat-item flex flex-col items-center gap-3">
+                <span className="font-sans text-4xl md:text-6xl font-[300] leading-none" style={{ color: ACCENT }}>{s.num}</span>
+                <span className="font-mono text-[0.55rem] tracking-[0.25em] uppercase text-center" style={{ color: WARM_CREAM, opacity: 0.6 }}>{s.label}</span>
+                {i < stats.length - 1 && (
+                  <div className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 w-px h-12" style={{ background: 'var(--border-gold)' }} />
+                )}
               </div>
             ))}
           </div>

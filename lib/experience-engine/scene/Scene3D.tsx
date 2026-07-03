@@ -6,7 +6,7 @@ import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import { KernelSize } from 'postprocessing'
 import * as THREE from 'three'
 import type { HdrPreset, BloomPreset, CameraPreset, RotationPreset } from '../types'
-import { SceneModel } from './SceneModel'
+import SceneModel from './SceneModel'
 
 interface Scene3DProps {
   modelPath: string
@@ -27,9 +27,9 @@ export function Scene3D(props: Scene3DProps) {
     <>
       {/* Very dim ambient and directional — atmosphere only */}
       <ambientLight intensity={0.15} />
-      <directionalLight position={[5, 5, 5]} intensity={0.6} color="#e8e8e8" />
-      <directionalLight position={[-5, 3, -5]} intensity={0.2} color="#22c55e" />
-      <directionalLight position={[0, 5, 3]} intensity={0.1} color="#34d399" />
+      <directionalLight position={[5, 5, 5]} intensity={0.6} color="#f4f4f5" />
+      <directionalLight position={[-5, 3, -5]} intensity={0.2} color="#c8a45c" />
+      <directionalLight position={[0, 5, 3]} intensity={0.1} color="#d4b872" />
 
       <Suspense fallback={null}>
         <SceneModel
@@ -39,7 +39,7 @@ export function Scene3D(props: Scene3DProps) {
           defaultY={props.defaultY}
           yScrollFactor={props.yScrollFactor}
           rotationSpeed={props.onRotationSpeed}
-          cameraMode={props.cameraMode}
+          cameraPreset={props.cameraMode}
           mouseEnabled={props.mouseEnabled}
         />
         <Environment files={props.hdrPreset.file} blur={0.4} />

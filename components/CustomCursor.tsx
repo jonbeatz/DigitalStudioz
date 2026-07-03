@@ -78,7 +78,7 @@ export function CustomCursor() {
         width: state.isHovering ? 28 : 8,
         height: state.isHovering ? 28 : 8,
         borderRadius: '50%',
-        backgroundColor: '#22c55e',
+        backgroundColor: '#c8a45c',
         opacity: 0.5,
         transform: 'translate(-50%, -50%)',
         transition: 'width 0.25s ease, height 0.25s ease, opacity 0.25s ease',

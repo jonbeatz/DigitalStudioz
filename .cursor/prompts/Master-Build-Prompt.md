@@ -14,19 +14,20 @@ Use this prompt when asking Cursor/Claude to build or modify DigitalStudioz expe
 - **Text splitting:** SplitType (for cinematic text reveals)
 - **Node:** >= 18
 
-## Taste: Cyber Amethyst
+## Taste: Warm Premium
 
 | Token | Value |
 |-------|-------|
-| Accent | `#d946ef` |
-| Bright | `#e879f9` |
-| Dim | `#a21caf` |
-| Secondary | `#22d3ee` |
-| Background | `#030105` |
-| Surface | `#08020a` |
-| Card | `#0d0512` |
-| Text | `#f5f0ff` |
-| Mood | Neon, cyberpunk, night market |
+| Accent (Gold) | `#c8a45c` |
+| Gold Bright | `#d4b872` |
+| Gold Dim | `#a8883e` |
+| Warm Cream | `#e8e2d9` |
+| Background (Void) | `#0a0a0b` |
+| Background (Canvas) | `#111113` |
+| Surface | `#18181b` |
+| Text Primary | `#f4f4f5` |
+| Text Secondary | `#a1a1aa` |
+| Mood | Warm, luxurious, editorial, premium craft |
 
 ## Architecture
 

@@ -1,28 +1,46 @@
-# ReCall — DigitalStudioz Session Memory
+# DigitalStudioz — ReCall Update
 
-## Project Brief
+## Session: 2026-07-03 — Complete Warm Premium Redesign
 
-DigitalStudioz is a full-service digital studio showcase website — a premium scroll-driven experience built with Next.js 16, React Three Fiber, GSAP, Lenis, and SplitType. Uses the **Studio Green** taste (#22c55e accent, #34d399 secondary) on dark grey/black backgrounds.
+### Major Milestone
+After 3 rewrite iterations, the site finally looks correct. The final working version uses **pure inline styles with CSS custom properties** — no Tailwind utility classes for spacing/layout, no conflicting CSS frameworks. Each section is a simple semantic HTML element with consistent `maxWidth: 1200` centering.
 
-## Session History
+### What Was Wrong (Root Cause Analysis)
 
-| Date | Summary |
-|------|---------|
-| 2026-07-01 | Initial project scaffold. Created Experience Engine from VaderLabz patterns. Procedural 3D geometry (icosahedron + torus knot + orbiting spheres). 5 content sections (Story, Services, Work, Process, Contact). Build verified, HTTP smoke test passed. |
-| 2026-07-01 | Full site redesign: switched from Cyber Amethyst (purple/blue) to Studio Green (green/dark grey/black). Huly.io-inspired hero with massive centered headline. Antixor-inspired proper card sections (not stuck to sides). Made 3D model subtle/atmospheric. Proper multi-column footer. Spacing/layout overhaul — all content inside max-w-5xl, section dividers, proper padding. |
-| 2026-07-01 | Applied MAVRA Build Pipeline: (1) Concept formula defined (Digital Studio / Precision & Trust / Building with code / Dark+green / Abstract→polished). (2) Planned 11-image asset library. (3) Generated all 11 images via FLUX.2 Klein 9B on fal.ai using 9-part MAVRA prompt formula. (4) Named and organized with ds- prefix convention. (5) Rebuilt site hero-first — full-bleed hero image, alternating image+card chapters, SplitType text reveals, GSAP scroll-triggered animations. Build verified clean, HTTP 200. |
+**THE ROOT CAUSE: Tailwind CSS v4 inline classes were conflicting with custom CSS variables.**
 
-## Current Focus
+We were using a hybrid approach:
+- `globals.css` had custom CSS variables (`--bg-void`, `--gold`, etc.) 
+- The engine.tsx used Tailwind utility classes (`py-20 md:py-28`, `flex`, `gap-8`, etc.)
+- Some styles were inline via `style={{}}`, some via Tailwind, some via CSS classes
 
-- Full MAVRA pipeline applied: concept → prompts → 11 generated assets → hero-first rebuild
-- 5 chapters each with custom FLUX-generated image (abstract core, wireframe, digital tools, neural network, finished product)
-- Subtle 3D canvas retained as atmospheric background
-- All HDR environment files copy from VaderLabz
+This created a **3-way style conflict** where different parts of the page were applying spacing from different systems, causing:
+- Inconsistent padding (some from Tailwind's 8px grid, some from inline px values)
+- Content stretching to edges because Tailwind v4's `max-w-7xl` behaved differently than expected
+- Section heights and gaps being unpredictable
+- The "squished" look came from Tailwind's padding classes (`px-6 md:px-12`) fighting with the `max-w-7xl` container
 
-## Known Issues
+**THE FIX:** Dropped all Tailwind layout/spacing classes and used 100% inline JavaScript style objects. Each element gets explicit `maxWidth`, `padding`, `gap`, etc. from a single `styles` object. This gives us **one source of truth** for all spacing.
 
-- No contact form yet — just text + email link
-- 3D model is procedural (no GLB loaded)
-- No portfolio image gallery component
-- Generated images are 1024x768 — could upscale for retina displays
-- No mobile responsiveness tested with generated images
+### Key Architectural Decisions (Locked)
+1. **No Tailwind layout classes** — All spacing, grids, and layout use inline `style={}` objects
+2. **maxWidth: 1200** — Single consistent container width via `styles.inner`
+3. **section-inner CSS class** — `.section-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }` for the base, overridable when needed
+4. **No 3D canvas** — Removed entirely for simpler page load and no WebGL conflicts
+5. **All colors from CSS custom properties** — `var(--gold)`, `var(--bg-void)`, `var(--text-muted)` etc. defined in `globals.css`
+6. **Semantic HTML structure** — `<section>`, `<header>`, `<footer>`, `<h1>`-`<h3>` — no div soup
+
+### Current Page Structure
+- 8 sections, ~5030px scroll height
+- Hero → Work (2:1 grid) → Services (3-col grid) → Process (5-col grid) → About (flex 1:1) → Stats (4-col) → Quote → Contact → Footer
+- All sections centered in max 1200px container
+- Left padding 24-64px responsive
+
+### Files Changed in This Session
+- `app/globals.css` — Simplified, removed all Tailwind theme overrides, kept only custom properties
+- `lib/experience-engine/engine.tsx` — Complete rewrite to pure inline styles
+- `lib/experience-engine/types.ts` — Color constants to Warm Premium
+- `lib/experience-engine/scene/SceneModel.tsx` — Atmospheric particles only
+- `lib/experience-engine/ui/*.tsx` — Various UI component color updates
+- `app/page.tsx` — Chapter data trimmed
+- All configs and prompt files updated

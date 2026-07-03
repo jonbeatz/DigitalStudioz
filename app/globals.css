@@ -2,51 +2,47 @@
 
 /* ===========================================================================
    DigitalStudioz — Design Token System
-   Taste: Studio Green — green/dark grey/black
+   Taste: Warm Premium — deep charcoal, warm cream, muted gold
    =========================================================================== */
 
 :root {
-  --accent: #22c55e;
-  --accent-bright: #4ade80;
-  --accent-dim: #16a34a;
-  --accent-glow: rgba(34, 197, 94, 0.2);
-  --accent-subtle: rgba(34, 197, 94, 0.06);
-  --secondary: #34d399;
-  --secondary-glow: rgba(52, 211, 153, 0.15);
-  --gradient-primary: linear-gradient(135deg, #22c55e, #34d399);
-  --bg-deep: #050505;
-  --bg-canvas: #0a0a0a;
-  --bg-surface: #111111;
-  --bg-card: rgba(17, 17, 17, 0.85);
-  --bg-card-hover: rgba(26, 26, 26, 0.9);
+  /* Accent — Muted Gold */
+  --gold: #c8a45c;
+  --gold-bright: #d4b872;
+  --gold-dim: #a8883e;
+  --gold-glow: rgba(200, 164, 92, 0.15);
+  --gold-subtle: rgba(200, 164, 92, 0.06);
+
+  /* Warm Neutrals */
+  --warm-cream: #e8e2d9;
+  --warm-border: rgba(232, 226, 217, 0.08);
+
+  /* Backgrounds */
+  --bg-void: #0a0a0b;
+  --bg-canvas: #111113;
+  --bg-surface: #18181b;
+  --bg-elevated: #1f1f23;
+
+  /* Text */
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --text-tertiary: #71717a;
+  --text-dim: #52525b;
+
+  /* Borders */
   --border-subtle: rgba(255, 255, 255, 0.06);
-  --border-accent: rgba(34, 197, 94, 0.12);
-  --text-primary: #e8e8e8;
-  --text-muted: #888888;
-  --text-dim: #555555;
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-display: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Space Mono', 'Courier New', monospace;
-  --ease-studio: cubic-bezier(0.22, 1, 0.36, 1);
-}
+  --border-gold: rgba(200, 164, 92, 0.15);
 
-@theme inline {
-  --color-accent: #22c55e;
-  --color-accent-bright: #4ade80;
-  --color-accent-dim: #16a34a;
-  --color-secondary: #34d399;
-  --color-bg-deep: #050505;
-  --color-bg-canvas: #0a0a0a;
-  --color-bg-surface: #111111;
-  --color-bg-card: rgba(17, 17, 17, 0.85);
-  --color-text-primary: #e8e8e8;
-  --color-text-muted: #888888;
-  --color-text-dim: #555555;
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-lg: 16px;
+
+  /* Typography */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', 'Space Mono', 'Courier New', monospace;
 }
 
-/* ---- Reset ---- */
+/* ---- SIMPLE RESET ---- */
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -54,135 +50,75 @@
 }
 
 html {
-  scroll-behavior: auto;
+  scroll-behavior: smooth;
 }
 
 body {
   font-family: var(--font-sans);
-  background: var(--bg-deep);
+  background: var(--bg-void);
   color: var(--text-primary);
-  min-height: 100vh;
-  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
 }
 
-@media (hover: none) and (pointer: coarse) {
-  body {
-    cursor: auto;
-  }
-}
-
-/* ---- Lenis Overrides ---- */
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-
-.lenis.lenis-smooth {
-  scroll-behavior: auto;
-}
-
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-
-/* ---- Canvas ---- */
-canvas {
+img {
+  max-width: 100%;
   display: block;
 }
 
-/* ---- Section Reveals ---- */
-.section-panel {
-  opacity: 0;
-  transform: translateY(40px);
-}
-
-/* ---- Studio Rails ---- */
-.studio-rail {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  z-index: 40;
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-}
-.studio-rail--left {
-  left: 0.75rem;
-}
-.studio-rail--right {
-  right: 0.75rem;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1.5rem;
-}
-.studio-rail__label {
-  writing-mode: vertical-rl;
-  font-family: var(--font-mono);
-  font-size: 0.5rem;
-  letter-spacing: 0.3em;
-  color: var(--text-dim);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.studio-rail__dot {
-  display: inline-block;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: var(--accent);
-}
-.studio-rail__nav {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
-  pointer-events: auto;
-}
-.studio-rail__link {
-  writing-mode: vertical-rl;
-  font-family: var(--font-mono);
-  font-size: 0.45rem;
-  letter-spacing: 0.25em;
-  color: var(--text-dim);
-  text-decoration: none;
-  transition: color 0.3s var(--ease-studio);
-}
-.studio-rail__link:hover,
-.studio-rail__link--active {
-  color: var(--accent);
-}
-.studio-rail__progress-track {
-  width: 1px;
-  height: 60px;
-  background: var(--border-subtle);
-  border-radius: 1px;
-  overflow: hidden;
-}
-.studio-rail__progress-fill {
-  width: 100%;
-  height: 100%;
-  background: var(--accent);
-  transform-origin: top center;
-  transition: transform 0.1s linear;
-}
+/* ---- Lenis ---- */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto; }
 
 /* ---- Selection ---- */
-::selection {
-  background: var(--accent);
-  color: #fff;
-}
+::selection { background: var(--gold); color: #000; }
 
 /* ---- Scrollbar ---- */
-::-webkit-scrollbar {
-  width: 4px;
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--text-dim); border-radius: 2px; }
+
+/* ---- Utility Classes ---- */
+.text-gradient {
+  background: linear-gradient(135deg, var(--gold), var(--gold-bright));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
+.glass-card {
+  background: rgba(15, 15, 17, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-lg);
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--text-dim);
-  border-radius: 2px;
+/* ---- Section Base ---- */
+.section-inner {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
+
+@media (min-width: 768px) {
+  .section-inner {
+    padding: 0 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-inner {
+    padding: 0 64px;
+  }
+}
+
+/* ---- Nav ---- */
+.nav-blur {
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+/* ---- Cursor ---- */
+canvas { display: block; }
