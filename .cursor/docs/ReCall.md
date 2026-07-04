@@ -1,5 +1,12 @@
 # DigitalStudioz — ReCall Update
 
+## Session: 2026-07-03 (Late Night) — Responsive design + responsive-by-default policy
+
+- **Site:** Implemented mobile-first responsive layout for DigitalStudioz — `useMediaQuery` / `useBreakpoints` hook, `MobileMenu` hamburger overlay (tablet + mobile), responsive grids/fonts/padding across all sections in `engine.tsx` via inline `S` + `mq()` helper. Build + dev smoke **PASS**.
+- **Policy:** Elevated **responsive-by-default** to a project + skeleton requirement. **`digitalstudioz-layout` skill → v2.1.0** — breakpoint table, grid recipes, mobile nav, responsive pre-edit checklist. **`_core-scripts` taste catalog** — notice that all `--Website` scaffolds ship responsive hooks + hamburger nav.
+- **Commits:** DigitalStudioz `4277d97` (layout skill); _core-scripts `cc77bc5` (taste catalog). Draven memory saved.
+- **Nothing in progress** — dev server was running; operator confirmed mobile layout "much better for now."
+
 ## Session: 2026-07-03 (Night) — DeepSeek V4 unveiled + Cursor hangup fixed
 
 - **Root truth:** From bootstrapping until this moment, both `deepseek-v4-pro` and `deepseek-v4-flash` in Cursor/Hermes were aliased via LiteLLM to the **legacy** `deepseek/deepseek-chat` endpoint. We were **never actually calling DeepSeek V4**. Both names hit the same old chat model — no Pro vs Flash difference existed.

@@ -1,5 +1,15 @@
 # DigitalStudioz — Project Log
 
+## 2026-07-03 (Late Night) — Responsive design + responsive-by-default policy
+
+**Mobile-first layout shipped for the live site; responsive design is now the default for all new websites.**
+
+- Added `lib/experience-engine/ui/useMediaQuery.ts` (`useMediaQuery` + `useBreakpoints`: mobile ≤767, tablet 768–1023, desktop ≥1024) and `MobileMenu.tsx` (full-screen hamburger overlay, body scroll lock, staggered links).
+- Updated `engine.tsx` — all sections adapt grid columns, flex direction, font sizes, and section padding via `isMobile`/`isTablet` and `S.mq()` helper; hamburger nav on tablet + mobile.
+- **`digitalstudioz-layout` skill v2.1.0** — responsive-by-default rule, breakpoint table, responsive grid recipes, mobile nav docs, responsive pre-edit checklist. Commit `4277d97`.
+- **`_core-scripts` taste catalog** — header notice that `--Website` scaffolds include responsive hooks + hamburger nav. Commit `cc77bc5`.
+- Operator confirmed mobile layout improved. Draven memory stored.
+
 ## 2026-07-03 — Skill library v1.14.0 + skill/doc sync workflow
 
 **Design/interaction skills sweep + a real sync workflow so projects stop drifting from the shared library.**
@@ -87,3 +97,7 @@
 - GSAP scroll-triggered fade-in + parallax on images
 - HDR environment files copied from VaderLabz (neon_photostudio, colorful_studio, etc.)
 - Build verified clean, HTTP 200
+### 2026-07-04 — Personal session
+- **Branch:** main
+- **Changes:** Late night closeout: responsive design shipped + responsive-by-default policy documented across skill, ReCall, skeleton catalog
+- **Status:** completed
