@@ -1,5 +1,13 @@
 # DigitalStudioz — ReCall Update
 
+## Session: 2026-07-03 (Night) — DeepSeek V4 unveiled + Cursor hangup fixed
+
+- **Root truth:** From bootstrapping until this moment, both `deepseek-v4-pro` and `deepseek-v4-flash` in Cursor/Hermes were aliased via LiteLLM to the **legacy** `deepseek/deepseek-chat` endpoint. We were **never actually calling DeepSeek V4**. Both names hit the same old chat model — no Pro vs Flash difference existed.
+- **v1.17.0 (commit `0541641`)** — corrected the backend: Pro now hits `deepseek/deepseek-v4-pro`, Flash hits `deepseek/deepseek-v4-flash`. Legacy `deepseek-chat` retires July 24, 2026.
+- **v1.17.1 (commit `46a8f31`)** — Cursor hangup discovered: V4 Pro with thinking enabled returns **empty `content`** and **only `reasoning_content`** (chain-of-thought). Cursor Agent waits for visible content → hangs. **Fix:** both models set to `thinking: { type: disabled }` (not `reasoning_effort: none` — V4 API rejects that). New `litellm-verify-reasoning.mjs` catches reasoning-only replies. All paths verified: localhost + ngrok remote + Hermes billing mode = **ALL PASS**.
+- **What stays the same:** Cursor URL `http://127.0.0.1:4000/v1`, key `sk-jonbeatz-deepseek-2026`, model names `deepseek-v4-pro` / `deepseek-v4-flash`. Hermes Desktop + Telegram unchanged.
+- **Draven memory:** context saved — the two-model-looked-like-V4-but-wasn't gotcha is documented.
+
 ## Session: 2026-07-03 (Late) — DeepSeek V4 API via LiteLLM
 
 - **Problem:** LiteLLM `litellm_config.yaml` mapped both `deepseek-v4-pro` and `deepseek-v4-flash` to the **legacy** backend `deepseek/deepseek-chat` — same endpoint twice. Legacy IDs retire **July 24, 2026**.
