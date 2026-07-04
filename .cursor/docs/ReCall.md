@@ -1,5 +1,15 @@
 # DigitalStudioz — ReCall Update
 
+## Session: 2026-07-03 (Late) — DeepSeek V4 API via LiteLLM
+
+- **Problem:** LiteLLM `litellm_config.yaml` mapped both `deepseek-v4-pro` and `deepseek-v4-flash` to the **legacy** backend `deepseek/deepseek-chat` — same endpoint twice. Legacy IDs retire **July 24, 2026**.
+- **Fix (_core-scripts v1.17.0, commit `0541641`):**
+  - `deepseek-v4-pro` → `deepseek/deepseek-v4-pro` with `reasoning_effort: high` + thinking enabled
+  - `deepseek-v4-flash` → `deepseek/deepseek-v4-flash` with `reasoning_effort: low` + thinking disabled
+  - **Friendly names unchanged** — Hermes Desktop, Telegram, Cursor still use `deepseek-v4-pro` / `deepseek-v4-flash` at `http://127.0.0.1:4000/v1`, key `sk-jonbeatz-deepseek-2026`
+- **Verified:** `litellm-verify.mjs` PASS (models list + pro chat); flash smoke OK. LiteLLM **1.86.2** on port **4000**.
+- **No reasoner** added — only Pro + Flash as requested.
+
 ## Session: 2026-07-03 (Eve) — Ecosystem health sweep + _core-scripts Context7
 
 - **5-project health sweep** (MyStudioChannel, VaderLabz, DigitalStudioz, JonBeatz, JonBeatz.dev): all clean git trees, valid `package.json`, core docs present, **zero encoding/mojibake** across `.md`/`.mdc`/`.cursorrules`. Versions align with each `TRUTH.md`.
