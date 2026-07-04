@@ -22,6 +22,7 @@
     "sync:hermes-skills": "powershell -ExecutionPolicy Bypass -File D:\\Hermes\\projects\\JonBeatz\\scripts\\sync-hermes-skills.ps1",
     "sync:skills": "powershell -ExecutionPolicy Bypass -File D:\\Hermes\\projects\\_core-scripts\\shared-profile-content\\scripts\\sync-skills.ps1",
     "sync:docs": "powershell -ExecutionPolicy Bypass -File D:\\Hermes\\projects\\_core-scripts\\shared-profile-content\\scripts\\sync-docs.ps1",
+    "vault:log": "powershell -ExecutionPolicy Bypass -File D:\\Hermes\\projects\\_core-scripts\\shared-profile-content\\scripts\\vault-log.ps1",
     "telegram:gateway": "powershell -ExecutionPolicy Bypass -File D:\\Hermes\\projects\\_core-scripts\\telegram-gateway\\Start-Telegram-Gateway.ps1",
     "telegram:sessions": "powershell -File D:\\Hermes\\projects\\JonBeatz\\scripts\\telegram-sessions.ps1",
     "mem0:preflight": "powershell -File D:\\Hermes\\projects\\_core-scripts\\shared-profile-content\\scripts\\mem0-preflight.ps1",
