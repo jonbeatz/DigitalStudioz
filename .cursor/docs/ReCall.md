@@ -1,5 +1,14 @@
 # DigitalStudioz — ReCall Update
 
+## Session: 2026-07-03 (Eve) — Ecosystem health sweep + _core-scripts Context7
+
+- **5-project health sweep** (MyStudioChannel, VaderLabz, DigitalStudioz, JonBeatz, JonBeatz.dev): all clean git trees, valid `package.json`, core docs present, **zero encoding/mojibake** across `.md`/`.mdc`/`.cursorrules`. Versions align with each `TRUTH.md`.
+- **Fixes applied (committed + pushed):**
+  - **MyStudioChannel:** pushed `MSC-Website-v10` to origin (was local-only → now tracked); renamed `package.json` name `my-project` → `mystudiochannel`; refreshed `TRUTH.md` timestamp.
+  - **VaderLabz:** pinned `next` to exact **16.2.10** (was `^16.2.10`) in `package.json` + lockfile, to match ecosystem pinning.
+- **_core-scripts audit → v1.16.0 (committed + pushed):** the always-on `library-docs.mdc` directs every agent to use **Context7**, but the canonical `mcp.json` manifest didn't declare it — new projects inherited the rule without the server. **Added `context7` to `shared-profile-content/mcp.json` (now 14 servers)**, updated the count in README + UPGRADES-SYSTEMS, and removed a stray `_mem0export.py`. Verified all 18 template script targets exist, 29 skills / 19 rules present, bootstrap sound.
+- **Takeaway:** shared skeleton is healthy and now internally consistent (rule ↔ MCP manifest); any newly bootstrapped project inherits Context7 alongside the rule that depends on it.
+
 ## Session: 2026-07-03 (PM) — LM Studio VRAM fix + Obsidian/Mem0 verify
 
 - **Corrects earlier "LM Studio tuned 81920/parallel 2" note** — that giant context was the *cause* of runaway VRAM (a 2.5 GB 4B model ballooned to ~14 GB). Not a leak; KV cache scales with `context × parallel`.
