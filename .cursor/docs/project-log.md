@@ -1,5 +1,14 @@
 # DigitalStudioz — Project Log
 
+## 2026-07-04 — Start Project + ComfyUI MCP ecosystem work
+
+**Session in DigitalStudioz workspace; primary deliverable was JonBeatz + skeleton ComfyUI MCP setup.**
+
+- **Start Project ritual:** Stack warm; voice (OmniVoice) verified working.
+- **Clarified:** LM Studio auto-launch on Start Project only when API offline; Obsidian optional for vault writes.
+- **ComfyUI MCP:** Added local **`comfyui-mcp`** to JonBeatz project MCP + `sync:mcp-env`; documented in `IMAGE-WORKFLOW.md`; skeleton v1.17.3 optional manifest entry. Pushed JonBeatz `e41793c`, _core-scripts `f213a70`. No Comfy Cloud MCP.
+- DigitalStudioz repo unchanged (`57ccbbb`).
+
 ## 2026-07-03 (Late Night) — Responsive design + responsive-by-default policy
 
 **Mobile-first layout shipped for the live site; responsive design is now the default for all new websites.**

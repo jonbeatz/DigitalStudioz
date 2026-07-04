@@ -1,5 +1,13 @@
 # DigitalStudioz — ReCall Update
 
+## Session: 2026-07-04 — Start Project + ComfyUI MCP (JonBeatz/skeleton)
+
+- **Start Project:** Stack WARM (LiteLLM :4000, ngrok, LM Studio, Telegram online). Light `session:start` + Mem0 preflight OK. Voice greeting verified (OmniVoice test heard).
+- **Ops Q&A:** Documented that Start Project ensures LM Studio via Mem0 preflight (launches app only if API down); Obsidian **not** required for vault/Mem0 writes (filesystem only).
+- **ComfyUI MCP:** Researched official Comfy Cloud vs local options — chose **local `comfyui-mcp`** only (no cloud). Added to **JonBeatz** `.cursor/mcp.json` + `mcp.json.example`, `sync:mcp-env` path sync, `IMAGE-WORKFLOW.md`. Skeleton **v1.17.3** — optional `comfyui` in manifest (disabled by default). Commits: JonBeatz `e41793c`, _core-scripts `f213a70`.
+- **DigitalStudioz repo:** Clean on `57ccbbb` — no DS code changes this session.
+- **Follow-up:** Enable `comfyui` in Cursor Settings → MCP when working from **JonBeatz** workspace.
+
 ## Session: 2026-07-03 (Late Night) — Responsive design + responsive-by-default policy
 
 - **Site:** Implemented mobile-first responsive layout for DigitalStudioz — `useMediaQuery` / `useBreakpoints` hook, `MobileMenu` hamburger overlay (tablet + mobile), responsive grids/fonts/padding across all sections in `engine.tsx` via inline `S` + `mq()` helper. Build + dev smoke **PASS**.
