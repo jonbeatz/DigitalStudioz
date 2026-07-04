@@ -1,5 +1,15 @@
 # DigitalStudioz — ReCall Update
 
+## Session: 2026-07-03 (PM) — LM Studio VRAM fix + Obsidian/Mem0 verify
+
+- **Corrects earlier "LM Studio tuned 81920/parallel 2" note** — that giant context was the *cause* of runaway VRAM (a 2.5 GB 4B model ballooned to ~14 GB). Not a leak; KV cache scales with `context × parallel`.
+- **Fix:** every loadable LM Studio model set to **parallel 1** via the GUI ("Max Concurrent Predictions → 1"), which writes the *live vendor-keyed* config. 4B + 9B at **16384** context; everything else on the safe **8192** global default (`settings.json → defaultContextLength`).
+- **Key gotcha:** LM Studio only reads **vendor-keyed** per-model configs (`qwen\`, `deepseek\`, `google\`, `flux\`, `jonbeatz\`). Old **download-source** configs (`unsloth\`, `bartowski\`, …) are **orphaned/ignored** — proven by loading the 14B (ignored its `bartowski\` 12288, used global 8192). Don't hand-edit; use the GUI.
+- **Obsidian Copilot** verified talking to local **Qwen3.5 9B** (server logs matched chat timestamps). JIT load/switch works; Copilot model name must exactly match the LM Studio id.
+- **Mem0** pipeline green (`mem0:preflight`) — shares the loaded 9B, no swap; parallel 1 is harmless (requests are sequential).
+- **Vault:** added Draven's own section `03_AI_Memory/Draven/Draven.md`; appended full resolution to `02_Knowledge/Gotchas/LMStudio-context-eats-VRAM.md`.
+- Knob locations: **LM Studio** = load/VRAM (context, parallel, GPU offload); **Obsidian Copilot** = generation (temperature, token limit, overrides per-request).
+
 ## Session: 2026-07-03 — Skill library v1.14.0 + sync workflow
 
 - Central skill library is the **single source of truth** (`_core-scripts/shared-profile-content/skills`). Edit skills **there**, never per-project.
