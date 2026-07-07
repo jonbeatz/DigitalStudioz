@@ -43,9 +43,9 @@ MSC uses a **separate** store — never mix slugs or user IDs.
 npm run mem0:preflight
 ```
 
-Preflight **does not swap models**. If an LLM is already loaded (e.g. Hermes `qwen3-4b-instruct-2507`), Mem0 uses it. If nothing is loaded, it loads **`qwen3-4b-instruct-2507`** @ **81920** context, **parallel 2** (or `HERMES_LM_*` / `LMSTUDIO_*` from `.env.local`). Tuned for the RTX 5060 Ti 16 GB (~8 GiB GPU, ~41K tokens per conversation). `session-start.ps1`, `mem0-preflight.ps1`, and `boot-doctor.ps1` now source `load-env.ps1` so `.env.local` values are authoritative.
+Preflight **does not swap models**. If an LLM is already loaded (e.g. Hermes `qwen3-4b-instruct-2507`), Mem0 uses it. If nothing is loaded, it loads **`qwen3-4b-instruct-2507`** @ **16384** context, **parallel 1** (or `HERMES_LM_*` / `LMSTUDIO_*` from `.env.local`). Tuned for the RTX 5060 Ti 16 GB (~3.5 GiB GPU for qwen3-4b). **Do not use 81920/parallel 2** — KV cache can balloon a 4B model to ~14 GB VRAM. `session-start.ps1`, `mem0-preflight.ps1`, and `boot-doctor.ps1` source `load-env.ps1` so `.env.local` values are authoritative.
 
-**Per-model defaults:** `npm run lmstudio:tune` (`scripts/tune-lmstudio-models.py`) sets VRAM-safe context lengths on each installed chat/coding model's LM Studio default config (validated via `lms load --estimate-only`). Re-run after installing new models. Note: `contextLength` is the TOTAL KV pool split across `parallel` slots — at parallel 2, a single conversation caps at `context / 2`.
+**Per-model defaults:** `npm run lmstudio:tune` (`scripts/tune-lmstudio-models.py`) sets VRAM-safe context + parallel 1 on each chat/coding model's LM Studio config (validated via `lms load --estimate-only`). Re-run after installing new models. `contextLength` is the TOTAL KV pool split across `parallel` slots.
 
 **LM Studio UI (one-time):** Settings → Hardware → **CPU threads** = your physical core count. Scripts tune model/context/parallel via `lms load`; CPU threads stay in the app.
 
@@ -88,7 +88,7 @@ python scripts/mem0_integration.py --action search --query "Profile Jedi"
 | Mode | Command | When | Notes |
 |------|---------|------|-------|
 | **infer=False** (default) | `mem0:add` | Session takeaways, docs sync | Direct storage; reliable with 13+ memories |
-| **infer=True** | `mem0:add:infer` | Short natural notes | LLM extracts facts; needs LM Studio @ 32K ctx |
+| **infer=True** | `mem0:add:infer` | Short natural notes | LLM extracts facts; needs LM Studio @ 16384 ctx |
 
 `mem0:add` defaults to **infer=False** since v1.3.1 to prevent silent failures when the memory bank exceeds the LM Studio context window.
 

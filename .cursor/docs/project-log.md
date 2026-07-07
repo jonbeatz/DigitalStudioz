@@ -110,3 +110,8 @@
 - **Branch:** main
 - **Changes:** Late night closeout: responsive design shipped + responsive-by-default policy documented across skill, ReCall, skeleton catalog
 - **Status:** completed
+
+### 2026-07-04 — Personal session
+- **Branch:** main
+- **Changes:** Jul 4 closeout: Start Project verified, local comfyui-mcp on JonBeatz and skeleton v1.17.3
+- **Status:** completed
