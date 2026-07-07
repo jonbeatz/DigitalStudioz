@@ -3,6 +3,10 @@
   "version": "0.3.0",
   "description": "DigitalStudioz — Full-Service Digital Studio",
   "private": true,
+  "engines": {
+    "node": ">=22.0.0",
+    "npm": ">=10.5.1"
+  },
   "scripts": {
     "session:start": "powershell -ExecutionPolicy Bypass -File D:\\Hermes\\projects\\_core-scripts\\shared-profile-content\\scripts\\session-start.ps1",
     "session:start:full": "powershell -ExecutionPolicy Bypass -File D:\\Hermes\\projects\\_core-scripts\\shared-profile-content\\scripts\\session-start.ps1 -Full",
