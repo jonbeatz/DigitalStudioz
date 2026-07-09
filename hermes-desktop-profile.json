@@ -1,0 +1,19 @@
+{
+  "profileName": "digitalstudioz",
+  "displayName": "digitalstudioz",
+  "workspaceDir": "D:\\Hermes\\projects\\DigitalStudioz",
+  "hermesHome": "%LOCALAPPDATA%\\hermes\\profiles\\digitalstudioz",
+  "desktopConfig": {
+    "projectDirFile": "%APPDATA%\\Hermes\\project-dir.json",
+    "activeProfileFile": "%APPDATA%\\Hermes\\active-profile.json"
+  },
+  "launcher": "scripts\\start-hermes-desktop-digitalstudioz.ps1",
+  "npmScript": "npm run desktop",
+  "cliAlias": "digitalstudioz",
+  "mem0": {
+    "userId": "digitalstudioz",
+    "collection": "digitalstudioz_memories",
+    "qdrantPath": "%USERPROFILE%\\.mem0\\qdrant_digitalstudioz"
+  },
+  "notes": "Self-contained profile generated from the Hermes profile template."
+}
