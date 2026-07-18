@@ -43,7 +43,7 @@ Do **not** ship marketing pages as PHP templates when Divi can own them.
 |----------|------------|-----------------|
 | “Centered header with a subtext” | `hero-center-stack` | See below |
 | “Left text, big title, dual CTAs” (Home) | `hero-left-stack` | Home `#ds-hero` (exists) |
-| “Gold button + ghost button” | `cta-pair-gold-ghost` | Prefer Home `.ds-btn-primary` + `.ds-btn-ghost` (verified on page 57); Button Element presets when locked |
+| “Gold button + ghost button” | `cta-pair-gold-ghost` | Home **15**: real `divi/button` + group presets `dszgolds1` / `dszghost1` (see [DIVI5-Home-Native-Pass.md](./DIVI5-Home-Native-Pass.md)); page **57** may still show `.ds-btn-*` until rebuilt |
 | “Eyebrow above the title” | `eyebrow-label` | Text or Heading with H6 / Eyebrow OG preset; gold, tracked uppercase |
 | “Dark section, off-white heading, grey body” | `surface-dark-copy` | Section BG **hex** `#121212` / charcoal; Heading/Body **variables** |
 | “Brand / type / color wall” | `style-wall` | `/dsz-brand-system-divi/` (57) — see pattern below |
@@ -92,11 +92,11 @@ Do **not** ship marketing pages as PHP templates when Divi can own them.
 
 **Jon language:** “Primary and ghost buttons” / “same buttons as the homepage.”
 
-| Prefer (shipped) | Later |
-|------------------|--------|
-| HTML in Text module: `.ds-btn.ds-btn-primary` + `.ds-btn.ds-btn-ghost` (Home child CSS — gold gradient, 8px radius, brightness hover / gold border hover) | Button Element OG presets locked 1:1 with Home |
+| Prefer (shipped on Home 15) | Escape / legacy |
+|-----------------------------|-----------------|
+| Real **Button** modules · group presets **DSZ Gold Solid** (`dszgolds1`) + **DSZ Gold Ghost** (`dszghost1`) · Variables `gcid-dsz-gold1` / satin / darkgrey1 / warm-offwhite · **8px** radius · hover satin / gold border | HTML `.ds-btn-*` on brand wall **57** until that page is rebuilt |
 
-**Live:** Home `#ds-hero` · Brand Divi page **57** UI section.
+**Live:** Home `#ds-hero` + Contact · rebuild via `_build-home-warm-premium.php`.
 
 ---
 

@@ -135,6 +135,10 @@ Append new rows at the **top** of the table.
 
 | Date | Symptom | Root cause | Fix that worked | Avoid next time |
 |------|---------|------------|-----------------|-----------------|
+| 2026-07-18 | Huge gaps between Home text (hero/cards/intros) vs Next.js | Divi 5 columns `row-gap:30px` **+** module margins; ID zero-rules overrode weaker CSS | Theme **0.6.6** spacing lock: `row-gap:0` then exact Next margins; measure with Playwright | Never debug vertical rhythm without checking computed column `row-gap` — see [DIVI5-Problems-Solutions.md §F](./DIVI5-Problems-Solutions.md#f-spacing-vs-nextjs-text-stacks--section-pad) |
+| 2026-07-18 | Three green `ai-editor-divi5` MCP entries | Same server in Local WP + DigitalStudioz + global mcp.json | Keep **one** entry in WP `.cursor/mcp.json` only | Don’t triple-register remote MCPs |
+| 2026-07-18 | `local-wp` discovery error in Cursor | Stale session + dead Novamira/wpmcp MCP noise; missing `type:http` | `"type":"http"`; `mcp_auth`; park Novamira/wpmcp under `_disabledMcpServers` | Don’t assume red Local MCP = dead bridge — probe `:24842` first |
+| 2026-07-18 | Mobile drawer solid / too low / X broken | Opaque BG; fixed+CSS-var top; display:block when closed; glyph `content:none` | Frost 0.94+blur; `absolute;top:100%`; hide unless open; CSS bars/X — theme **0.6.1–0.6.4** | Full table [Problems-Solutions §D](./DIVI5-Problems-Solutions.md#d-mobile-hamburger--drawer) |
 | 2026-07-18 | TB header/footer huge empty space (looked like padding) | Hero CSS `.home .et_pb_section:first-of-type { min-height:100vh }` also matched TB header+footer (each is first-of-type in its layout) | Scope hero to `.et-l--post .et_pb_section:first-of-type`; force `.et-l--header/.et-l--footer .et_pb_section { min-height:0 }` | Never use bare `.et_pb_section:first-of-type` on Theme Builder sites |
 | 2026-07-18 | Stock Divi `hero` pattern ≠ Warm Premium reference | Pattern forces centered H1 + mandatory CTA module; no eyebrow / dual CTA / bg image control | Free-form `iawm_divi_page_compose` + HTML classes + child `style.css`; import `ds-demo-hero.jpg` to Media; Mulish via `iawm_divi_global_fonts_update` | Don’t expect the parametric `hero` pattern to match a custom reference 1:1 |
 | 2026-07-18 | `acf-mcp` “Connection closed” on Windows | Wrong / fragile stdio entry | Always-start stdio entrypoint; launch with plain `node` + explicit `ACF_MCP_*` env paths | Don’t assume default package bin works on Windows without testing |
@@ -309,9 +313,9 @@ Honest map of **Divi builder / IAWB** vs **child theme CSS/JS**. This is the bas
 | Hero `100vh` + vertical center | **Both** (see §4.9) | Divi `sizing.minHeight` + `layout` flex **and** scoped child CSS (`.et-l--post…`) for `100svh` / mobile pad |
 | Hero dark overlay | **Divi native** | Gradient `overlaysImage` + image `blend: multiply` (CSS `::before` disabled) — §4.10 |
 | Global header/footer | Theme Builder | Live default uses template **32** → header **30**, footer **31** (duplicate template **37** / layouts **35–36** also exist — prefer **32/30/31**) |
-| Header chrome (logo, links, CTA, hamburger) | Free-form HTML in Text | `.ds-site-header` markup inside layout **30** |
+| Header chrome (logo, links, CTA, hamburger) | **Divi modules + child CSS/JS (v0.6.0)** | Logo Text + **Menu** (WP Primary **4**) + Button CTA; mobile drawer via child JS (Divi menu script not enqueued on TB). Revert: [NAV-HTML-REVERT.md](./NAV-HTML-REVERT.md) |
 | Header sticky (stay on scroll) | **Child CSS** | `.et-l--header { position: sticky; top: 0; z-index: 200 }` |
-| Header scroll opacity 85% + blur | **Child CSS + JS** | `.ds-site-header.is-scrolled` + `js/core-scripts.js` toggles class at `scrollY > 24` |
+| Header scroll opacity | **Child CSS + JS + TB 30** | Default **94%** `rgba(10,10,11,0.94)` → scrolled/sticky **84%** `rgba(10,10,11,0.84)` — see [DIVI5-Layout-Polish-Log.md](./DIVI5-Layout-Polish-Log.md) |
 | Footer columns / back-to-top | HTML + CSS + JS | `.ds-footer` + back-to-top button |
 | Hide classic Divi chrome | Child CSS | `#main-header` / `#main-footer { display: none }` |
 | WP Primary menu | WP Menus | Menu ID **4** (also used if Menu module is composed) |

@@ -1,31 +1,46 @@
 # DigitalStudioz — ReCall Update
 
-## LEFT OFF — 2026-07-18 End Project (resume here)
+## LEFT OFF — 2026-07-18 (resume here)
 
-**Where we stopped:** Divi brand walls + agent compose gotchas fully documented and synced. Day-end closeout in progress / complete.
+**Where we stopped:** Home spacing matched to Next.js (theme **0.6.6**); MCP stack documented; AI Editor wired (single instance); Local WP MCP fixed.
 
-**Working on:** DigitalStudioz **WP + Divi 5** production rebuild (Warm Premium) on `https://digitalstudioz.local` — LocalWP path `Local-WP/DigitalStudioz-WP`.
+**Working on:** DigitalStudioz **WP + Divi 5** Warm Premium on `https://digitalstudioz.local` — LocalWP `Local-WP/DigitalStudioz-WP`. Child theme **0.6.6**.
 
 **SoT right now:**
-| Page | URL | Role |
-|------|-----|------|
-| **57** | `/dsz-brand-system-divi/` | **Divi SoT** — edit in VB |
-| **54** | `/dsz-brand-system/` | CSS reference — builder **off** |
-| TB | Header **30** / Footer **31** / Template **32** | **Protect** — never import Launch TB over these |
+| Artifact | Role |
+|----------|------|
+| **[DIVI5-Problems-Solutions.md](./divi-wp-dev/DIVI5-Problems-Solutions.md)** | **Master issues → solutions** (nav, freeze, menu, mobile frost, **Divi row-gap spacing**, MCP) |
+| Page **15** Home | Live Warm Premium — Divi modules + child CSS chrome |
+| Page **57** / **54** | Brand walls (Divi SoT / CSS ref) |
+| TB **30/31/32** | Protect — never import Launch TB over these |
 
-**Next session — keep addressing (priority):**
-1. **Warm Premium homepage** in Divi 5 — match Next.js reference (`:3000` / engine) using Variables + Fluid presets + section patterns (`DIVI5-Section-Patterns.md`).
-2. Apply brand SoT practice: text = `$variable()`; section/card/chip BG = **hex** until proven; Home CTAs = `.ds-btn-*`; never VB on page 54.
-3. Optional polish: Element presets for Button (lock gold/ghost), any remaining brand-wall gaps vs page 54.
-4. Do **not** re-import Launch Variables/TB over live Gold & Grey / 30–32.
+**Next session priorities:**
+1. Visual QA Home vs Next (`:3000`) after hard-refresh — any remaining one-off sections.
+2. Optional: footer TB **31** → native Menu/Text modules (still HTML Text).
+3. Do **not** re-buy Pee-Aye stack; do **not** re-register AI Editor MCP in three places.
+4. Protect TB 30–32; no Launch Variables overwrite.
 
-**Resume phrase:** Say **Open Project** (fleet warm) or **Start Project** (cold boot).
+**Resume:** **Open Project** (warm) or **Start Project** (cold).
 
-**Docs hub:** `.cursor/docs/divi-wp-dev/` — start with catalog + `DIVI5-Launch-Preview-Pages.md` (Agent gotchas A–E).
+**Docs hub:** `.cursor/docs/divi-wp-dev/` — start with **Problems-Solutions** + catalog.
 
 ---
 
-## Session: 2026-07-18 — Divi brand SoT (page 57) + doc gotchas
+## Session: 2026-07-18 — Spacing + MCP + docs closeout
+
+- **Spacing:** Divi 5 `row-gap:30px` was doubling Next margins; theme **0.6.6** lock (hero 12/24/40 measured).
+- **Mobile:** frost drawer **0.6.4**; Menu module path **0.6.0+**.
+- **MCP:** AI Editor free tier tested; Local WP fixed (`type:http` + auth); Novamira/wpmcp MCP disabled; triple-register trap documented.
+- **Docs:** Rewrote `DIVI5-Problems-Solutions.md` as master log; updated Layout Polish, Home Native, catalog issues table, README, WP `MCP-SETUP.md`, ISSUES-RESOLVED, ReCall.
+
+## Session: 2026-07-18 — Hermes profile aligned to digitalstudioz
+
+- Confirmed DSZ Hermes profile exists (`profiles/digitalstudioz`, Mem0 `digitalstudioz_memories`, `.env.local` already correct).
+- Desktop active was leftover **`the-night-i-met-santa`**; CLI file was **`jonbeatz`**. Light align → **`digitalstudioz`** (Desktop + project-dir + CLI `active_profile`).
+- Wired `profile:align` / `profile:align:full` / `profile:align:check` into DigitalStudioz `package.json`.
+- Switcher fix: `set-active` now syncs LocalAppData CLI pointers + explicit `exit 0` (child sync was causing false Align failures).
+
+## Session: 2026-07-18 — Brand walls + agent compose gotchas
 
 - **Divi SoT:** `/dsz-brand-system-divi/` page **57** — modules, Fluid presets, text Variables, hex section/card/chip BGs, Home `.ds-btn`, dual-color title, 12px cards, field shells.
 - **CSS ref:** page **54** — builder off; white line was Divi `#main-content .container::before` (killed in child theme **v0.3.4**).

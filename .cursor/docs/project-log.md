@@ -1,5 +1,19 @@
 # DigitalStudioz — Project Log
 
+## 2026-07-18 — Home spacing lock + MCP stack + Problems-Solutions docs
+
+- **Spacing:** Divi 5 column `row-gap:30px` stacked on module margins → Next 12px became ~42px. Child theme **0.6.6** spacing lock (zero column row-gap; hero 12/24/40 measured). Live theme on LocalWP only (WP folder not git).
+- **Mobile chrome:** frost drawer **0.6.4**; Menu module path **0.6.0+**.
+- **MCP:** AI Editor Divi5 free tier write-tested; keep **one** MCP entry (Local WP `.cursor/mcp.json`); Local WP MCP fixed (`type:http` + auth); Novamira/wpmcp MCP disabled until HTTP routes fixed. Operator default: **IAWB** primary, AI Editor secondary, local-wp for CLI/logs.
+- **Docs:** Master `DIVI5-Problems-Solutions.md`; Layout Polish / Home Native / catalog / README / ISSUES-RESOLVED; WP `MCP-SETUP.md`; `AI_EDITOR_DIVI_API_KEY` in ENV-VARS.
+- **Protect:** TB 30/31/32; no Launch Variables overwrite; no Pee-Aye buy for now.
+
+## 2026-07-18 — Hermes profile default = digitalstudioz
+
+- Aligned Hermes Desktop + CLI active from leftover `the-night-i-met-santa` / `jonbeatz` → **`digitalstudioz`**.
+- Mem0 already isolated (`digitalstudioz_memories`) — no memory migration needed.
+- Added `profile:align*` npm scripts; switcher `set-active` now updates LocalAppData CLI pointers.
+
 ## 2026-07-18 — End Project: brand walls documented + closeout
 
 - Divi SoT page **57** + CSS ref **54**; agent compose gotchas (JSON `\u003c`/`wp_slash`, hex BGs, et-cache, no VB on 54) written into `divi-wp-dev/` + Local-WP mirrors.

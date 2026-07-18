@@ -4,6 +4,18 @@
 > `.cursor/docs/divi-wp-dev/DIVI5-LocalWP-Setup-Catalog.md`  
 > WP mirror: `Local-WP/DigitalStudioz-WP/.cursor/docs/DIVI5-SETUP-CATALOG.md`
 
+## 2026-07-18 — Home spacing + mobile chrome + MCP (theme 0.6.6)
+
+| Issue | Fix |
+|-------|-----|
+| Huge gaps between Home text vs Next.js | Divi column `row-gap:30px` doubled margins — theme **0.6.6** spacing lock; [Problems-Solutions §F](./DIVI5-Problems-Solutions.md#f-spacing-vs-nextjs-text-stacks--section-pad) |
+| Mobile hamburger / drawer bugs | CSS bars/X, hide-unless-open, `absolute;top:100%`, light frost **0.6.4** — §D |
+| Triple `ai-editor-divi5` MCP | Keep one entry in WP mcp.json only — §G |
+| `local-wp` Cursor discovery red | `type:http` + `mcp_auth`; disable dead Novamira/wpmcp MCP — §G |
+| Page freeze | Removed MutationObserver writing watched styles — §B |
+
+**Canonical:** [DIVI5-Problems-Solutions.md](./DIVI5-Problems-Solutions.md)
+
 ## 2026-07-18 — Divi brand wall polish + white line + agent save gotchas
 
 | Issue | Fix |

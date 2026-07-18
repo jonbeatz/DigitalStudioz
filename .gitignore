@@ -37,6 +37,9 @@ yarn-error.log*
 # MCP config with embedded API tokens
 .cursor/mcp.json
 
+# Local plugin/theme zip stash (commercial + large binaries — not for GitHub)
+.cursor/assets/
+
 # Never commit credential vault dumps
 **/Personal-Secrets-Vault*.md
 **/*Secrets-Vault-Credentials*.md

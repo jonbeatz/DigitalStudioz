@@ -156,6 +156,7 @@ Draven's memory is **shared across all projects** — it's not per-project isola
 | TAVILY_API_KEY | Conditional | JonBeatz, MSC | — | `.env.local` | Tavily search API |
 | STRIPE_API_KEY | Conditional | Any | — | `.env.local` | Stripe API key for MCP payment tools |
 | FIRECRAWL_API_KEY | Conditional | Node-Launcher-v2 | — | `.env.local` | Firecrawl web scraping API for MCP tools |
+| AI_EDITOR_DIVI_API_KEY | Conditional | DigitalStudioz | — | `.env.local` | Divi5Lab AI Editor for Divi 5 MCP Bearer token (LocalWP `digitalstudioz.local`) |
 
 ## Hermes Agent (Desktop)
 
