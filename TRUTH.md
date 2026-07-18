@@ -47,6 +47,8 @@
 - **Cursor workspace:** Multi-root — this Next.js profile + DigitalStudioz-WP together
 - **Stack:** WP 7.0.2 · Divi 5.9 · child `dgtl-digitalstudioz-theme` · ACF PRO · Novamira · wpmcp · IAWB
 - **MCP config:** `DigitalStudioz-WP/.cursor/mcp.json` (project-scoped; see `.cursor/docs/MCP-SETUP.md` in the WP folder)
+- **WP/Divi docs hub:** `.cursor/docs/divi-wp-dev/` — catalog, issues, PRDs (keep fleet docs out of that folder)
+- **Setup catalog:** `.cursor/docs/divi-wp-dev/DIVI5-LocalWP-Setup-Catalog.md` — verified stack, checklist, issues/fixes (git-backed SoT)
 - **Design:** Warm Premium only — same tokens as this Next.js reference site
 
 ## Isolation Rules

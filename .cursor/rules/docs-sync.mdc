@@ -35,7 +35,8 @@ globs:
 
 ## Issue management
 
-- Profile bugs → `.cursor/docs/ISSUES-RESOLVED.md` or `npm run log:fix`
+- **WP / Divi / LocalWP bugs** → `.cursor/docs/divi-wp-dev/ISSUES-RESOLVED.md` (+ catalog write-up)
+- Profile / Next.js bugs → `.cursor/docs/ISSUES-RESOLVED.md` (stub) or `npm run log:fix`
 - Fleet-wide tool gotchas → `TOOLS-REFERENCE.md` Risks section + optional vault atomic note
 
 ## Commit discipline

@@ -1,14 +1,57 @@
 # DigitalStudioz — ReCall Update
 
-## Session: 2026-07-18 — LocalWP + Divi5 MCP stack green; homepage ready
+## LEFT OFF — 2026-07-18 End Project (resume here)
+
+**Where we stopped:** Divi brand walls + agent compose gotchas fully documented and synced. Day-end closeout in progress / complete.
+
+**Working on:** DigitalStudioz **WP + Divi 5** production rebuild (Warm Premium) on `https://digitalstudioz.local` — LocalWP path `Local-WP/DigitalStudioz-WP`.
+
+**SoT right now:**
+| Page | URL | Role |
+|------|-----|------|
+| **57** | `/dsz-brand-system-divi/` | **Divi SoT** — edit in VB |
+| **54** | `/dsz-brand-system/` | CSS reference — builder **off** |
+| TB | Header **30** / Footer **31** / Template **32** | **Protect** — never import Launch TB over these |
+
+**Next session — keep addressing (priority):**
+1. **Warm Premium homepage** in Divi 5 — match Next.js reference (`:3000` / engine) using Variables + Fluid presets + section patterns (`DIVI5-Section-Patterns.md`).
+2. Apply brand SoT practice: text = `$variable()`; section/card/chip BG = **hex** until proven; Home CTAs = `.ds-btn-*`; never VB on page 54.
+3. Optional polish: Element presets for Button (lock gold/ghost), any remaining brand-wall gaps vs page 54.
+4. Do **not** re-import Launch Variables/TB over live Gold & Grey / 30–32.
+
+**Resume phrase:** Say **Open Project** (fleet warm) or **Start Project** (cold boot).
+
+**Docs hub:** `.cursor/docs/divi-wp-dev/` — start with catalog + `DIVI5-Launch-Preview-Pages.md` (Agent gotchas A–E).
+
+---
+
+## Session: 2026-07-18 — Divi brand SoT (page 57) + doc gotchas
+
+- **Divi SoT:** `/dsz-brand-system-divi/` page **57** — modules, Fluid presets, text Variables, hex section/card/chip BGs, Home `.ds-btn`, dual-color title, 12px cards, field shells.
+- **CSS ref:** page **54** — builder off; white line was Divi `#main-content .container::before` (killed in child theme **v0.3.4**).
+- **Agent gotchas documented:** (1) raw `<` in block JSON → front code dump → `\u003c` + `wp_slash`; (2) `$variable()` section BGs may not emit CSS → use hex; (3) purge `et-cache/{id}` after rebuild; (4) never VB on page 54.
+- **Docs updated:** `DIVI5-Launch-Preview-Pages.md`, `ISSUES-RESOLVED.md`, catalog **§4.14**, `DIVI5-Section-Patterns.md`, `DIVI5-Design-Variables-GoldGrey.md`, `divi-wp-dev/README.md`, Divi-Xtraz README; Local-WP catalog mirror synced.
+- **Rebuild:** `Divi-Xtraz/dsz-branded/_build-brand-system-divi.php` (Local PHP 8.4.10).
+- **Protect:** TB 30/31/32; do not import Launch Variables/TB over live.
+
+## Session: 2026-07-18 — WP/Divi docs consolidated under `divi-wp-dev/`
+
+- Moved all LocalWP/Divi playbooks, PRDs, YouTube research, and WP `ISSUES-RESOLVED` into `.cursor/docs/divi-wp-dev/` (index: `README.md`).
+- Stub left at `.cursor/docs/ISSUES-RESOLVED.md` + `playbooks/README.md` pointing to the new hub.
+- `WARM-PREMIUM-PALETTE.md` stays in parent `.cursor/docs/` (shared Next.js + WP tokens).
+- Rule: new WP/Divi notes go in `divi-wp-dev/` — do not dump large write-ups into docs root.
+
+## Session: 2026-07-18 — LocalWP + Divi5 MCP stack green; Home static; setup catalog
 
 - **Workspace:** Multi-root Cursor — `DigitalStudioz` (Next.js Warm Premium reference) + `Local-WP\DigitalStudioz-WP` (WP 7.0.2 / Divi 5.9 / child theme).
 - **Site:** `https://digitalstudioz.local` (HTTP still OK for Node MCP). Child theme `dgtl-digitalstudioz-theme` active; empty `index.php` removed (was blank front). Added `js/core-scripts.js` enqueued from `functions.php`.
+- **Front page:** Static **Home** (ID `15`) — `show_on_front=page`, `page_on_front=15`.
 - **MCP green + verified:** `local-wp` (WP-CLI on Local PHP 8.4.10), `novamira-digitalstudioz`, `wpmcp-digitalstudioz` (`/mcp/wpmcp-server` via mu-plugin), `acf-mcp`, `ia-webmaster-bridge`. Brave Playwright logged into wp-admin as jonbeatz.
 - **Gotchas fixed:** (1) HTTPS self-signed broke Node MCP → prefer `http://` for Novamira/wpmcp/IAWB + TLS bypass. (2) Winget PHP 8.5 + Local php.ini broke WP-CLI → Agent Tools uses Local `php-8.4.10`. (3) Standalone `mcp-adapter` deactivated (kept on disk); Novamira-bundled adapter is enough.
+- **Docs:** Living catalog `divi-wp-dev/DIVI5-LocalWP-Setup-Catalog.md` (git SoT) + WP mirror `DIVI5-SETUP-CATALOG.md` — stack, checklist, issues/fixes, watch-outs. Linked from START-HERE / TRUTH / ISSUES-RESOLVED / MCP-SETUP.
 - **Plugins active:** ACF PRO, Novamira + Pro, wpmcp, IAWB, WPvivid. Fluent/Rank Math/Squad still optional (not needed for homepage start).
 - **Backups:** `npm run backup:*` = Next.js repo only. WP needs WPvivid / Local export separately.
-- **Next:** Dual milestone backup, then Divi 5 Warm Premium homepage from Next.js reference.
+- **Next:** Divi 5 Warm Premium homepage from Next.js reference; append catalog rows as new fixes land.
 
 ## Session: 2026-07-17 — Warm Premium locked for WP+Divi rebuild
 

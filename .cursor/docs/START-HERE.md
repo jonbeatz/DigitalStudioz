@@ -98,8 +98,10 @@ Canonical for the live temp site **and** the WordPress + Divi 5 rebuild. Full to
 |------|-------------|
 | LocalWP site | `D:\Hermes\projects\Local-WP\DigitalStudioz-WP` → `https://digitalstudioz.local` |
 | Child theme | `wp-content/themes/dgtl-digitalstudioz-theme` (+ `js/core-scripts.js`, `acf-json/`) |
+| Front page | Static **Home** (page ID `15`) |
 | MCP setup | WP folder `.cursor/docs/MCP-SETUP.md` + `.cursor/mcp.json` |
-| Playbooks | `.cursor/docs/playbooks/` (Markdown = SoT; PDFs may lag) |
+| **WP/Divi docs hub** | `.cursor/docs/divi-wp-dev/README.md` — catalog, issues, PRDs, research |
+| **Setup catalog** | `divi-wp-dev/DIVI5-LocalWP-Setup-Catalog.md` — working stack, checklist, issues/fixes |
 | This Next.js site | Keep as Warm Premium **content/layout reference** until WP homepage matches |
 
 Agent MCPs (all verified green): `local-wp`, `novamira-digitalstudioz`, `wpmcp-digitalstudioz`, `acf-mcp`, `ia-webmaster-bridge`. Prefer `http://digitalstudioz.local` for Node MCP URLs (Local self-signed HTTPS).
@@ -111,7 +113,9 @@ Agent MCPs (all verified green): `local-wp`, `novamira-digitalstudioz`, `wpmcp-d
 | `TRUTH.md` | Constitution |
 | `WARM-PREMIUM-PALETTE.md` | Design tokens |
 | `ReCall.md` | Session history |
-| `playbooks/` | WP/Divi5/AI-blog PRDs |
+| `divi-wp-dev/` | **Central WP/Divi notes** (catalog, PRDs, issues, YouTube) |
+| `divi-wp-dev/DIVI5-LocalWP-Setup-Catalog.md` | Living Divi5/LocalWP success + failure catalog |
+| `divi-wp-dev/ISSUES-RESOLVED.md` | Short fix index (details in catalog) |
 | `TROUBLESHOOTING.md` | Known issues + layout recovery |
 | `HERMES-DESKTOP-PARITY.md` | **Cursor = primary**; handoff, memory bridge, **multi-agent rules** |
 | `HERMES-FULL-CONTROL-SETUP.md` | Hermes Desktop browser CDP + computer_use setup prompts |

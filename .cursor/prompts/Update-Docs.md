@@ -80,7 +80,13 @@ Fix any alignment warnings (profile root, TRUTH link, version, UTF-8 mojibake).
 
 ## Phase 4: ISSUES-RESOLVED
 
-If this session fixed a bug, append to `.cursor/docs/ISSUES-RESOLVED.md` or run:
+If this session fixed a **WordPress / Divi / LocalWP** bug, append to:
+
+`.cursor/docs/divi-wp-dev/ISSUES-RESOLVED.md`
+
+(and the living write-up in `divi-wp-dev/DIVI5-LocalWP-Setup-Catalog.md`).
+
+Profile / Next.js-only bugs: `.cursor/docs/ISSUES-RESOLVED.md` (pointer file — append below the stub) or:
 
 ```powershell
 npm run log:fix

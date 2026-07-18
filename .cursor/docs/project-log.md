@@ -1,5 +1,25 @@
 # DigitalStudioz — Project Log
 
+## 2026-07-18 — End Project: brand walls documented + closeout
+
+- Divi SoT page **57** + CSS ref **54**; agent compose gotchas (JSON `\u003c`/`wp_slash`, hex BGs, et-cache, no VB on 54) written into `divi-wp-dev/` + Local-WP mirrors.
+- Child theme gutter fix (`.container::before`) noted as **v0.3.4** on LocalWP theme.
+- **Left off / next:** Warm Premium Divi homepage from Next.js reference; protect TB 30/31/32.
+- Closeout: Update Docs + Mem0 + vault + git push + `backup:full` + End Project ritual.
+
+## 2026-07-18 — WP/Divi docs hub → `divi-wp-dev/`
+
+- Consolidated playbooks, PRDs, YouTube research, and WP issues into `.cursor/docs/divi-wp-dev/` (see `README.md`).
+- Pointers left at old `playbooks/` and root `ISSUES-RESOLVED.md`. Palette stays in parent docs.
+
+## 2026-07-18 — Divi5 LocalWP setup catalog started
+
+- Created living catalog: `.cursor/docs/divi-wp-dev/DIVI5-LocalWP-Setup-Catalog.md` (git-backed SoT) + WP mirror `DIVI5-SETUP-CATALOG.md`.
+- Captures verified stack, setup checklist, issues/fixes table, watch-outs, verify steps.
+- Linked from TRUTH, START-HERE, ISSUES-RESOLVED, MCP-SETUP, vault hub.
+- Rule: new LocalWP/Divi/MCP findings append to catalog first, then one-liner in `divi-wp-dev/ISSUES-RESOLVED.md`.
+- **Later same day:** §4.5 hero match · §4.6 Theme Builder header/footer · **§4.7** TB “huge padding” = hero `100vh` CSS leak onto `.et-l--header` / `.et-l--footer` (fix: scope to `.et-l--post`).
+
 ## 2026-07-18 — LocalWP DigitalStudioz-WP live; MCP stack verified
 
 **WordPress production path is running locally with full agent tooling.**
@@ -134,4 +154,9 @@
 ### 2026-07-04 — Personal session
 - **Branch:** main
 - **Changes:** Jul 4 closeout: Start Project verified, local comfyui-mcp on JonBeatz and skeleton v1.17.3
+- **Status:** completed
+
+### 2026-07-18 — Personal session
+- **Branch:** main
+- **Changes:** End Project: Divi brand SoT page 57 + agent gotchas documented; next = Warm Premium Divi homepage
 - **Status:** completed

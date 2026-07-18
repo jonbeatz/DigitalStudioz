@@ -3,6 +3,8 @@
 **Date:** 2026-07-17
 **Videos Analyzed:** 11 YouTube tutorials
 
+> **Channel sweep (2026-07-18):** See [youtube-channel-watchlist-2026-07.md](./youtube-channel-watchlist-2026-07.md) for Pee-Aye / ET / W4B / System22 / Mark / Ferdy / etc. ranked watch list + stack-mapped tips.
+
 ---
 
 ## Video-by-Video Key Takeaways
