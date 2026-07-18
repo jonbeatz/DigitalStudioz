@@ -1,5 +1,25 @@
 # DigitalStudioz — Project Log
 
+## 2026-07-18 — LocalWP DigitalStudioz-WP live; MCP stack verified
+
+**WordPress production path is running locally with full agent tooling.**
+
+- Created / wired `D:\Hermes\projects\Local-WP\DigitalStudioz-WP` (WP 7.0.2, PHP 8.4.10, Divi 5.9, Warm Premium child theme).
+- MCP: Local Agent Tools, Novamira, wpmcp (`wpmcp-server` registrar mu-plugin), ACF MCP, IA Webmaster Bridge — all green after HTTPS/TLS and WP-CLI PHP path fixes.
+- Deactivated duplicate standalone `mcp-adapter` (files kept); Novamira ships the adapter.
+- Child theme: removed blank `index.php`; added `js/core-scripts.js` + enqueue.
+- Brave MCP can drive logged-in wp-admin. Next.js temp site remains design reference.
+- Docs/Mem0/vault/Mnemosyne closeout this session; git push from DigitalStudioz profile (WP folder is not yet its own git repo).
+
+## 2026-07-17 — Warm Premium locked as WP+Divi production design
+
+**Closed the design fork:** keep current Next.js aesthetic for DigitalStudioz.com.
+
+- Retired Tactile Brutalism / acid cyan (`#00ffcc`) from playbooks and agent rules.
+- Canonical tokens remain Warm Premium (`#0a0a0b` / `#c8a45c` / `#e8e2d9`, 8px/16px radius) — `WARM-PREMIUM-PALETTE.md`.
+- Updated: MASTER-COMPLETE + FINAL-v3 PRDs, AI-Blog playbook, START-HERE, ReCall, TRUTH, vault hub.
+- Reference freeze backup: `nextjs-warm-premium-temp-reference-2026-07-17`. Companion PRD PDFs may lag Markdown.
+
 ## 2026-07-04 — Start Project + ComfyUI MCP ecosystem work
 
 **Session in DigitalStudioz workspace; primary deliverable was JonBeatz + skeleton ComfyUI MCP setup.**

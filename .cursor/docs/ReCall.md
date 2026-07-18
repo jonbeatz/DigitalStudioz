@@ -1,5 +1,22 @@
 # DigitalStudioz — ReCall Update
 
+## Session: 2026-07-18 — LocalWP + Divi5 MCP stack green; homepage ready
+
+- **Workspace:** Multi-root Cursor — `DigitalStudioz` (Next.js Warm Premium reference) + `Local-WP\DigitalStudioz-WP` (WP 7.0.2 / Divi 5.9 / child theme).
+- **Site:** `https://digitalstudioz.local` (HTTP still OK for Node MCP). Child theme `dgtl-digitalstudioz-theme` active; empty `index.php` removed (was blank front). Added `js/core-scripts.js` enqueued from `functions.php`.
+- **MCP green + verified:** `local-wp` (WP-CLI on Local PHP 8.4.10), `novamira-digitalstudioz`, `wpmcp-digitalstudioz` (`/mcp/wpmcp-server` via mu-plugin), `acf-mcp`, `ia-webmaster-bridge`. Brave Playwright logged into wp-admin as jonbeatz.
+- **Gotchas fixed:** (1) HTTPS self-signed broke Node MCP → prefer `http://` for Novamira/wpmcp/IAWB + TLS bypass. (2) Winget PHP 8.5 + Local php.ini broke WP-CLI → Agent Tools uses Local `php-8.4.10`. (3) Standalone `mcp-adapter` deactivated (kept on disk); Novamira-bundled adapter is enough.
+- **Plugins active:** ACF PRO, Novamira + Pro, wpmcp, IAWB, WPvivid. Fluent/Rank Math/Squad still optional (not needed for homepage start).
+- **Backups:** `npm run backup:*` = Next.js repo only. WP needs WPvivid / Local export separately.
+- **Next:** Dual milestone backup, then Divi 5 Warm Premium homepage from Next.js reference.
+
+## Session: 2026-07-17 — Warm Premium locked for WP+Divi rebuild
+
+- **Design fork closed:** Production DigitalStudioz.com uses **Warm Premium** (current Next.js aesthetic: gold `#c8a45c`, void `#0a0a0b`, cream `#e8e2d9`, 8px/16px radius) — **not** Tactile Brutalism / acid cyan.
+- **Docs updated:** `WP-Divi5-Dev-PRD-MASTER-COMPLETE.md`, `WP-Divi5-Dev-PRD-FINAL-v3.md`, `AI-Blog-Automation-Playbook.md`, `WARM-PREMIUM-PALETTE.md`, `START-HERE.md`. Companion PDFs may lag.
+- **Reference freeze:** Full backup `G:\Hermes_Project_BackUpz\DigitalStudioz\nextjs-warm-premium-temp-reference-2026-07-17` (+ sequential `v1-d`). Live temp still at `:3000`.
+- **Next:** LocalWP + Divi 5 child theme with Warm Premium globals — then ACF/MCP.
+
 ## Session: 2026-07-04 — Start Project + ComfyUI MCP (JonBeatz/skeleton)
 
 - **Start Project:** Stack WARM (LiteLLM :4000, ngrok, LM Studio, Telegram online). Light `session:start` + Mem0 preflight OK. Voice greeting verified (OmniVoice test heard).

@@ -26,6 +26,7 @@
 - **Voice:** OmniVoice primary for ritual speaks (Start/End Project, explicit `draven:speak`). Edge TTS backup only if Omni fails. Ritual-only — never auto-read chat replies or Mem0 recall.
 - **Pathing:** All global scripts reside in `D:\Hermes\projects\_core-scripts\`. Profile switcher registry must use workspace paths (git repo roots).
 - **Page layout:** `engine.tsx` uses inline `S` object only — see `.cursor/skills/digitalstudioz-layout/SKILL.md` v2.0.0. Do not add Tailwind layout to engine.tsx without operator approval.
+- **Design system:** **Warm Premium** is canonical for the temp Next.js site and the WP + Divi 5 production rebuild — see `.cursor/docs/WARM-PREMIUM-PALETTE.md`. Tactile Brutalism / cyan `#00ffcc` is retired.
 - **Hermes Desktop:** Use `.cursor/docs/HERMES-DESKTOP-PARITY.md` for Cursor-equivalent sessions (experiment).
 - **JSON Security:** Never use PowerShell to write JSON (BOM issues). Use Python or write_file.
 - **UTF-8 / Markdown:** Never rewrite .md / .mdc with PowerShell Get-Content / Set-Content without -Encoding UTF8. Prefer Python scripts for version badge updates. Run encoding checks before doc commits.
@@ -40,18 +41,27 @@
 5. Skills referenced in SKILL-INDEX.md — Domain expertise
 6. `.cursor/skills/digitalstudioz-layout/SKILL.md` — **before editing `engine.tsx`** (layout v2.0.0 lock)
 
+## WordPress production path (2026-07-18)
+
+- **LocalWP site:** `D:\Hermes\projects\Local-WP\DigitalStudioz-WP` (domain `digitalstudioz.local`)
+- **Cursor workspace:** Multi-root — this Next.js profile + DigitalStudioz-WP together
+- **Stack:** WP 7.0.2 · Divi 5.9 · child `dgtl-digitalstudioz-theme` · ACF PRO · Novamira · wpmcp · IAWB
+- **MCP config:** `DigitalStudioz-WP/.cursor/mcp.json` (project-scoped; see `.cursor/docs/MCP-SETUP.md` in the WP folder)
+- **Design:** Warm Premium only — same tokens as this Next.js reference site
+
 ## Isolation Rules
 
-- This profile is self-contained in `D:\Hermes\projects\DigitalStudioz`.
+- This profile is self-contained in `D:\Hermes\projects\DigitalStudioz` for the Next.js reference + Hermes docs.
+- WordPress runtime lives under `Local-WP\DigitalStudioz-WP` — do not put WP core inside this Next.js root.
 - Keep memories in the `digitalstudioz_memories` collection only — **never** share with VaderLabz, JonBeatz, or MSC.
 - Draven memory (`draven_memories`) is shared across all profiles — use for AI assistant cross-session context only.
-- All changes stay within this workspace.
 
 ## Backup
 
-- **Backup root:** `G:\Hermes_Project_BackUpz\DigitalStudioz\`
-- **Quick:** `npm run backup:quick`
-- **Full:** `npm run backup:full`
+- **Backup root (this repo):** `G:\Hermes_Project_BackUpz\DigitalStudioz\`
+- **Quick:** `npm run backup:quick` — **Next.js profile only** (does not include LocalWP)
+- **Full:** `npm run backup:full` — same scope
+- **WordPress:** Use WPvivid and/or Local export / copy of `Local-WP\DigitalStudioz-WP` separately
 
 ---
 

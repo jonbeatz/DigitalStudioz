@@ -30,9 +30,7 @@ Container: **1200px** via `S.inner`. Section padding: **100px 0** via `S.sec` / 
 
 **Why:** Four Tailwind-in-engine attempts failed. Inline works reliably. See ReCall.md.
 
-## Current Taste: Warm Premium (LOCKED — production)
-
-Canonical for the live temp site **and** the WordPress + Divi 5 rebuild. Full tokens: `WARM-PREMIUM-PALETTE.md`. Tactile Brutalism / cyan `#00ffcc` is **retired**.
+## Current Taste: Warm Premium
 
 | Token | Value |
 |-------|-------|
@@ -44,7 +42,6 @@ Canonical for the live temp site **and** the WordPress + Divi 5 rebuild. Full to
 | Surface | `#18181b` |
 | Container | 1200px (`S.inner`) |
 | Section padding | 100px top/bottom |
-| Radius | 8px controls / 16px cards |
 | Tagline | "Think Big. Build Bold." |
 
 ## Page Structure (8 sections)
@@ -92,18 +89,6 @@ Canonical for the live temp site **and** the WordPress + Divi 5 rebuild. Full to
 | **Animations** | FadeUp scroll reveals |
 | **Images** | 8 `ds-demo-*.jpg` Warm Premium assets |
 
-## WordPress + Divi 5 (production build — 2026-07-18)
-
-| Item | Path / note |
-|------|-------------|
-| LocalWP site | `D:\Hermes\projects\Local-WP\DigitalStudioz-WP` → `https://digitalstudioz.local` |
-| Child theme | `wp-content/themes/dgtl-digitalstudioz-theme` (+ `js/core-scripts.js`, `acf-json/`) |
-| MCP setup | WP folder `.cursor/docs/MCP-SETUP.md` + `.cursor/mcp.json` |
-| Playbooks | `.cursor/docs/playbooks/` (Markdown = SoT; PDFs may lag) |
-| This Next.js site | Keep as Warm Premium **content/layout reference** until WP homepage matches |
-
-Agent MCPs (all verified green): `local-wp`, `novamira-digitalstudioz`, `wpmcp-digitalstudioz`, `acf-mcp`, `ia-webmaster-bridge`. Prefer `http://digitalstudioz.local` for Node MCP URLs (Local self-signed HTTPS).
-
 ## Documentation Index
 
 | Doc | Purpose |
@@ -111,7 +96,6 @@ Agent MCPs (all verified green): `local-wp`, `novamira-digitalstudioz`, `wpmcp-d
 | `TRUTH.md` | Constitution |
 | `WARM-PREMIUM-PALETTE.md` | Design tokens |
 | `ReCall.md` | Session history |
-| `playbooks/` | WP/Divi5/AI-blog PRDs |
 | `TROUBLESHOOTING.md` | Known issues + layout recovery |
 | `HERMES-DESKTOP-PARITY.md` | **Cursor = primary**; handoff, memory bridge, **multi-agent rules** |
 | `HERMES-FULL-CONTROL-SETUP.md` | Hermes Desktop browser CDP + computer_use setup prompts |
