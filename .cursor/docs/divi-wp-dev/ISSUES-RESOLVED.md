@@ -4,6 +4,32 @@
 > `.cursor/docs/divi-wp-dev/DIVI5-LocalWP-Setup-Catalog.md`  
 > WP mirror: `Local-WP/DigitalStudioz-WP/.cursor/docs/DIVI5-SETUP-CATALOG.md`
 
+## 2026-07-18 — Theme 0.7.1–0.7.2 spacing polish (intro dead space + Process minh)
+
+| Issue | Fix |
+|-------|-----|
+| Contact CTAs too close under body | Paragraph `margin-bottom:32px` (nested-row `margin-top` ignored on FE) |
+| Work/Services/Process huge gap intro→cards | Intro mb 48→20; section `rowGap` →16px — measured **~36px** (was ~136) |
+| Featured side cards tall + touching | Pad 32→20; force 16px between nested rows (attrs + CSS bridge) |
+| Services cards tight gutter / tall | Pad 20px; gutter ~28px |
+| Process intro still ~104px after 0.7.1 | Theme CSS `min-height:200px` on **all** `.ds-process` columns — scoped to `:has(.ds-svc-num)` in **0.7.2** |
+
+**Canonical:** [DIVI5-Problems-Solutions.md §F.5–F.6](./DIVI5-Problems-Solutions.md#f5-spacing-polish-071--intro-dead-space-contact-ctas-featured-sides)
+
+## 2026-07-18 — Theme 0.7.0 Divi-native unlock (spacing + footer)
+
+| Item | Change |
+|------|--------|
+| Home 15 spacing | Written into Divi module/section Spacing + column `rowGap:0` (hero measured **12/24/40**) |
+| Child CSS | Spacing lock removed; soft `row-gap:0` safety only; theme **0.7.0** |
+| Footer 31 | Native Text/Heading modules (was one HTML Text blob) |
+| TB cleanup | Deleted duplicate template **37**; drafted orphan layouts **35/36** |
+| Fonts | Customizer Heading/Body → **Inter** |
+| Backups | `uploads/dsz-backup-*-pre-0.7.0.html` + IAWB backup_id 1 |
+| Still CSS chrome | Glass nav, hamburger/drawer, section-label mono, button pad Customizer bridge |
+
+---
+
 ## 2026-07-18 — Home spacing + mobile chrome + MCP (theme 0.6.6)
 
 | Issue | Fix |

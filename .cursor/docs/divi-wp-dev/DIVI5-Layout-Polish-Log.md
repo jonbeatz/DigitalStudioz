@@ -1,10 +1,33 @@
 # Layout & chrome polish log — Home / Header
 
 **Site:** `digitalstudioz.local` · **Home:** page **15** · **TB header:** **30**  
-**Child theme:** `dgtl-digitalstudioz-theme` **0.6.6**  
+**Child theme:** `dgtl-digitalstudioz-theme` **0.7.2**  
 **Updated:** 2026-07-18
 
 **Master issues/solutions:** [DIVI5-Problems-Solutions.md](./DIVI5-Problems-Solutions.md) (SoT when docs disagree).
+
+---
+
+## Spacing polish 0.7.1 → 0.7.2 (intro dead space + Process minh)
+
+### Operator ask
+Contact CTAs need air above buttons; close dead space under intros; Featured side cards shorter + not touching.
+
+### What worked
+| Fix | Result |
+|-----|--------|
+| Contact para `mb:32px` | Buttons no longer glued to body |
+| Intro mb 20 + section `rowGap:16` | Intro→cards ~**36px** (was ~136) |
+| Side cards pad 20 + 16px stack gap | Separated, less tall |
+| Process minh scoped `:has(.ds-svc-num)` (**0.7.2**) | Process intro matches Work/Services |
+
+Full tables: [Problems-Solutions §F.5–F.6](./DIVI5-Problems-Solutions.md#f5-spacing-polish-071--intro-dead-space-contact-ctas-featured-sides).
+
+---
+
+## Divi-native unlock (v0.7.0)
+
+Home spacing moved into Visual Builder attrs; CSS spacing lock removed; footer **31** native Text/Heading. Soft column `row-gap:0` safety only. See [Problems-Solutions §F.3](./DIVI5-Problems-Solutions.md#f3-solution-path-066--070).
 
 ---
 
@@ -17,7 +40,7 @@ Text stacks (hero, intros, cards) had too much vertical air vs Next.js reference
 Divi 5 columns use `flex` + **`row-gap: 30px`** *plus* module margins → Next’s 12px became 42px live. Section pads were also ~56px vs Next `S.sec` 100px.
 
 ### Solution
-Child CSS “Spacing lock”: zero column row-gap; lock Next margins (hero 12/24/40, intros 12/16/48, cards 8/8/24, services 16/12); section pad 100/80/60. Measured with Playwright.
+Child CSS “Spacing lock”: zero column row-gap; lock Next margins (hero 12/24/40, intros 12/16/48, cards 8/8/24, services 16/12); section pad 100/80/60. Measured with Playwright. **Superseded by 0.7.0 unlock** (attrs in VB).
 
 Full table + never-again: [DIVI5-Problems-Solutions.md §F](./DIVI5-Problems-Solutions.md#f-spacing-vs-nextjs-text-stacks--section-pad).
 

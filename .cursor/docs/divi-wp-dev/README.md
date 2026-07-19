@@ -12,7 +12,7 @@ Keep fleet/profile docs (START-HERE, TOOLS-*, Hostinger, etc.) in `.cursor/docs/
 | Priority | Doc | Role |
 |----------|-----|------|
 | 1 | [DIVI5-LocalWP-Setup-Catalog.md](./DIVI5-LocalWP-Setup-Catalog.md) | Living SoT — stack, checklist, fixes |
-| **1b** | **[DIVI5-Problems-Solutions.md](./DIVI5-Problems-Solutions.md)** | **Master chrome/MCP issues → solutions (nav, freeze, menu, mobile, spacing, MCP)** |
+| **1b** | **[DIVI5-Problems-Solutions.md](./DIVI5-Problems-Solutions.md)** | **Master chrome/MCP issues → solutions** (nav → spacing **0.7.2**, MCP) |
 | 2 | [ISSUES-RESOLVED.md](./ISSUES-RESOLVED.md) | Short fix index |
 | 3 | [DIVI5-Design-Variables-GoldGrey.md](./DIVI5-Design-Variables-GoldGrey.md) | Design Variables + Fluid type |
 | 4 | [DIVI5-Launch-Preview-Pages.md](./DIVI5-Launch-Preview-Pages.md) | Brand walls 54+57 + ET incident + **agent compose gotchas** |

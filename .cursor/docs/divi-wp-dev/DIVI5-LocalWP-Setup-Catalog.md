@@ -4,7 +4,7 @@
 
 **Status:** Active — append new findings at the top of each section (newest first).  
 **Started:** 2026-07-18  
-**Last updated:** 2026-07-18 (Brand walls 54+57 — Divi SoT + agent gotchas §4.14)
+**Last updated:** 2026-07-18 (Theme **0.7.2** spacing polish — Problems-Solutions §F.5–F.6)
 
 | Role | Path |
 |------|------|
@@ -28,7 +28,7 @@
 | WordPress | **7.0.2** |
 | PHP (Local lightning) | **8.4.10** |
 | Parent theme | **Divi 5.9.0** |
-| Child theme | `dgtl-digitalstudioz-theme` (active) |
+| Child theme | `dgtl-digitalstudioz-theme` **0.7.2** (active) |
 | Design system | **Gold & Grey** Variables SoT (`#D3B670` / `#5B6F7A` / `#F5F0E8` / `#817E79`) + Fluid typography presets; child CSS still bridges hero/nav |
 | Front page | Static page **Home** (ID `15`, slug `home`) — `show_on_front=page`, `page_on_front=15` |
 | Home hero | Divi free-form text module + child CSS; matched Next.js Warm Premium hero (eyebrow / dual CTA / bg image); content block centered in viewport, text left-aligned |
@@ -135,6 +135,9 @@ Append new rows at the **top** of the table.
 
 | Date | Symptom | Root cause | Fix that worked | Avoid next time |
 |------|---------|------------|-----------------|-----------------|
+| 2026-07-18 | Process intro→cards still ~104px after closing other sections | Theme CSS `min-height:200px !important` on **all** `.ds-process .et_pb_column` (including intro) | Scope to `.et_pb_column:has(.ds-svc-num)` — theme **0.7.2** | Never force section-wide column minh when an intro row shares the section — [Problems-Solutions §F.6](./DIVI5-Problems-Solutions.md#f6-process-intro-still-tall-072) |
+| 2026-07-18 | Contact buttons too close; intro→cards dead space; Featured sides touching/tall | Section flex gap + large intro mb; nested-row margins dropped on FE; card pad 32 | Theme **0.7.1**: para mb 32 for CTAs; intro mb 20 + section rowGap 16; side pad 20 + 16px stack gap | Measure module + column + **section** gaps; Contact space on module **above** — [§F.5](./DIVI5-Problems-Solutions.md#f5-spacing-polish-071--intro-dead-space-contact-ctas-featured-sides) |
+| 2026-07-18 | Spacing locked in CSS; VB edits ignored; footer still HTML blob | 0.6.6 `!important` lock fought builder | Theme **0.7.0**: write Next spacing into Divi attrs; strip lock; footer 31 native | Prefer Divi Spacing attrs; thin CSS bridges only — [§F.3](./DIVI5-Problems-Solutions.md#f3-solution-path-066--070) |
 | 2026-07-18 | Huge gaps between Home text (hero/cards/intros) vs Next.js | Divi 5 columns `row-gap:30px` **+** module margins; ID zero-rules overrode weaker CSS | Theme **0.6.6** spacing lock: `row-gap:0` then exact Next margins; measure with Playwright | Never debug vertical rhythm without checking computed column `row-gap` — see [DIVI5-Problems-Solutions.md §F](./DIVI5-Problems-Solutions.md#f-spacing-vs-nextjs-text-stacks--section-pad) |
 | 2026-07-18 | Three green `ai-editor-divi5` MCP entries | Same server in Local WP + DigitalStudioz + global mcp.json | Keep **one** entry in WP `.cursor/mcp.json` only | Don’t triple-register remote MCPs |
 | 2026-07-18 | `local-wp` discovery error in Cursor | Stale session + dead Novamira/wpmcp MCP noise; missing `type:http` | `"type":"http"`; `mcp_auth`; park Novamira/wpmcp under `_disabledMcpServers` | Don’t assume red Local MCP = dead bridge — probe `:24842` first |

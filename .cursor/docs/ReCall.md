@@ -2,27 +2,47 @@
 
 ## LEFT OFF — 2026-07-18 (resume here)
 
-**Where we stopped:** Home spacing matched to Next.js (theme **0.6.6**); MCP stack documented; AI Editor wired (single instance); Local WP MCP fixed.
+**Where we stopped:** Theme **0.7.2** spacing polish — Contact CTA air, intro→cards dead space closed (~36px), Featured side cards gap/height, Process intro minh scoped. Operator confirmed “much better.” Docs updated with full issue/solution log.
 
-**Working on:** DigitalStudioz **WP + Divi 5** Warm Premium on `https://digitalstudioz.local` — LocalWP `Local-WP/DigitalStudioz-WP`. Child theme **0.6.6**.
+**Working on:** DigitalStudioz **WP + Divi 5** Warm Premium on `https://digitalstudioz.local` — LocalWP `Local-WP/DigitalStudioz-WP`. Child theme **0.7.2**.
 
 **SoT right now:**
 | Artifact | Role |
 |----------|------|
-| **[DIVI5-Problems-Solutions.md](./divi-wp-dev/DIVI5-Problems-Solutions.md)** | **Master issues → solutions** (nav, freeze, menu, mobile frost, **Divi row-gap spacing**, MCP) |
-| Page **15** Home | Live Warm Premium — Divi modules + child CSS chrome |
+| **[DIVI5-Problems-Solutions.md](./divi-wp-dev/DIVI5-Problems-Solutions.md)** | **Master issues → solutions** (§F through **0.7.2**) |
+| Page **15** Home | Live — spacing mostly VB + thin CSS bridges |
 | Page **57** / **54** | Brand walls (Divi SoT / CSS ref) |
-| TB **30/31/32** | Protect — never import Launch TB over these |
+| TB **30/31/32** | Protect — header Menu native; footer native (0.7.0) |
 
 **Next session priorities:**
-1. Visual QA Home vs Next (`:3000`) after hard-refresh — any remaining one-off sections.
-2. Optional: footer TB **31** → native Menu/Text modules (still HTML Text).
-3. Do **not** re-buy Pee-Aye stack; do **not** re-register AI Editor MCP in three places.
-4. Protect TB 30–32; no Launch Variables overwrite.
+1. Optional: footer link lists → WP Menu modules; Customizer button pad → drop CSS bridge.
+2. Thin remaining typography `!important` toward Design Variables / presets.
+3. Protect TB 30–32; do not revive template 37.
+4. Visual pass any remaining sections (About / Stats / Quote) if rhythm still feels off.
 
 **Resume:** **Open Project** (warm) or **Start Project** (cold).
 
 **Docs hub:** `.cursor/docs/divi-wp-dev/` — start with **Problems-Solutions** + catalog.
+
+---
+
+## Session: 2026-07-18 — Theme 0.7.1–0.7.2 spacing polish + docs
+
+- Contact CTAs: para `mb:32px` (nested-row margin-top ignored on FE).
+- Intro→cards: intro mb 20 + section rowGap 16 → ~**36px** (was ~136).
+- Featured sides: pad 20 + 16px stack gap; Services pad/gutter 20/28.
+- Process leftover gap: CSS `min-height:200px` on all process columns → scoped `:has(.ds-svc-num)` (**0.7.2**).
+- Docs: Problems-Solutions §F.5–F.8, ISSUES-RESOLVED, catalog rows, Layout Polish, Home Native, ReCall, project-log.
+
+---
+
+## Session: 2026-07-18 — Theme 0.7.0 Divi-native unlock
+
+- Home 15: Next spacing → Divi attrs; CSS lock stripped; soft `row-gap:0` only.
+- Footer 31: native Text/Heading (21 blocks); backups in uploads + IAWB #1.
+- Fonts → Inter; deleted TB template 37; drafted 35/36.
+- QA: hero **12/24/40**, `rowGap:0`, footer headings ×3.
+- Still CSS: glass nav, hamburger/drawer, label mono, button Customizer bridge.
 
 ---
 

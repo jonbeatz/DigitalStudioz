@@ -1,7 +1,7 @@
 # Divi 5 / LocalWP — Problems & Solutions (master log)
 
 **Site:** `https://digitalstudioz.local/` · **Home:** page **15** · **TB:** header **30** / footer **31** / template **32**  
-**Child theme:** `dgtl-digitalstudioz-theme` **0.6.6**  
+**Child theme:** `dgtl-digitalstudioz-theme` **0.7.2**  
 **Updated:** 2026-07-18  
 **SoT for this file:** when docs disagree on WP/Divi chrome issues, **this document wins** (then START-HERE / ReCall).
 
@@ -18,7 +18,7 @@
 | [C](#c-proper-menu-module-migration) | Proper Divi Menu (vs HTML nav) | 0.6.0 |
 | [D](#d-mobile-hamburger--drawer) | Mobile hamburger / frost drawer | 0.6.1–0.6.4 |
 | [E](#e-home-page-module-inventory) | Home = real Divi modules? | verified |
-| [F](#f-spacing-vs-nextjs-text-stacks--section-pad) | Spacing vs Next.js (flex gap!) | **0.6.5–0.6.6** |
+| [F](#f-spacing-vs-nextjs-text-stacks--section-pad) | Spacing vs Next.js (flex gap!) | **0.7.0–0.7.2** |
 | [G](#g-mcp--plugin-stack) | MCP / plugin stack | 2026-07-18 |
 | [H](#h-pee-aye-creative-plugins) | Pee-Aye plugins (buy/skip) | skip for now |
 | [I](#i-protect-list--never-again) | Protect list / never-again | standing |
@@ -35,7 +35,10 @@
 | 0.6.3 | Drawer `absolute; top:100%` flush under bar |
 | 0.6.4 | Mobile drawer **light frost** (0.94 + blur) |
 | 0.6.5 | Section pad lock → Next `S.sec` 100px |
-| **0.6.6** | Kill Divi **`row-gap:30px`**; exact Next text-stack margins |
+| 0.6.6 | Kill Divi **`row-gap:30px`**; exact Next text-stack margins (CSS lock) |
+| 0.7.0 | Spacing unlocked into Divi VB; CSS lock removed; footer **31** native; TB dup 37 deleted |
+| 0.7.1 | Intro→cards dead space closed; Contact CTA pad; Featured side-card gap/height; Services gutters |
+| **0.7.2** | Process intro `min-height:200px` scoped to **card columns only** (`:has(.ds-svc-num)`) |
 
 ---
 
@@ -106,7 +109,7 @@ Page **15** is **100% Divi 5 blocks** (Services/Work/Process are not one HTML bl
 | Process | `.ds-process` `#process` | Intro + 5 step columns |
 | About / Stats / Quote / Contact | matching `.ds-*` | Text/Heading (+ image / buttons) |
 
-**Header** = Menu + Button (C). **Footer** TB **31** still free-form HTML Text — optional later cleanup.
+**Header** = Menu + Button (C). **Footer** TB **31** = native Text/Heading modules (**0.7.0**); optional later: link lists → WP Menu modules.
 
 ---
 
@@ -127,36 +130,111 @@ Secondary contributors:
 
 - `#work .et_pb_module { margin:0 }` (ID specificity) overrode weaker “add margin” rules — featured/card stacks stayed at **0** until selectors used `#work …` with higher specificity.
 - Side cards used `justify-content: space-between` → CTA stretched to bottom of tall column.
-- Measuring with Playwright `getBoundingClientRect` gaps is the reliable QA method.
+- Measuring with Playwright / CDP `getBoundingClientRect` gaps is the reliable QA method.
 
-### F.3 Solution (theme **0.6.6**)
+### F.3 Solution path (0.6.6 → 0.7.0)
 
-In child `style.css` “Spacing lock” block:
+**0.6.6 (CSS lock):** Forced `row-gap:0` + exact Next margins in child CSS (`!important`) so Live matched Next while we learned the Divi gap trap.
 
-1. Set **`row-gap: 0; gap: 0`** on Home section columns (`.ds-hero`, `#work`, `#services`, …).
-2. Keep **horizontal** gutters on rows (`column-gap: 24` / Process `16`).
-3. Zero default module margins, then apply **exact** Next.js stack margins only.
-4. Cards: `justify-content: flex-start`; link `margin-top: 24px`; card pad **32px**.
-5. Use selectors that beat `#work .et_pb_module` (include `#work` + more classes).
+**0.7.0 (Divi-native unlock):** Same numbers written into Home **15** Divi attrs (`module.decoration.spacing` + column `layout.rowGap:0` + section pads). Footer **31** rebuilt as native Text/Heading modules (no HTML blob). Child CSS spacing lock **removed** — only a soft `row-gap:0` safety net remains. Button pad still needs a thin CSS bridge (Customizer beats module Spacing).
 
-### F.4 Measured targets (after fix)
+Backups: `wp-content/uploads/dsz-backup-home-15-pre-0.7.0.html`, `dsz-backup-footer-31-pre-0.7.0.html` · IAWB backup_id **1**.
 
-| Stack | Next.js target | Measured |
+**PHP gotcha:** nested `&$refs` / `ensure()` helpers that mutate Divi JSON often produce empty `"value":[]`. Always assign **full path objects** when writing `decoration.spacing` / `layout.rowGap`. Local MCP blocks `wp eval-file` — run scripts with Local PHP 8.4.10 + site `PHPRC` (`ufauI-YD2`).
+
+### F.4 Measured targets (hero / column — after 0.7.0)
+
+| Stack | Next.js target | Measured (0.7.0+) |
 |-------|----------------|----------|
 | Hero label → title → sub → CTA | 12 / 24 / 40 | **12 / 24 / 40** |
-| Work intro label → h2 → sub | 12 / 16 / (+48 to grid) | **12 / 16 / 48** |
-| Featured overlay | 8 / 4 | **8 / 4** |
-| Side cards | 8 / 8 / link+24 | **8 / 8 / 24** |
-| Service cards | num 16 → title 12 | **16 / 12** |
+| Column `row-gap` | 0 | **0px** |
+| Work intro label → h2 → sub | 12 / 16 / (+ to grid) | Divi module margins |
+| Section pad (desktop) | 100 | Divi section Spacing |
+| Featured overlay | 8 / 4 | Divi module margins |
+| Side cards | 8 / 8 / link+24 | Divi module margins (refined 0.7.1) |
+| Service cards | num 16 → title 12 | Divi module margins |
 
 **SoT constants** (`engine.tsx`): `S.sec` 100px · `S.secTight` 80 · quote 140 · `S.card` pad 32 · `S.label` mb 12 · `S.h2` mb 16 · `S.sub` mb 48.
 
-### F.5 Never again
+### F.5 Spacing polish (0.7.1) — intro dead space, Contact CTAs, Featured sides
 
-- Do **not** only set `margin-bottom` on modules without checking computed **`row-gap`** on the parent column.
-- Do **not** assume VB “Spacing” alone matches Next — Divi’s flex gap is invisible in the margin fields.
-- After spacing CSS changes: hard-refresh + measure gaps (Playwright or DevTools).
-- Prefer child CSS lock over rewriting all page JSON for rhythm chrome.
+#### Symptoms (operator screenshots)
+
+| Area | Felt wrong |
+|------|------------|
+| Contact | “Start a Project” / “View GitHub” too close under body copy |
+| Work / Services / Process | Huge **dead space** between last intro line and content boxes |
+| Featured Projects side stack | Cards too tall + **touching** each other |
+
+#### Root causes
+
+| Layer | What was happening |
+|-------|---------------------|
+| **Section flex `row-gap`** | Work/Services/Process sections still had ~**40–60px** section-level gap between intro row and cards row — the main leftover after unlocking module margins |
+| **Intro sub margin** | Subhead `margin-bottom` still ~**48px** (Next `S.sub`) — too much once section gap also applied |
+| **Contact CTA spacing** | Nested-row / button-row `margin-top` often **ignored on FE**; spacing must live on the **paragraph above** (`margin-bottom`) |
+| **Featured side cards** | Nested-row `margin` dropped on FE; column `row-gap` not honored without a light CSS bridge; card pad still **32px** (felt tall) |
+
+#### Fixes that worked
+
+| Change | Where | Target / measured |
+|--------|--------|-------------------|
+| Contact body → buttons | Paragraph `margin-bottom: **32px**` (not CTA row `margin-top`) | **32px** ✓ |
+| Intro → cards dead space | Intro text mb **48 → 20**; section `rowGap` **~40–60 → 16px** | Work/Services intro gap **~36px** (was **~136**) |
+| Featured side stack | Card pad **32 → 20**; force **16px** between stacked nested rows (attrs + CSS `!important` on `.ds-work-bento` last col) | sideGap **32**, sidePad **20** |
+| Services / Process cards | Pad **20px**; horizontal gutter **~28px** | svcGutter **28**, svcPad **20** |
+
+**Theme CSS bridges (keep light):** soft section `row-gap:16px` on `#work` / `#services` / `#process`; bento side-column `row-gap` / first nested-row `margin-bottom` with `!important` because Divi FE drops nested-row margins.
+
+Scripts (LocalWP uploads / Divi-Xtraz history): `dsz-spacing-tweaks-0.7.1.php`, `dsz-spacing-tweaks-0.7.1b.php`.
+
+### F.6 Process intro still tall (0.7.2)
+
+#### Symptom
+
+After 0.7.1, Work/Services intro→cards ≈ **36px**, but Process still ≈ **104px**.
+
+#### Root cause
+
+Child theme rule:
+
+```css
+.ds-process .et_pb_row .et_pb_column { min-height: 200px !important; }
+```
+
+applied to **every** Process column — including the **intro text column**. Computed `minHeight:200px` left ~**88px** empty under the subhead. Content JSON had **no** `minHeight:200px` on that column; it was pure CSS.
+
+#### Fix
+
+Scope min-height to numbered **card** columns only:
+
+```css
+.ds-process .et_pb_row .et_pb_column:has(.ds-svc-num) {
+  min-height: 200px !important;
+}
+```
+
+Measured after: Process intro gap **36px**; intro col `minHeight` **1px** / height **132px**.
+
+**Never again:** Do not put portrait `min-height` on `.ds-process .et_pb_column` without excluding the intro row (use `:has(.ds-svc-num)` or a `.ds-process-card` class).
+
+### F.7 Best practices (spacing debugging)
+
+1. **Measure, don’t guess.** CDP/Playwright: `bottom→top` gap between last intro text and first card / button.
+2. **Check three layers:** module `margin` → column `row-gap` → **section** `row-gap` / flex gap between rows.
+3. **Contact / CTA stacks:** put space on the **module above** (`margin-bottom`); nested-row `margin-top` is unreliable on Divi 5 FE.
+4. **Prefer Divi attrs** for client-editable rhythm; use **thin CSS bridges** only where FE drops nested-row / column gap.
+5. **Hard-refresh** after theme CSS (`filemtime` cache-bust in `functions.php`).
+6. **Protect TB 30/31/32**; backup Home before bulk attr writes (IAWB + HTML snapshot).
+
+### F.8 Never again
+
+- Do **not** only set `margin-bottom` on modules without checking computed **`row-gap`** on the parent column **and** the parent **section**.
+- Do **not** re-add a full CSS `!important` spacing lock — edit spacing in Visual Builder first.
+- Do **not** force `min-height` on every column in a section that also has an intro text row.
+- Do **not** rely on nested-row `margin-top` for Contact CTA separation — use paragraph `margin-bottom`.
+- After spacing changes: hard-refresh + measure gaps (Playwright or DevTools).
+- PHP scripts that mutate Divi attrs must assign full `decoration.spacing.*.value` objects (broken refs → empty `value:[]`).
 
 ---
 
@@ -234,21 +312,26 @@ For this brochure Warm Premium home: **do not buy a PAC stack now.**
 1. Do **not** re-import Launch Variables over live Gold & Grey.  
 2. Do **not** casually rewrite TB **30 / 31 / 32** without backup.  
 3. Do **not** re-add MutationObservers that mutate watched `style`.  
-4. Do **not** ignore Divi column **`row-gap`** when debugging vertical spacing.  
+4. Do **not** ignore Divi column **`row-gap`** (or section flex gap) when debugging vertical spacing.  
 5. Do **not** register the same MCP in three Cursor configs.  
-6. Prefer Divi modules for **content**; child CSS for chrome Divi cannot do (glass, hamburger, frost, Next rhythm).  
+6. Prefer Divi modules for **content**; child CSS for chrome Divi cannot do (glass, hamburger, frost) + **thin** bridges where FE drops nested-row gaps.  
 7. Brand walls: page **57** = Divi SoT; page **54** = CSS ref (builder off).  
-8. After theme CSS edits: hard-refresh; theme `filemtime` busts cache via `functions.php`.
+8. After theme CSS edits: hard-refresh; theme `filemtime` busts cache via `functions.php`.  
+9. Do **not** apply Process portrait `min-height` to intro columns — scope with `:has(.ds-svc-num)`.  
+10. Contact CTA air: use **paragraph `margin-bottom`**, not nested-row `margin-top`.
 
 ---
 
 ## Verify checklist (after chrome / spacing / MCP changes)
 
-- [ ] Hard-refresh Home; hero stack feels tight (not “30px air” between lines)  
+- [ ] Hard-refresh Home; hero stack feels tight (not “30px air” between lines) — ≈ **12 / 24 / 40**  
+- [ ] Work / Services / Process: intro→cards ≈ **36px** (not ~136+)  
+- [ ] Contact: body→buttons ≈ **32px**  
+- [ ] Featured side cards: not touching; pad ~**20**; gap ~**16–32**  
+- [ ] Process intro column not stuck at `min-height:200px`  
 - [ ] ≤980px: hamburger → frost drawer flush under bar → X closes → widen clears drawer  
 - [ ] Scroll: nav glass lightens (~0.28); no freeze  
 - [ ] Cursor MCP: single `ai-editor-divi5`, `local-wp` green, IAWB green  
-- [ ] Optional: Playwright measure hero gaps ≈ 12 / 24 / 40  
 
 ---
 

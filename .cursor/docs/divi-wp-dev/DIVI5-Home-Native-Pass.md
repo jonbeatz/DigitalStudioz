@@ -1,17 +1,28 @@
 # Home → Divi-native pass (DigitalStudioz)
 
-**Date:** 2026-07-18 · **Home page ID:** 15 · **Child theme:** `dgtl-digitalstudioz-theme` **0.6.6**
+**Date:** 2026-07-18 · **Home page ID:** 15 · **Child theme:** `dgtl-digitalstudioz-theme` **0.7.2**
 
 **Chrome / spacing issues SoT:** [DIVI5-Problems-Solutions.md](./DIVI5-Problems-Solutions.md)
 
-## Wave 3.4 — Next.js spacing match (2026-07-18)
+## Wave 3.5 — Spacing polish (0.7.1–0.7.2)
+
+| Item | Status |
+|------|--------|
+| Contact body → CTAs | **32px** (para `margin-bottom`) |
+| Intro → content boxes | **~36px** (intro mb 20 + section rowGap 16) |
+| Featured side cards | Pad **20**; stack gap **16–32**; not touching |
+| Services gutters / pad | **~28px** / **20px** |
+| Process intro leftover | Fixed **0.7.2** — minh only on `:has(.ds-svc-num)` |
+
+## Wave 3.4 — Next.js spacing match + Divi unlock (2026-07-18)
 
 | Item | Status |
 |------|--------|
 | Divi column `row-gap:30px` | **Killed** on Home sections (was doubling all margins) |
 | Hero stack | **12 / 24 / 40** (matches `engine.tsx`) |
-| Section outer pad | **100 / 80 / 60** (`S.sec`) |
-| Cards / services / featured | Locked to Next card/intro margins |
+| Section outer pad | **100 / 80 / 60** (`S.sec`) in Divi attrs (**0.7.0**) |
+| Spacing ownership | **0.7.0** VB attrs; CSS lock removed; soft `row-gap:0` only |
+| Footer 31 | Native Text/Heading (**0.7.0**) |
 | Mobile drawer | Light frost **0.6.4** |
 | Nav Menu | Divi Menu module **0.6.0+** |
 
@@ -23,7 +34,7 @@
 | Nav scroll | **v0.5.5+:** glass on `.et-l--header` (**0.94 → 0.28**); sticky OFF |
 | Header nav | **v0.6.0:** Divi **Menu** module → WP Primary (**4**) + Logo Text + CTA Button — see NAV-HTML-REVERT.md for HTML backup |
 | Featured | Shorter + tight overlay text |
-| Side cards | Skinnier pad |
+| Side cards | Skinnier pad (refined again in 0.7.1) |
 | Index nums | `#443B2B` |
 | Stats | Bold + centered labels |
 

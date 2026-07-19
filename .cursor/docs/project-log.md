@@ -1,5 +1,12 @@
 # DigitalStudioz — Project Log
 
+## 2026-07-18 — Spacing polish 0.7.1–0.7.2 + Problems-Solutions docs
+
+- **0.7.1:** Contact CTA air (para mb 32); intro→cards ~36px (section rowGap 16 + intro mb 20); Featured side pad/gap; Services gutters.
+- **0.7.2:** Process intro dead space — CSS `min-height:200px` was on **all** process columns; scoped to `:has(.ds-svc-num)`.
+- **Docs:** Expanded [DIVI5-Problems-Solutions.md](./divi-wp-dev/DIVI5-Problems-Solutions.md) §F.5–F.8 (best practices + never-again); catalog rows; ISSUES-RESOLVED; Layout Polish; Home Native; ReCall.
+- **Operator:** Confirmed spacing “much better.” Theme live on LocalWP only (WP folder not git).
+
 ## 2026-07-18 — Home spacing lock + MCP stack + Problems-Solutions docs
 
 - **Spacing:** Divi 5 column `row-gap:30px` stacked on module margins → Next 12px became ~42px. Child theme **0.6.6** spacing lock (zero column row-gap; hero 12/24/40 measured). Live theme on LocalWP only (WP folder not git).
