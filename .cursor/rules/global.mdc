@@ -8,6 +8,8 @@
 | **End Project**, **End Session**, **Done for today** | [End-Project.md](../prompts/End-Project.md) + `npm run session:stop` (AskQuestion git → dev :3000 if up → `-StopDeepSeek`) |
 | **update docs** | [Update-Docs.md](../prompts/Update-Docs.md) + `npm run docs:sync` |
 | **update docs and mem0** | Update-Docs Phase 5b + `npm run mem0:add` |
+| **log fixes** / **record fixes** / **log solutions** | [Log-Fixes.md](../prompts/Log-Fixes.md) — Divi/WP Problems-Solutions + ISSUES + catalog |
+| **log fixes and mem0** | Log-Fixes + Mem0/Draven one-liners |
 | **backup profile**, **backup**, **backup quick** | `npm run backup:quick` |
 | **backup project** | `npm run backup:project` |
 | **backup full** | `npm run backup:full` |

@@ -1,10 +1,28 @@
 # Layout & chrome polish log — Home / Header
 
 **Site:** `digitalstudioz.local` · **Home:** page **15** · **TB header:** **30**  
-**Child theme:** `dgtl-digitalstudioz-theme` **0.7.2**  
+**Child theme:** `dgtl-digitalstudioz-theme` **0.7.4**  
 **Updated:** 2026-07-18
 
 **Master issues/solutions:** [DIVI5-Problems-Solutions.md](./DIVI5-Problems-Solutions.md) (SoT when docs disagree).
+
+---
+
+## Ops upgrades (theme mirror + smoke — 2026-07-18)
+
+No layout CSS change. Theme stays **0.7.4**. Added git mirror + `wp:smoke` + [DEV-WORKFLOW.md](./DEV-WORKFLOW.md). See [Problems-Solutions §L](./DIVI5-Problems-Solutions.md#l-theme-git-mirror--home-smoke--cadence).
+
+---
+
+## Mobile stack + back-to-top (v0.7.4)
+
+Services/Process/About/Stats/Footer forced to full-width stack ≤980px (Divi kept `row+nowrap`). Back-to-top `bottom: 72px` / `88px` mobile. See [Problems-Solutions §K](./DIVI5-Problems-Solutions.md#k-mobile-stack--back-to-top-clearance).
+
+---
+
+## Header menu right of bar (v0.7.3)
+
+Middle Menu column grows; `.et_pb_menu__wrap` flex-end so Work→Contact sit next to Start a Project. Logo remains Text+HTML. See [§J](./DIVI5-Problems-Solutions.md#j-header-menu-links-right-next-to-cta).
 
 ---
 

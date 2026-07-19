@@ -97,12 +97,31 @@ Canonical for the live temp site **and** the WordPress + Divi 5 rebuild. Full to
 | Item | Path / note |
 |------|-------------|
 | LocalWP site | `D:\Hermes\projects\Local-WP\DigitalStudioz-WP` → `https://digitalstudioz.local` |
-| Child theme | `wp-content/themes/dgtl-digitalstudioz-theme` (+ `js/core-scripts.js`, `acf-json/`) |
+| Child theme (live SoT) | `wp-content/themes/dgtl-digitalstudioz-theme` (+ `js/core-scripts.js`, `acf-json/`) |
+| Theme git mirror | `assets/wp-theme/dgtl-digitalstudioz-theme` — sync with `npm run theme:sync` |
 | Front page | Static **Home** (page ID `15`) |
 | MCP setup | WP folder `.cursor/docs/MCP-SETUP.md` + `.cursor/mcp.json` |
 | **WP/Divi docs hub** | `.cursor/docs/divi-wp-dev/README.md` — catalog, issues, PRDs, research |
+| **Dev workflow** | `divi-wp-dev/DEV-WORKFLOW.md` — measure → fix → verify → log fixes → theme:sync |
 | **Setup catalog** | `divi-wp-dev/DIVI5-LocalWP-Setup-Catalog.md` — working stack, checklist, issues/fixes |
 | This Next.js site | Keep as Warm Premium **content/layout reference** until WP homepage matches |
+
+### Chat shortcuts (WP/Divi fixes)
+
+| Say | Does |
+|-----|------|
+| **log fixes** | Write session fixes into `DIVI5-Problems-Solutions.md` + ISSUES + catalog + ReCall ([Log-Fixes.md](../prompts/Log-Fixes.md)) |
+| **log fixes and mem0** | Same + Mem0/Draven |
+| **update docs** | Full fleet/profile doc sync (broader than log fixes) |
+
+### WP theme + smoke commands
+
+```powershell
+npm run theme:sync      # LocalWP → git mirror
+npm run theme:backup    # sync + zip under G:\Hermes_Project_BackUpz\DigitalStudioz\themes\
+npm run theme:push      # mirror → LocalWP (restore)
+npm run wp:smoke        # Home layout guards @ 390 + 1440 (Local site up)
+```
 
 Agent MCPs (all verified green): `local-wp`, `novamira-digitalstudioz`, `wpmcp-digitalstudioz`, `acf-mcp`, `ia-webmaster-bridge`. Prefer `http://digitalstudioz.local` for Node MCP URLs (Local self-signed HTTPS).
 
@@ -114,8 +133,10 @@ Agent MCPs (all verified green): `local-wp`, `novamira-digitalstudioz`, `wpmcp-d
 | `WARM-PREMIUM-PALETTE.md` | Design tokens |
 | `ReCall.md` | Session history |
 | `divi-wp-dev/` | **Central WP/Divi notes** (catalog, PRDs, issues, YouTube) |
+| `divi-wp-dev/DEV-WORKFLOW.md` | Daily WP/Divi cadence + theme sync / smoke |
+| `divi-wp-dev/DIVI5-Problems-Solutions.md` | **Master** chrome/layout issue → solution log |
 | `divi-wp-dev/DIVI5-LocalWP-Setup-Catalog.md` | Living Divi5/LocalWP success + failure catalog |
-| `divi-wp-dev/ISSUES-RESOLVED.md` | Short fix index (details in catalog) |
+| `divi-wp-dev/ISSUES-RESOLVED.md` | Short fix index (details in catalog / Problems-Solutions) |
 | `TROUBLESHOOTING.md` | Known issues + layout recovery |
 | `HERMES-DESKTOP-PARITY.md` | **Cursor = primary**; handoff, memory bridge, **multi-agent rules** |
 | `HERMES-FULL-CONTROL-SETUP.md` | Hermes Desktop browser CDP + computer_use setup prompts |

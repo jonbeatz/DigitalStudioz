@@ -1,5 +1,19 @@
 # DigitalStudioz — Project Log
 
+## 2026-07-18 — Ops upgrades: theme mirror, wp:smoke, DEV-WORKFLOW
+
+- **theme:sync / theme:backup / theme:push** — LocalWP child theme ↔ `assets/wp-theme/`; zip backups under `G:\Hermes_Project_BackUpz\DigitalStudioz\themes\`.
+- **wp:smoke** — Playwright Home guards (nav gap, mobile stacks, back-top vs credit).
+- **DEV-WORKFLOW.md** + End-Project / START-HERE / MASTER-COMMANDS.
+- Visual QA 390/768/1440 — no regressions (theme stays **0.7.4**).
+
+## 2026-07-18 — Nav right 0.7.3 + mobile stack 0.7.4 + `log fixes` shortcut
+
+- **0.7.3:** Menu links hug Start a Project (middle col grow + menu wrap flex-end).
+- **0.7.4:** Mobile stack for Services/Process/About/Stats/Footer; back-to-top 72/88px clear of credit.
+- **Docs:** Problems-Solutions §J–§K; ISSUES-RESOLVED; catalog; ReCall.
+- **Shortcut:** say **`log fixes`** → `.cursor/prompts/Log-Fixes.md` (also `record fixes` / `log solutions`).
+
 ## 2026-07-18 — Spacing polish 0.7.1–0.7.2 + Problems-Solutions docs
 
 - **0.7.1:** Contact CTA air (para mb 32); intro→cards ~36px (section rowGap 16 + intro mb 20); Featured side pad/gap; Services gutters.

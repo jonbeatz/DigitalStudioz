@@ -4,7 +4,7 @@
 
 **Status:** Active — append new findings at the top of each section (newest first).  
 **Started:** 2026-07-18  
-**Last updated:** 2026-07-18 (Theme **0.7.2** spacing polish — Problems-Solutions §F.5–F.6)
+**Last updated:** 2026-07-18 (Ops §L: theme git mirror + `wp:smoke` + DEV-WORKFLOW; theme **0.7.4** chrome §J–§K)
 
 | Role | Path |
 |------|------|
@@ -28,7 +28,11 @@
 | WordPress | **7.0.2** |
 | PHP (Local lightning) | **8.4.10** |
 | Parent theme | **Divi 5.9.0** |
-| Child theme | `dgtl-digitalstudioz-theme` **0.7.2** (active) |
+| Child theme | `dgtl-digitalstudioz-theme` **0.7.4** (active) |
+| Theme git mirror | `DigitalStudioz/assets/wp-theme/dgtl-digitalstudioz-theme` — `npm run theme:sync` |
+| Theme zip backups | `G:\Hermes_Project_BackUpz\DigitalStudioz\themes\` — `npm run theme:backup` |
+| Home layout smoke | `npm run wp:smoke` (Playwright; Local site must be up) |
+| Dev cadence | [DEV-WORKFLOW.md](./DEV-WORKFLOW.md) |
 | Design system | **Gold & Grey** Variables SoT (`#D3B670` / `#5B6F7A` / `#F5F0E8` / `#817E79`) + Fluid typography presets; child CSS still bridges hero/nav |
 | Front page | Static page **Home** (ID `15`, slug `home`) — `show_on_front=page`, `page_on_front=15` |
 | Home hero | Divi free-form text module + child CSS; matched Next.js Warm Premium hero (eyebrow / dual CTA / bg image); content block centered in viewport, text left-aligned |
@@ -135,6 +139,9 @@ Append new rows at the **top** of the table.
 
 | Date | Symptom | Root cause | Fix that worked | Avoid next time |
 |------|---------|------------|-----------------|-----------------|
+| 2026-07-18 | Theme only on LocalWP; no Home regression guard | Child theme outside DigitalStudioz git; manual QA only | `theme:sync`/`theme:backup` → `assets/wp-theme/`; `wp:smoke`; [DEV-WORKFLOW.md](./DEV-WORKFLOW.md) | After CSS/JS: sync + smoke — [§L](./DIVI5-Problems-Solutions.md#l-theme-git-mirror--home-smoke--cadence) |
+| 2026-07-18 | Mobile sections skinny/squashed; back-to-top over footer credit | Divi rows `row+nowrap` on phone; `.ds-back-top { bottom:24px }` | Theme **0.7.4**: force column stack ≤980 (Services/Process/About/Stats/Footer); back-to-top 72/88px | Always add mobile stack CSS for multi-col Divi rows — [§K](./DIVI5-Problems-Solutions.md#k-mobile-stack--back-to-top-clearance) |
+| 2026-07-18 | Nav links mid-bar, not next to Start a Project | Menu col `flex-grow:0` + wrap `justify-content:flex-start` | Theme **0.7.3**: middle col grows; wrap `flex-end`; CTA unmoved | `ul` flex-end alone is not enough — [§J](./DIVI5-Problems-Solutions.md#j-header-menu-links-right-next-to-cta) |
 | 2026-07-18 | Process intro→cards still ~104px after closing other sections | Theme CSS `min-height:200px !important` on **all** `.ds-process .et_pb_column` (including intro) | Scope to `.et_pb_column:has(.ds-svc-num)` — theme **0.7.2** | Never force section-wide column minh when an intro row shares the section — [Problems-Solutions §F.6](./DIVI5-Problems-Solutions.md#f6-process-intro-still-tall-072) |
 | 2026-07-18 | Contact buttons too close; intro→cards dead space; Featured sides touching/tall | Section flex gap + large intro mb; nested-row margins dropped on FE; card pad 32 | Theme **0.7.1**: para mb 32 for CTAs; intro mb 20 + section rowGap 16; side pad 20 + 16px stack gap | Measure module + column + **section** gaps; Contact space on module **above** — [§F.5](./DIVI5-Problems-Solutions.md#f5-spacing-polish-071--intro-dead-space-contact-ctas-featured-sides) |
 | 2026-07-18 | Spacing locked in CSS; VB edits ignored; footer still HTML blob | 0.6.6 `!important` lock fought builder | Theme **0.7.0**: write Next spacing into Divi attrs; strip lock; footer 31 native | Prefer Divi Spacing attrs; thin CSS bridges only — [§F.3](./DIVI5-Problems-Solutions.md#f3-solution-path-066--070) |

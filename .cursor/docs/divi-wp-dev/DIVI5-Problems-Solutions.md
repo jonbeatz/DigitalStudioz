@@ -1,11 +1,13 @@
 # Divi 5 / LocalWP — Problems & Solutions (master log)
 
 **Site:** `https://digitalstudioz.local/` · **Home:** page **15** · **TB:** header **30** / footer **31** / template **32**  
-**Child theme:** `dgtl-digitalstudioz-theme` **0.7.2**  
+**Child theme:** `dgtl-digitalstudioz-theme` **0.7.4**  
 **Updated:** 2026-07-18  
 **SoT for this file:** when docs disagree on WP/Divi chrome issues, **this document wins** (then START-HERE / ReCall).
 
-**Companions:** [NAV-HTML-REVERT.md](./NAV-HTML-REVERT.md) · [DIVI5-Layout-Polish-Log.md](./DIVI5-Layout-Polish-Log.md) · [DIVI5-Home-Native-Pass.md](./DIVI5-Home-Native-Pass.md) · [DIVI5-LocalWP-Setup-Catalog.md](./DIVI5-LocalWP-Setup-Catalog.md) · WP day-to-day MCP: `Local-WP/DigitalStudioz-WP/.cursor/docs/MCP-SETUP.md` · Next spacing SoT: `lib/experience-engine/engine.tsx`
+**Companions:** [DEV-WORKFLOW.md](./DEV-WORKFLOW.md) · [NAV-HTML-REVERT.md](./NAV-HTML-REVERT.md) · [DIVI5-Layout-Polish-Log.md](./DIVI5-Layout-Polish-Log.md) · [DIVI5-Home-Native-Pass.md](./DIVI5-Home-Native-Pass.md) · [DIVI5-LocalWP-Setup-Catalog.md](./DIVI5-LocalWP-Setup-Catalog.md) · WP day-to-day MCP: `Local-WP/DigitalStudioz-WP/.cursor/docs/MCP-SETUP.md` · Next spacing SoT: `lib/experience-engine/engine.tsx`
+
+**Operator shortcut:** after a fix session, say **`log fixes`** → [Log-Fixes.md](../../prompts/Log-Fixes.md). Then **`npm run theme:sync`**. Before polish claims: **`npm run wp:smoke`**.
 
 ---
 
@@ -22,6 +24,9 @@
 | [G](#g-mcp--plugin-stack) | MCP / plugin stack | 2026-07-18 |
 | [H](#h-pee-aye-creative-plugins) | Pee-Aye plugins (buy/skip) | skip for now |
 | [I](#i-protect-list--never-again) | Protect list / never-again | standing |
+| [J](#j-header-menu-links-right-next-to-cta) | Header menu → right next to CTA | **0.7.3** |
+| [K](#k-mobile-stack--back-to-top-clearance) | Mobile stack + back-to-top | **0.7.4** |
+| [L](#l-theme-git-mirror--home-smoke--cadence) | Theme git mirror + Home smoke + cadence | **ops 2026-07-18** |
 
 ### Theme version cheat sheet (chrome)
 
@@ -38,7 +43,10 @@
 | 0.6.6 | Kill Divi **`row-gap:30px`**; exact Next text-stack margins (CSS lock) |
 | 0.7.0 | Spacing unlocked into Divi VB; CSS lock removed; footer **31** native; TB dup 37 deleted |
 | 0.7.1 | Intro→cards dead space closed; Contact CTA pad; Featured side-card gap/height; Services gutters |
-| **0.7.2** | Process intro `min-height:200px` scoped to **card columns only** (`:has(.ds-svc-num)`) |
+| 0.7.2 | Process intro `min-height:200px` scoped to **card columns only** (`:has(.ds-svc-num)`) |
+| 0.7.3 | Desktop menu links pinned **right** next to Start a Project (middle col grows) |
+| **0.7.4** | Mobile stack Services/Process/About/Stats/Footer; back-to-top raised clear of footer credit |
+| ops | Theme git mirror (`assets/wp-theme/`) + `theme:sync` / `theme:backup` + `wp:smoke` + [DEV-WORKFLOW.md](./DEV-WORKFLOW.md) |
 
 ---
 
@@ -318,7 +326,124 @@ For this brochure Warm Premium home: **do not buy a PAC stack now.**
 7. Brand walls: page **57** = Divi SoT; page **54** = CSS ref (builder off).  
 8. After theme CSS edits: hard-refresh; theme `filemtime` busts cache via `functions.php`.  
 9. Do **not** apply Process portrait `min-height` to intro columns — scope with `:has(.ds-svc-num)`.  
-10. Contact CTA air: use **paragraph `margin-bottom`**, not nested-row `margin-top`.
+10. Contact CTA air: use **paragraph `margin-bottom`**, not nested-row `margin-top`.  
+11. Desktop header: middle Menu column must **`flex-grow:1`** and Divi `.et_pb_menu__wrap` must be **`justify-content:flex-end`** — `ul` flex-end alone is not enough (nav stays content-width).  
+12. Do **not** assume Divi 5 rows stack on phone — they stay `flex-direction:row; flex-wrap:nowrap` until child CSS forces column stack.  
+13. Fixed back-to-top at `bottom:24px` will cover footer credit — use **≥72px** (88px phone).
+
+---
+
+## J. Header menu links right (next to CTA)
+
+### J.1 Symptom
+
+Desktop nav: logo far left, **Start a Project** far right, but Work→Contact sat mid-bar with a large gap before the button.
+
+### J.2 Inventory (TB 30 — freeze-safe status)
+
+| Module | Role | Status |
+|--------|------|--------|
+| **Text** `.ds-header-logo` | Logo — HTML-in-Text (`<a class="ds-logo">` dual-color) | Intentional (not Image/Menu logo) |
+| **Menu** `.ds-primary-menu` | WP Primary menu **4** | Real Divi Menu since **0.6.0** |
+| **Button** `.ds-header-cta` | Start a Project | Real Divi Button since **0.6.0** |
+| MutationObserver / style loops | Freeze risk | **Removed 0.5.4** — `core-scripts.js` only scroll class + mobile drawer |
+
+### J.3 Root cause
+
+Row used `justify-content: space-between` with three columns all effectively `flex-grow:0`. Menu column stayed content-width (~369px) in the middle. Even with `ul { justify-content:flex-end }`, Divi’s `.et-menu-nav` stays content-width inside a full-width wrap that defaulted to **`justify-content:flex-start`** — so the link cluster hugged the **left** of the middle column.
+
+### J.4 Fix (theme **0.7.3**)
+
+```css
+/* ≥981px */
+.ds-header-row { justify-content: flex-start; gap: 0 24px; }
+.et_pb_column_0_tb_header { flex: 0 0 auto; }   /* logo */
+.et_pb_column_1_tb_header { flex: 1 1 auto; }   /* menu grows */
+.et_pb_column_2_tb_header { flex: 0 0 auto; }   /* CTA stays put */
+.et_pb_menu__wrap { justify-content: flex-end; } /* pin cluster to right of middle col */
+```
+
+Measured: Contact → CTA ≈ **24px**; CTA `left` unchanged (~1272 @ 1440vw).
+
+### J.5 Never again
+
+- Don’t only set `ul { justify-content:flex-end }` — fix the **wrap** / column grow.
+- Don’t move the CTA column; grow the menu column instead.
+
+---
+
+## K. Mobile stack + back-to-top clearance
+
+### K.1 Symptoms
+
+1. Back-to-top button overlapped footer credit **“Built with DigitalStudioz”**.
+2. Phone layouts looked skinny/squashed: Services 3-up, Process 5-up, About 2-up, Stats 4-up, Footer 4-up — titles truncated.
+
+### K.2 Root causes
+
+| Issue | Cause |
+|-------|--------|
+| Back-to-top overlap | `.ds-back-top { bottom: 24px }` sat on the footer bar credit line |
+| Squashed grids | Divi 5 content rows: `display:flex; flex-direction:row; flex-wrap:nowrap` on phone; columns `flex: 0 1 auto` shrink instead of stacking. Work bento already had a stack rule; Services/Process/About/Stats/Footer did not |
+
+### K.3 Fixes (theme **0.7.4**)
+
+**Back-to-top:** `bottom: 72px` desktop · `88px` mobile — measured no overlap with credit (vertical clearance + button on the right).
+
+**Stack ≤980px** (full-width columns, `flex-direction:column` on content rows):
+
+- `#services` / `#process` card rows (not intro row)
+- `#about` / `#stats`
+- Footer `.ds-footer-grid` (TB 31)
+
+**Tablet 768–980:** Services 2-up · Stats 2×2 · Process stays stacked (5 steps).
+
+Verified @ 390px: service titles full (“3D Web Experiences”); process titles Concept…Iterate; about cols 312px; footer cols 358px.
+
+### K.4 Never again
+
+- After building multi-column Divi rows, **always** add a ≤980px stack rule (or set Divi responsive column widths in VB and verify FE).
+- Measure with CDP: column widths + `flexDirection` at `width:390`.
+- Keep back-to-top above footer credit; don’t rely on horizontal miss alone (credit can be wider on desktop).
+
+---
+
+## L. Theme git mirror + Home smoke + cadence
+
+### L.1 Problems
+
+| Problem | Root cause |
+|---------|------------|
+| Child theme lived only under LocalWP (not in DigitalStudioz git) | Easy to lose CSS/JS history; hard to review diffs / restore on another PC |
+| No automated Home layout regression | Manual eyeballing missed nav gap / stack / back-top regressions |
+| Long “update all docs” prompts | Needed a short post-fix ritual + clear measure→fix→verify loop |
+
+### L.2 Solutions (2026-07-18)
+
+| Piece | Location / command |
+|-------|-------------------|
+| Live SoT (edit here) | `Local-WP/DigitalStudioz-WP/.../themes/dgtl-digitalstudioz-theme` |
+| Git mirror | `DigitalStudioz/assets/wp-theme/dgtl-digitalstudioz-theme` |
+| Pull / zip / restore | `npm run theme:sync` · `theme:backup` · `theme:push` |
+| Zip root | `G:\Hermes_Project_BackUpz\DigitalStudioz\themes\` |
+| Home smoke | `npm run wp:smoke` — Contact→CTA ≤80px @1440; Services/Process stack @390; back-top vs credit |
+| Cadence doc | [DEV-WORKFLOW.md](./DEV-WORKFLOW.md) |
+| Chat shortcut | **`log fixes`** → [Log-Fixes.md](../../prompts/Log-Fixes.md) (includes theme:sync step) |
+
+### L.3 Visual QA baseline (0.7.4 — no theme bump)
+
+| Viewport | Observed |
+|----------|----------|
+| 1440 | Contact→CTA **24px**; Services 3-up; Process 5-up |
+| 768 | Hamburger + CTA; Services 2+1 wrap; Stats 2×2; Process/About stack |
+| 390 | Full stacks; back-top `bottom:88px`; ~**44px** clear above footer credit |
+
+### L.4 Never again
+
+- After theme CSS/JS edits: **`theme:sync`** before claiming “committed.”
+- After layout chrome: **`wp:smoke`** (Local site must be running).
+- Prefer **`log fixes`** over dumping long “document everything” paragraphs.
+- Do **not** put the mirror under `.cursor/assets/` (gitignored) — use repo-root `assets/wp-theme/`.
 
 ---
 
@@ -329,10 +454,15 @@ For this brochure Warm Premium home: **do not buy a PAC stack now.**
 - [ ] Contact: body→buttons ≈ **32px**  
 - [ ] Featured side cards: not touching; pad ~**20**; gap ~**16–32**  
 - [ ] Process intro column not stuck at `min-height:200px`  
+- [ ] Desktop: menu links sit next to Start a Project (~24px gap); CTA unmoved  
+- [ ] ≤980px: Services/Process/About/Stats/Footer **stack** (no skinny 5-col Process)  
+- [ ] Back-to-top does **not** cover “Built with DigitalStudioz”  
 - [ ] ≤980px: hamburger → frost drawer flush under bar → X closes → widen clears drawer  
 - [ ] Scroll: nav glass lightens (~0.28); no freeze  
 - [ ] Cursor MCP: single `ai-editor-divi5`, `local-wp` green, IAWB green  
+- [ ] **`npm run wp:smoke`** PASS (when Local site up)  
+- [ ] **`npm run theme:sync`** after CSS/JS; commit `assets/wp-theme/` when asked  
 
 ---
 
-*Master log maintained for DigitalStudioz LocalWP + Divi 5. Append new rows; bump theme version in the cheat sheet when chrome ships.*
+*Master log maintained for DigitalStudioz LocalWP + Divi 5. Append new rows; bump theme version in the cheat sheet when chrome ships. Operator: **`log fixes`** after each fix session.*

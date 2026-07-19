@@ -54,6 +54,17 @@ From conversation + any file changes under **{PROJECT_ROOT}**:
 
 Append **`.cursor/docs/project-log.md`** and update **`ReCall.md`**.
 
+### WP / Divi sessions (DigitalStudioz)
+
+If this session changed LocalWP theme CSS/JS, Divi layout, or TB chrome:
+
+1. Run the **`log fixes`** ritual ([Log-Fixes.md](./Log-Fixes.md)) if not already done mid-session.
+2. Sync the child theme into git: **`npm run theme:sync`** (Live SoT stays LocalWP; mirror is `assets/wp-theme/`).
+3. Optional milestone zip: **`npm run theme:backup`**.
+4. Optional Home layout guard: **`npm run wp:smoke`** (Local site must be running).
+
+Cadence: [DEV-WORKFLOW.md](../docs/divi-wp-dev/DEV-WORKFLOW.md).
+
 Optional hub logger (DigitalStudioz):
 
 ```powershell

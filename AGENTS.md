@@ -35,7 +35,8 @@ layout in **`PROJECT-STRUCTURE.md`** (in that same repo).
 |---------|--------|
 | Start Project / Start Session | Read TRUTH + START-HERE + ReCall, search Mem0, print status |
 | End Project / Close Session | Summarize, update ReCall, optionally save Mem0 |
-| Update Docs | Sync version, encoding check, align docs |
+| **log fixes** / record fixes | Write Divi/WP issues→solutions (`Log-Fixes.md` → Problems-Solutions + ISSUES + catalog) then `theme:sync` |
+| Update Docs | Sync version, encoding check, align docs (broader fleet sync) |
 | Backup Project | Run interactive backup flow per project convention |
 
 ## Backup
@@ -43,9 +44,12 @@ layout in **`PROJECT-STRUCTURE.md`** (in that same repo).
 ```powershell
 npm run backup:quick    # Standard backup, auto folder name, no prompts
 npm run backup:full     # Full mirror — includes everything
+npm run theme:sync      # LocalWP Divi child → assets/wp-theme/
+npm run theme:backup    # sync + zip under G:\Hermes_Project_BackUpz\DigitalStudioz\themes\
+npm run wp:smoke        # Home layout guards (Local site up)
 ```
 
-Backups go to `G:\Hermes_Project_BackUpz\DigitalStudioz\` with sequential naming.
+Backups go to `G:\Hermes_Project_BackUpz\DigitalStudioz\` with sequential naming. Theme zip backups: `...\themes\`.
 
 ## Skills Index
 

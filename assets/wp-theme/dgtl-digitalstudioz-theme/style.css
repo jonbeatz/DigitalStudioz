@@ -1,0 +1,2025 @@
+/*
+Theme Name: DigitalStudioz (Divi Child)
+Theme URI: https://digitalstudioz.com
+Description: Premium Divi 5 child theme for DigitalStudioz.com
+Author: JonBeatz / DigitalStudioz
+Template: Divi
+Version: 0.7.4
+Text Domain: dgtl-digitalstudioz
+*/
+
+/* Gold & Grey Sophistication tokens (provisional — Divi Design Variables are SoT once imported)
+   See: DigitalStudioz/.cursor/docs/divi-wp-dev/DIVI5-Design-Variables-GoldGrey.md
+   Pack: .cursor/assets/Divi-Xtraz/dsz-branded/DSZ-GoldGrey-Fluid-Global-Variables.json
+*/
+:root {
+  /* Match Next.js engine.tsx / :3000 — Inter + JetBrains Mono */
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "Space Mono", "Courier New", monospace;
+
+  --gold1: #d3b670;
+  --darkgrey1: #121212;
+  --lightgrey: #817e79;
+  --warm-offwhite: #f5f0e8;
+  --deep-charcoal: #18181b;
+  --satin-gold: #e8cd9a;
+  --slate-blue: #5b6f7a;
+  --soft-umber: #8a7a6a;
+  --index-muted: #443b2b;
+
+  /* Aliases used by existing hero/header CSS */
+  --bg-void: var(--darkgrey1);
+  --bg-canvas: var(--deep-charcoal);
+  --bg-surface: var(--deep-charcoal);
+  --gold: var(--gold1);
+  --gold-bright: var(--satin-gold);
+  --hero-accent: var(--gold1);
+  --hero-sub: var(--lightgrey);
+  --warm-cream: var(--warm-offwhite);
+  --warm-border: rgba(245, 240, 232, 0.08);
+  --text-primary: var(--warm-offwhite);
+  --radius-sm: 8px;
+  --header-offset: 72px;
+  --nav-default-alpha: 0.94;
+  --nav-scrolled-alpha: 0.28;
+}
+
+html,
+body,
+.et-db,
+.et_pb_module,
+.et_pb_text_inner,
+.et_pb_module_header,
+button,
+input,
+textarea {
+  font-family: var(--font-sans);
+}
+
+/* Smooth in-page section scroll (nav /#work etc). Offset for sticky DS header. */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-offset);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Hide default page title above Divi layout on Home + brand system */
+.page-id-15 .entry-title,
+.home .entry-title,
+.page-dsz-brand-system .entry-title,
+.page-id-54 .entry-title {
+  display: none;
+}
+
+/* Full-bleed main container on Home + brand system */
+.page-id-15 #main-content > .container,
+.home #main-content > .container,
+.page-dsz-brand-system #main-content > .container,
+.page-id-54 #main-content > .container,
+.page-id-57 #main-content > .container {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+}
+
+/* Hero — optically center in viewport (pad clears sticky header). */
+.et-l--post #ds-hero.et_pb_section,
+.page-id-15 .et-l--post .et_pb_section.ds-hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  /* Do NOT force background-color — Divi owns image + soft gold→#121212 gradient.
+     A solid void + multiply blend crushed the photo to black (fixed v0.3.6). */
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+.et-l--post #ds-hero > .et_pb_row,
+.et-l--post #ds-hero .ds-hero-row {
+  width: 100%;
+  max-width: 1200px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Hero dark overlay — DISABLED CSS takeover (0.2.6).
+   Native Divi section background.gradient.overlaysImage + image.blend=multiply
+   now owns the dark-red→black overlay. Re-enable only if Divi overlay fails.
+.et-l--post .et_pb_section:first-of-type::before,
+#ds-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(10, 10, 11, 0.35) 0%, rgba(10, 10, 11, 0.92) 100%),
+    linear-gradient(90deg, rgba(10, 10, 11, 0.45) 0%, rgba(10, 10, 11, 0.2) 50%, rgba(10, 10, 11, 0.45) 100%);
+}
+*/
+
+.et-l--post #ds-hero .et_pb_row,
+.et-l--post .ds-hero .et_pb_row {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  /* Match Next.js S.inner — 1200px (not a narrow 720 centered column). */
+  max-width: 1200px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.et-l--post #ds-hero .et_pb_column:not(.ds-hero-content),
+.et-l--post #ds-hero .et_pb_text,
+.et-l--post #ds-hero .et_pb_text_inner {
+  width: 100%;
+  max-width: none;
+}
+
+/* ── Hero content stack — centered like Contact (compact 560, not left 640) ── */
+.et-l--post #ds-hero .et_pb_column.ds-hero-content,
+.ds-hero-content {
+  max-width: 560px !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
+  font-family: var(--font-sans);
+}
+
+#ds-hero .et_pb_module,
+#ds-hero .et_pb_heading,
+#ds-hero .et_pb_text,
+#ds-hero .et_pb_text_inner,
+#ds-hero .et_pb_heading_container,
+#ds-hero h1 {
+  text-align: center !important;
+}
+
+.ds-hero-eyebrow {
+  margin: 0 0 12px;
+  font-family: var(--font-mono);
+  font-size: 12px !important;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.ds-hero-title,
+#ds-hero .ds-hero-title .et_pb_module_header,
+#ds-hero h1.et_pb_module_header {
+  margin: 0 0 24px !important;
+  font-family: var(--font-sans);
+  font-size: clamp(32px, 5vw, 52px) !important;
+  font-weight: 700 !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.03em !important;
+  color: #ffffff;
+}
+
+.ds-hero-title span,
+#ds-hero .ds-hero-title span {
+  color: var(--hero-accent);
+  background: linear-gradient(135deg, var(--gold), var(--gold-bright));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Fallback if gradient text fails */
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .ds-hero-title span,
+  #ds-hero .ds-hero-title span {
+    color: var(--hero-accent);
+    -webkit-text-fill-color: var(--hero-accent);
+  }
+}
+
+.ds-hero-sub,
+#ds-hero .ds-hero-sub .et_pb_text_inner {
+  margin: 0 auto 40px !important;
+  max-width: 480px;
+  font-family: var(--font-sans);
+  font-size: 17px !important;
+  font-weight: 400;
+  line-height: 1.6 !important;
+  color: var(--hero-sub);
+  text-align: center !important;
+}
+
+/* Side-by-side CTAs — Divi button wrappers are block/full-width by default. */
+.ds-hero-ctas,
+.ds-contact-ctas {
+  display: flex !important;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+}
+
+#ds-hero .ds-hero-ctas.et_pb_row,
+.ds-contact .ds-contact-ctas.et_pb_row {
+  width: 100%;
+  max-width: none !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+#ds-hero .ds-hero-ctas > .et_pb_column,
+.ds-contact .ds-contact-ctas > .et_pb_column,
+.ds-hero-ctas .et_pb_column,
+.ds-contact-ctas .et_pb_column {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 16px !important;
+  width: auto !important;
+  max-width: none !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.ds-hero-ctas .et_pb_button_module_wrapper,
+.ds-contact-ctas .et_pb_button_module_wrapper {
+  display: inline-flex !important;
+  width: auto !important;
+  max-width: none !important;
+  flex: 0 0 auto !important;
+  margin: 0 !important;
+}
+
+.ds-hero-ctas .et_pb_button,
+.ds-contact-ctas .et_pb_button {
+  width: auto !important;
+  margin: 0 !important;
+}
+
+/* Button pad bridge — Divi Customizer often wins over module Spacing.
+   Values match VB Button module 14/28; keep until Customizer is aligned. */
+.ds-hero-ctas a.et_pb_button,
+.ds-contact-ctas a.et_pb_button,
+#ds-hero a.et_pb_button,
+.ds-contact a.et_pb_button {
+  padding: 14px 28px !important;
+  font-family: var(--font-sans);
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
+}
+
+/* Contact section — centered like Next.js */
+.ds-contact .et_pb_column,
+.ds-contact .et_pb_text,
+.ds-contact .et_pb_heading,
+.ds-contact .et_pb_text_inner,
+.ds-contact h2 {
+  text-align: center !important;
+}
+.ds-contact .ds-contact-ctas .et_pb_column {
+  justify-content: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.ds-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none !important;
+  border-radius: var(--radius-sm);
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  box-sizing: border-box;
+}
+
+.ds-btn-primary {
+  background: linear-gradient(135deg, var(--gold), var(--gold-bright));
+  color: var(--bg-void) !important;
+  border: 1px solid transparent;
+}
+
+.ds-btn-primary:hover,
+.ds-btn-primary:focus-visible {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.ds-btn-ghost {
+  background: transparent;
+  color: var(--warm-cream) !important;
+  border: 1px solid rgba(232, 226, 217, 0.28);
+}
+
+.ds-btn-ghost:hover,
+.ds-btn-ghost:focus-visible {
+  border-color: var(--gold);
+  color: #ffffff !important;
+}
+
+/* ── Tablet ── */
+@media (max-width: 980px) {
+  .et-l--post #ds-hero .et_pb_row {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .ds-hero-title {
+    font-size: clamp(32px, 6vw, 42px);
+  }
+
+  .ds-hero-sub {
+    font-size: 16px;
+    margin-bottom: 32px;
+  }
+}
+
+/* ── Mobile ── */
+@media (max-width: 767px) {
+  .et-l--post #ds-hero.et_pb_section {
+    min-height: 100svh;
+    align-items: center;
+    justify-content: center;
+    padding-top: 88px;
+    padding-bottom: 40px;
+  }
+
+  .et-l--post #ds-hero .et_pb_row {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .ds-hero-content {
+    max-width: 100%;
+  }
+
+  .ds-hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    margin-bottom: 10px;
+  }
+
+  .ds-hero-title {
+    font-size: 32px;
+    margin-bottom: 16px;
+  }
+
+  .ds-hero-sub {
+    font-size: 15px;
+    margin-bottom: 28px;
+    max-width: 100%;
+  }
+
+  .ds-hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .ds-btn {
+    width: 100%;
+    padding: 14px 20px;
+  }
+}
+
+/* Prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .ds-btn {
+    transition: none;
+  }
+
+  .ds-btn-primary:hover,
+  .ds-btn-primary:focus-visible {
+    transform: none;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   Global Header (Theme Builder)
+   ═══════════════════════════════════════════ */
+
+/* Kill leftover default Divi chrome when TB header/footer are active */
+body.et-tb #main-header,
+body.et_pb_pagebuilder_layout #main-header,
+#main-header {
+  display: none !important;
+}
+#main-footer {
+  display: none !important;
+}
+
+/* Header section MUST stay transparent — --bg-void here was stacking under
+   glass and making scroll opacity look solid (v0.5.2). Footer keeps void. */
+.et-l--header .et_pb_section,
+.et-l--header > .et_builder_inner_content > .et_pb_section {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  min-height: 0 !important;
+  height: auto !important;
+  display: block !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.et-l--footer .et_pb_section {
+  background-color: var(--bg-void) !important;
+  min-height: 0 !important;
+  height: auto !important;
+  display: block !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.et-l--header .et_pb_row,
+.et-l--footer .et_pb_row {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: 0 !important;
+}
+
+.et-l--header .et_pb_column,
+.et-l--footer .et_pb_column,
+.et-l--header .et_pb_text,
+.et-l--footer .et_pb_text {
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: 0 !important;
+}
+
+.et-l--header .et_pb_text_inner,
+.et-l--footer .et_pb_text_inner {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.ds-logo {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  white-space: nowrap;
+}
+
+.ds-logo span {
+  color: var(--hero-accent);
+}
+
+.et-l--header .ds-header-logo p {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/*
+ * Desktop header layout (TB 30):
+ * [Logo Text] ………… [Menu links → right] [Start a Project]
+ * Middle column must grow; links flex-end so they sit next to the CTA.
+ * Divi’s default space-between + flex-grow:0 parked the menu mid-bar.
+ */
+@media (min-width: 981px) {
+  .et-l--header .ds-header-row.et_pb_row,
+  .et-l--header .et_pb_row_0_tb_header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    column-gap: 24px !important;
+    row-gap: 0 !important;
+    gap: 0 24px !important;
+  }
+
+  .et-l--header .et_pb_column_0_tb_header {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+
+  .et-l--header .et_pb_column_1_tb_header {
+    flex: 1 1 auto !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+  }
+
+  .et-l--header .et_pb_column_2_tb_header {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    max-width: none !important;
+    margin-left: 0 !important;
+  }
+
+  .et-l--header .ds-primary-menu.et_pb_menu,
+  .et-l--header .ds-primary-menu .et_pb_menu_inner_container,
+  .et-l--header .ds-primary-menu .et_pb_menu__wrap,
+  .et-l--header .ds-primary-menu .et_pb_menu__menu {
+    width: 100% !important;
+  }
+
+  /* Divi’s .et-menu-nav stays content-width — pin the whole cluster to the right
+     of the growing middle column so links sit next to Start a Project. */
+  .et-l--header .ds-primary-menu .et_pb_menu_inner_container,
+  .et-l--header .ds-primary-menu .et_pb_menu__wrap {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+  }
+
+  .et-l--header .ds-primary-menu .et-menu-nav {
+    width: auto !important;
+    max-width: 100% !important;
+    margin-left: auto !important;
+  }
+
+  .et-l--header .ds-primary-menu .et-menu-nav > ul,
+  .et-l--header .ds-primary-menu ul.et-menu {
+    justify-content: flex-end !important;
+    width: auto !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   Primary Menu (Divi Menu module → WP menu 4)
+   Replaces free-form .ds-nav HTML (see NAV-HTML-REVERT.md)
+   ═══════════════════════════════════════════ */
+
+.et-l--header .ds-primary-menu.et_pb_menu,
+.et-l--header .ds-primary-menu .et_pb_menu_inner_container,
+.et-l--header .ds-primary-menu .et_pb_menu__wrap,
+.et-l--header .ds-primary-menu .et_pb_menu__menu {
+  background: transparent !important;
+  background-color: transparent !important;
+  width: 100%;
+  box-shadow: none !important;
+}
+
+.et-l--header .ds-primary-menu .et-menu-nav > ul,
+.et-l--header .ds-primary-menu ul.et-menu {
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 32px;
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+  background: transparent !important;
+}
+
+.et-l--header .ds-primary-menu ul.et-menu > li {
+  margin: 0 !important;
+  padding: 0 !important;
+  float: none !important;
+}
+
+.et-l--header .ds-primary-menu ul.et-menu > li > a,
+.et-l--header .ds-primary-menu .et-menu-nav > ul > li > a {
+  font-family: var(--font-sans) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: var(--hero-sub) !important;
+  text-decoration: none !important;
+  padding: 0 !important;
+  background: transparent !important;
+  line-height: 1.2 !important;
+  transition: color 0.2s ease;
+}
+
+.et-l--header .ds-primary-menu ul.et-menu > li > a:hover,
+.et-l--header .ds-primary-menu ul.et-menu > li > a:focus-visible {
+  color: var(--hero-accent) !important;
+}
+
+/* Hide Divi cart/search in this header menu */
+.et-l--header .ds-primary-menu .et_pb_menu__icon,
+.et-l--header .ds-primary-menu .et_pb_menu__logo-wrap {
+  display: none !important;
+}
+
+.ds-header-cta,
+.et-l--header a.ds-header-cta.et_pb_button {
+  flex-shrink: 0;
+  padding: 10px 20px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  border: none !important;
+}
+
+/* Mobile drawer: hidden by default (all breakpoints) */
+.et-l--header .ds-primary-menu .et_mobile_menu,
+.et-l--header .ds-primary-menu ul.et_mobile_menu,
+header.et-l--header > .ds-mobile-drawer {
+  display: none !important;
+}
+
+/* Mobile: Divi hamburger + drawer — match former .ds-nav drawer */
+@media (max-width: 980px) {
+  .et-l--header .ds-header-cta,
+  .et-l--header .ds-header-cta.et_pb_button,
+  .et-l--header .et_pb_button_0_tb_header_wrapper,
+  .et-l--header .et_pb_column_2_tb_header {
+    display: none !important;
+  }
+
+  .et-l--header .ds-header-row {
+    position: relative;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Logo left, hamburger pinned right */
+  .et-l--header .et_pb_column_0_tb_header {
+    flex: 1 1 auto !important;
+  }
+
+  .et-l--header .et_pb_column_1_tb_header {
+    flex: 0 0 auto !important;
+    margin-left: auto !important;
+    width: auto !important;
+    min-width: 44px !important;
+  }
+
+  .et-l--header .ds-primary-menu .et_pb_menu__menu {
+    display: none !important;
+  }
+
+  .et-l--header .ds-primary-menu .et_mobile_nav_menu {
+    display: block !important;
+    float: none !important;
+    margin: 0 !important;
+    width: 44px !important;
+  }
+
+  .et-l--header .ds-primary-menu .mobile_nav {
+    position: relative;
+    float: none !important;
+    width: 44px !important;
+    height: 44px !important;
+    overflow: visible !important;
+  }
+
+  /*
+   * Divi ETmodules glyph often has content:none on TB headers — icon invisible.
+   * Draw gold 3-bar / X with CSS (same approach as old .ds-nav-toggle).
+   */
+  .et-l--header .ds-primary-menu .mobile_menu_bar {
+    display: block !important;
+    position: relative !important;
+    width: 44px !important;
+    height: 44px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer;
+    z-index: 10040;
+  }
+
+  .et-l--header .ds-primary-menu .mobile_nav .mobile_menu_bar:before,
+  .et-l--header .ds-primary-menu .mobile_nav .mobile_menu_bar:after {
+    font-family: none !important;
+    content: "" !important;
+    position: absolute !important;
+    left: 10px !important;
+    width: 24px !important;
+    height: 3px !important;
+    background: var(--hero-accent, #d3b670) !important;
+    border-radius: 1px;
+    margin: 0 !important;
+    color: transparent !important;
+    transition: transform 0.2s ease, top 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  /* Closed = 3 bars (middle via box-shadow) */
+  .et-l--header .ds-primary-menu .mobile_nav.closed .mobile_menu_bar:before,
+  .et-l--header .ds-primary-menu .mobile_nav:not(.opened) .mobile_menu_bar:before {
+    top: 13px !important;
+    transform: none !important;
+    box-shadow:
+      0 8px 0 0 var(--hero-accent, #d3b670),
+      0 16px 0 0 var(--hero-accent, #d3b670) !important;
+    opacity: 1 !important;
+  }
+
+  .et-l--header .ds-primary-menu .mobile_nav.closed .mobile_menu_bar:after,
+  .et-l--header .ds-primary-menu .mobile_nav:not(.opened) .mobile_menu_bar:after {
+    top: 29px !important;
+    opacity: 0 !important;
+    transform: none !important;
+  }
+
+  /* Open = gold X */
+  .et-l--header .ds-primary-menu .mobile_nav.opened .mobile_menu_bar:before {
+    top: 20px !important;
+    box-shadow: none !important;
+    transform: rotate(45deg) !important;
+    opacity: 1 !important;
+  }
+
+  .et-l--header .ds-primary-menu .mobile_nav.opened .mobile_menu_bar:after {
+    top: 20px !important;
+    opacity: 1 !important;
+    transform: rotate(-45deg) !important;
+    box-shadow: none !important;
+  }
+
+  /* Drawer only when opened — flush under glass header.
+   * Use absolute + top:100% on the fixed header so admin-bar offset
+   * cannot leave a gap (CSS var top was often a few px / padding low). */
+  .et-l--header .ds-primary-menu .mobile_nav.opened > .et_mobile_menu,
+  .et-l--header .ds-primary-menu .mobile_nav.opened > ul.et_mobile_menu,
+  header.et-l--header > .ds-mobile-drawer.is-open {
+    display: block !important;
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: 100% !important;
+    bottom: auto !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 16px 12px !important;
+    /* Light frost — slightly more opaque than scrolled top bar (~0.28),
+       still see-through enough to feel glass. */
+    background: rgba(10, 10, 11, 0.94) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(1.12);
+    backdrop-filter: blur(18px) saturate(1.12);
+    border-top: 0 !important;
+    border-bottom: 1px solid var(--warm-border);
+    box-shadow: none !important;
+    z-index: 10025;
+    transform: none !important;
+    list-style: none !important;
+  }
+
+  .et-l--header .ds-primary-menu .et_mobile_menu li,
+  .et-l--header .ds-primary-menu ul.et_mobile_menu li,
+  header.et-l--header > .ds-mobile-drawer li {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    list-style: none !important;
+    float: none !important;
+    width: 100% !important;
+    text-align: left !important;
+  }
+
+  .et-l--header .ds-primary-menu .et_mobile_menu a,
+  .et-l--header .ds-primary-menu ul.et_mobile_menu a,
+  header.et-l--header > .ds-mobile-drawer a {
+    font-family: var(--font-sans) !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: var(--hero-sub) !important;
+    padding: 12px 8px !important;
+    border-bottom: 1px solid var(--warm-border) !important;
+    background: transparent !important;
+    display: block !important;
+    width: 100% !important;
+    text-align: left !important;
+  }
+
+  header.et-l--header > .ds-mobile-drawer li:first-child a {
+    padding-top: 10px !important;
+  }
+
+  .et-l--header .ds-primary-menu .et_mobile_menu a:hover,
+  .et-l--header .ds-primary-menu ul.et_mobile_menu a:hover,
+  header.et-l--header > .ds-mobile-drawer a:hover {
+    color: var(--hero-accent) !important;
+  }
+}
+
+/* Legacy .ds-nav / .ds-nav-toggle kept only for NAV-HTML-REVERT restore */
+.ds-nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-left: auto;
+}
+
+.ds-nav a {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--hero-sub) !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease;
+}
+
+.ds-nav a:hover,
+.ds-nav a:focus-visible {
+  color: var(--hero-accent) !important;
+}
+
+.ds-nav-toggle {
+  display: none;
+}
+.et-l--header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 10020; /* above Divi sticky (often 10010) */
+  background-color: rgba(10, 10, 11, 0.94) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background-color 0.35s ease, backdrop-filter 0.35s ease, border-color 0.35s ease;
+  border-bottom: 1px solid transparent;
+  overflow: visible; /* mobile drawer is position:absolute; top:100% */
+}
+
+.admin-bar .et-l--header {
+  top: 32px;
+}
+
+@media screen and (max-width: 782px) {
+  .admin-bar .et-l--header {
+    top: 46px;
+  }
+}
+
+/* See-through on scroll — 0.28 so content clearly shows under the bar. */
+.et-l--header.is-scrolled {
+  background-color: rgba(10, 10, 11, 0.28) !important;
+  backdrop-filter: blur(10px) saturate(150%);
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
+  border-bottom-color: var(--warm-border);
+}
+
+/*
+ * Kill Divi sticky on header children. Sticky re-fixes the section at top:0
+ * (under admin bar) while .et-l--header sits at top:32px — detaches chrome.
+ * Glass + fixed positioning live only on .et-l--header.
+ */
+.et-l--header .et_pb_section,
+.et-l--header .et_pb_section.et_pb_sticky,
+.et-l--header .et_pb_section.et_pb_sticky--top,
+.et-l--header .et_pb_section[class*="et_pb_section"],
+.et-l--header .et_builder_inner_content,
+.et-l--header .et_pb_row,
+.et-l--header .et_pb_column,
+.et-l--header .et_pb_text,
+.et-l--header .et_pb_text_inner,
+.et-l--header .et_pb_menu,
+.et-l--header .ds-primary-menu,
+.et-l--header .ds-site-header,
+.et-l--header .ds-site-header.is-scrolled,
+.et-l--header .ds-site-header__inner {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+
+.et-l--header .et_pb_section,
+.et-l--header .et_pb_section.et_pb_sticky,
+.et-l--header .et_pb_section.et_pb_sticky--top {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  width: 100% !important;
+  transform: none !important;
+  z-index: auto !important;
+}
+
+/* ═══════════════════════════════════════════
+   Global Footer (Theme Builder — native modules)
+   Spacing/padding owned by Divi VB on TB 31.
+   CSS = chrome + link look only.
+   ═══════════════════════════════════════════ */
+
+.et-l--footer .ds-footer.et_pb_section {
+  border-top: 1px solid var(--warm-border);
+  font-family: var(--font-sans);
+}
+
+.et-l--footer .ds-footer-grid {
+  max-width: 1200px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.et-l--footer .ds-footer-blurb,
+.et-l--footer .ds-footer-blurb .et_pb_text_inner {
+  max-width: 220px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--hero-sub);
+}
+
+.et-l--footer .ds-footer-heading .et_pb_module_header,
+.et-l--footer .ds-footer-heading h4 {
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  color: var(--hero-accent) !important;
+}
+
+.et-l--footer .ds-footer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.et-l--footer .ds-footer-list a,
+.et-l--footer .ds-footer-links a {
+  font-size: 14px;
+  color: var(--hero-sub) !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease;
+}
+
+.et-l--footer .ds-footer-list a:hover,
+.et-l--footer .ds-footer-list a:focus-visible,
+.et-l--footer .ds-footer-links a:hover,
+.et-l--footer .ds-footer-links a:focus-visible {
+  color: var(--hero-accent) !important;
+}
+
+.et-l--footer .ds-footer-bar-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: #52525b;
+}
+
+/* Legacy HTML footer selectors (pre-0.7.0 backup path) */
+.ds-footer__grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 48px;
+}
+.ds-footer__col a {
+  font-size: 14px;
+  color: var(--hero-sub) !important;
+  text-decoration: none !important;
+}
+
+.ds-back-top {
+  position: fixed;
+  right: 24px;
+  /* Clear footer credit (“Built with DigitalStudioz”) when scrolled to bottom */
+  bottom: 72px;
+  z-index: 90;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(200, 164, 92, 0.12);
+  border: 1px solid rgba(200, 164, 92, 0.25);
+  color: var(--hero-accent) !important;
+  text-decoration: none !important;
+  font-size: 16px;
+  line-height: 1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.ds-back-top.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ds-back-top:hover {
+  transform: translateY(-2px);
+  background: rgba(200, 164, 92, 0.2);
+}
+
+@media (max-width: 980px) {
+  .ds-footer__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .ds-footer__brand {
+    grid-column: 1 / -1;
+  }
+
+  /* Native Divi footer (TB 31) — stack brand + link columns on tablet/phone */
+  .et-l--footer .ds-footer-grid.et_pb_row,
+  .et-l--footer .et_pb_row_0_tb_footer {
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+    row-gap: 28px !important;
+    column-gap: 0 !important;
+    gap: 28px !important;
+  }
+
+  .et-l--footer .ds-footer-grid > .et_pb_column,
+  .et-l--footer .et_pb_row_0_tb_footer > .et_pb_column {
+    flex: 0 0 100% !important;
+    flex-basis: 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .ds-footer {
+    padding: 48px 16px 28px;
+  }
+
+  .ds-footer__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 24px;
+  }
+
+  .ds-footer__bar {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 36px;
+    /* Room for fixed back-to-top so it never covers the credit line */
+    padding-right: 0;
+    padding-bottom: 8px;
+  }
+
+  .ds-back-top {
+    bottom: 88px;
+    right: 16px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DSZ Brand System pages — Gold & Grey wall
+   CSS reference: dsz-brand-system (page 54)
+   Divi SoT:      dsz-brand-system-divi (page 57)
+   ═══════════════════════════════════════════════════════════ */
+html.page-dsz-brand-system,
+html:has(body.page-dsz-brand-system),
+html:has(body.page-id-54),
+html:has(body.page-id-57),
+.page-dsz-brand-system,
+.page-dsz-brand-system #page-container,
+.page-dsz-brand-system #main-content,
+.page-dsz-brand-system .et-l--post,
+.page-id-54,
+.page-id-54 #page-container,
+.page-id-54 #main-content,
+.page-id-54 .et-l--post,
+.page-id-57,
+.page-id-57 #page-container,
+.page-id-57 #main-content,
+.page-id-57 .et-l--post,
+.page-id-57 #et-main-area,
+.page-id-54 #et-main-area {
+  background: var(--darkgrey1) !important;
+}
+
+/* Kill Divi’s sidebar gutter line (1px #e2e2e2 ::before on .container)
+   Shows on non-VB page templates even with no sidebar — the “white line”. */
+.page-dsz-brand-system #main-content .container::before,
+.page-id-54 #main-content .container::before,
+.page-id-57 #main-content .container::before,
+.page-dsz-brand-system #main-content .container::after,
+.page-id-54 #main-content .container::after,
+.page-id-57 #main-content .container::after {
+  display: none !important;
+  content: none !important;
+  width: 0 !important;
+  background: none !important;
+  border: 0 !important;
+}
+
+.page-dsz-brand-system #left-area,
+.page-id-54 #left-area,
+.page-id-54 article,
+.page-id-54 .entry-content,
+.page-id-57 #left-area,
+.page-id-57 article.et_pb_post,
+.page-id-57 .entry-content {
+  width: 100% !important;
+  max-width: 100% !important;
+  float: none !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+}
+
+/* Dual-color hero title on Divi brand wall (span inside Heading/Text) */
+.page-id-57 .ds-brand-title-gold,
+.page-id-57 .et_pb_heading .ds-brand-title-gold {
+  color: var(--gold1) !important;
+}
+
+.page-id-57 .ds-brand-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.et-l--post #ds-brand.et_pb_section {
+  background: var(--darkgrey1) !important;
+  padding: 72px 24px 96px !important;
+}
+
+.et-l--post #ds-brand .et_pb_row {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.et-l--post #ds-brand .et_pb_text_inner {
+  max-width: none;
+}
+
+.ds-brand {
+  font-family: var(--font-sans);
+  color: var(--warm-offwhite);
+  -webkit-font-smoothing: antialiased;
+}
+
+.ds-brand__hero {
+  padding: 32px 0 56px;
+  border-bottom: 1px solid rgba(245, 240, 232, 0.08);
+  margin-bottom: 56px;
+}
+
+.ds-brand__eyebrow {
+  margin: 0 0 14px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold1);
+}
+
+.ds-brand__title {
+  margin: 0 0 16px;
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+
+.ds-brand__title span {
+  background: linear-gradient(135deg, var(--gold1), var(--satin-gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.ds-brand__lede {
+  margin: 0;
+  max-width: 42rem;
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--lightgrey);
+}
+
+.ds-brand__section {
+  margin-bottom: 64px;
+}
+
+.ds-brand__section-label {
+  margin: 0 0 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold1);
+}
+
+.ds-brand__section-title {
+  margin: 0 0 12px;
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.ds-brand__section-note {
+  margin: 0 0 28px;
+  max-width: 40rem;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--lightgrey);
+}
+
+/* Color grid */
+.ds-brand__swatches {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.ds-brand__swatch {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(245, 240, 232, 0.08);
+  background: var(--deep-charcoal);
+}
+
+.ds-brand__swatch-chip {
+  height: 88px;
+  width: 100%;
+}
+
+.ds-brand__swatch-meta {
+  padding: 12px 14px 14px;
+}
+
+.ds-brand__swatch-name {
+  margin: 0 0 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.ds-brand__swatch-hex {
+  margin: 0;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+  color: var(--lightgrey);
+}
+
+.ds-brand__swatch-use {
+  margin: 8px 0 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--soft-umber);
+}
+
+/* Type scale */
+.ds-brand__type-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 28px;
+  border-radius: 12px;
+  background: var(--deep-charcoal);
+  border: 1px solid rgba(245, 240, 232, 0.08);
+}
+
+.ds-brand__type-row {
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  gap: 16px;
+  align-items: baseline;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(245, 240, 232, 0.06);
+}
+
+.ds-brand__type-row:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.ds-brand__type-tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--soft-umber);
+}
+
+.ds-brand__type-sample {
+  margin: 0;
+  color: var(--warm-offwhite);
+  font-family: var(--font-sans);
+}
+
+.ds-brand__type-sample.is-h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; color: #fff; }
+.ds-brand__type-sample.is-h2 { font-size: clamp(1.6rem, 3vw, 2.25rem); font-weight: 650; line-height: 1.15; letter-spacing: -0.02em; color: #fff; }
+.ds-brand__type-sample.is-h3 { font-size: clamp(1.35rem, 2.4vw, 1.75rem); font-weight: 600; line-height: 1.2; color: #fff; }
+.ds-brand__type-sample.is-h4 { font-size: 1.25rem; font-weight: 600; line-height: 1.25; color: #fff; }
+.ds-brand__type-sample.is-h5 { font-size: 1.05rem; font-weight: 600; line-height: 1.3; color: var(--warm-offwhite); }
+.ds-brand__type-sample.is-h6 { font-size: 0.95rem; font-weight: 600; line-height: 1.35; letter-spacing: 0.04em; text-transform: uppercase; color: var(--satin-gold); }
+.ds-brand__type-sample.is-body { font-size: 1.0625rem; font-weight: 400; line-height: 1.65; color: var(--lightgrey); max-width: 36rem; }
+.ds-brand__type-sample.is-small { font-size: 0.875rem; font-weight: 400; line-height: 1.55; color: var(--soft-umber); }
+
+/* Buttons + surfaces */
+.ds-brand__split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.ds-brand__card {
+  padding: 28px;
+  border-radius: 12px;
+  background: var(--deep-charcoal);
+  border: 1px solid rgba(245, 240, 232, 0.08);
+}
+
+.ds-brand__card-title {
+  margin: 0 0 18px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--satin-gold);
+}
+
+.ds-brand__btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.ds-brand .ds-btn { cursor: default; }
+
+.ds-brand__form label {
+  display: block;
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--soft-umber);
+}
+
+.ds-brand__form input,
+.ds-brand__form textarea {
+  width: 100%;
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(245, 240, 232, 0.14);
+  background: rgba(18, 18, 18, 0.85);
+  color: var(--warm-offwhite);
+  font-family: inherit;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+.ds-brand__form input:focus,
+.ds-brand__form textarea:focus {
+  outline: none;
+  border-color: var(--gold1);
+}
+
+.ds-brand__form textarea { min-height: 96px; resize: vertical; }
+
+.ds-brand__foot {
+  margin-top: 48px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(245, 240, 232, 0.08);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--soft-umber);
+}
+
+.ds-brand__foot code {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--satin-gold);
+}
+
+@media (max-width: 900px) {
+  .ds-brand__swatches { grid-template-columns: repeat(2, 1fr); }
+  .ds-brand__split { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .et-l--post #ds-brand.et_pb_section { padding: 48px 16px 72px !important; }
+  .ds-brand__swatches { grid-template-columns: 1fr; }
+  .ds-brand__type-row { grid-template-columns: 64px 1fr; gap: 12px; }
+}
+
+/* Brand form field shells (spans — Divi/kses-safe) */
+.ds-brand__field-label {
+  display: block;
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold1);
+}
+.ds-brand__field {
+  display: block;
+  width: 100%;
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(245, 240, 232, 0.14);
+  background: rgba(18, 18, 18, 0.85);
+  color: var(--lightgrey);
+  font-size: 15px;
+  box-sizing: border-box;
+}
+.ds-brand__field--area { min-height: 96px; }
+.ds-brand-page-wrap,
+.ds-brand-main #left-area,
+.ds-brand-article {
+  width: 100%;
+  max-width: none;
+}
+.page-dsz-brand-system .ds-brand,
+.page-id-54 .ds-brand {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 72px 24px 96px;
+}
+.page-dsz-brand-system .entry-title,
+.page-id-54 .entry-title { display: none !important; }
+
+/* ── Home Warm Premium sections (v0.3.5) ── */
+.ds-text-gold {
+  color: var(--gold1);
+  background: linear-gradient(135deg, var(--gold1) 0%, var(--satin-gold) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.page-id-15 .et-l--post .et_pb_row,
+.home .et-l--post .et_pb_row {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page-id-15 .et-l--post #ds-hero .et_pb_row,
+.home .et-l--post #ds-hero .et_pb_row {
+  /* Match Next.js S.inner — 1200px, left stack inside (not a centered 720px column). */
+  max-width: 1200px;
+  width: 100%;
+}
+
+.ds-work-featured {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  min-height: 340px;
+  background: var(--deep-charcoal);
+}
+.ds-work-featured img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.45);
+}
+.ds-work-featured__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 30%, rgba(10, 10, 11, 0.9) 100%);
+  pointer-events: none;
+}
+.ds-work-featured__copy {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px 24px;
+  z-index: 1;
+}
+.ds-work-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold1);
+  margin-bottom: 4px !important;
+}
+.ds-work-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--warm-offwhite);
+  margin: 0 0 2px !important;
+}
+.ds-work-meta,
+.ds-work-body {
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--lightgrey);
+  margin: 0 !important;
+}
+.ds-work-link {
+  display: inline-block;
+  margin-top: 14px !important;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold1);
+}
+.ds-work-side {
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* Next.js side column gap */
+  height: 100%;
+}
+.ds-card-shell {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--deep-charcoal);
+  border: 1px solid rgba(245, 240, 232, 0.08);
+  border-radius: 12px;
+  /* Next.js S.card padding: 32 (was 20/28 — felt squashed) */
+  padding: 32px !important;
+  min-height: 0;
+}
+.ds-card-shell .ds-work-title { font-size: 18px; margin-bottom: 8px; }
+
+.ds-svc-num .et_pb_text_inner,
+.ds-svc-num {
+  color: var(--index-muted) !important;
+  opacity: 1 !important;
+}
+
+.ds-about-image img,
+.ds-about .et_pb_image img {
+  width: 100%;
+  max-width: 420px;
+  max-height: 360px;
+  object-fit: cover;
+  border-radius: 12px;
+  filter: brightness(0.65);
+  display: block;
+  margin-left: auto;
+}
+
+.ds-about .et_pb_column:last-child {
+  display: flex !important;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.ds-about-tagline {
+  position: relative;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-top: 28px !important;
+  padding-top: 24px !important;
+  text-align: left !important;
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  color: var(--gold1) !important;
+}
+
+.ds-about-tagline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(245, 240, 232, 0.12);
+}
+
+/* Section labels — Next.js S.label (mono + gold). Color/size via CSS chrome;
+   vertical margin owned by Divi module Spacing (0.7.0+). */
+.ds-section-label,
+.ds-section-label .et_pb_text_inner,
+.ds-work-eyebrow,
+.ds-work-eyebrow .et_pb_text_inner {
+  font-family: var(--font-mono) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.25em !important;
+  text-transform: uppercase !important;
+  color: var(--gold1) !important;
+}
+
+.ds-work-featured-col .et_pb_module {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  color: var(--warm-offwhite);
+}
+.page-id-15 .et-l--post #work .ds-work-featured-col .ds-section-label,
+.page-id-15 .et-l--post #work .ds-work-featured-col .ds-work-eyebrow,
+.et-l--post #work .ds-work-featured-col .ds-section-label,
+.et-l--post #work .ds-work-featured-col .ds-work-eyebrow {
+  margin: 0 0 8px !important;
+}
+.page-id-15 .et-l--post #work .ds-work-featured-col .et_pb_heading,
+.page-id-15 .et-l--post #work .ds-work-featured-col .ds-work-title,
+.et-l--post #work .ds-work-featured-col .et_pb_heading,
+.et-l--post #work .ds-work-featured-col .ds-work-title {
+  margin: 0 0 4px !important;
+}
+.ds-work-featured-col .ds-work-title .et_pb_module_header,
+.ds-work-featured-col h4 {
+  margin: 0 !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+}
+.ds-work-featured-col .ds-work-meta {
+  margin: 0 !important;
+}
+
+.ds-work-bento > .et_pb_column:last-child {
+  gap: 0;
+  justify-content: flex-start;
+}
+.ds-work-bento > .et_pb_column:last-child .ds-section-label {
+  margin-bottom: 8px !important;
+}
+.ds-work-bento > .et_pb_column:last-child .et_pb_module_header {
+  margin: 0 !important;
+  font-weight: 700 !important;
+}
+.ds-work-bento > .et_pb_column:last-child .ds-work-link {
+  margin-top: 24px !important;
+  margin-bottom: 24px !important;
+}
+.ds-work-bento > .et_pb_column:last-child .ds-work-link:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Service / Process index numbers — muted brown #443B2B (ref). */
+.ds-services .ds-svc-num,
+.ds-services .ds-svc-num .et_pb_text_inner {
+  font-size: 36px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  margin-bottom: 16px !important;
+  opacity: 1 !important;
+  color: var(--index-muted) !important;
+  -webkit-text-fill-color: var(--index-muted) !important;
+  background: none !important;
+}
+
+.ds-process .ds-svc-num,
+.ds-process .ds-svc-num .et_pb_text_inner {
+  font-size: 32px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  margin-bottom: 16px !important;
+  opacity: 1 !important;
+  color: var(--index-muted) !important;
+  -webkit-text-fill-color: var(--index-muted) !important;
+  background: none !important;
+}
+
+/* Process cards only — never force min-height on the intro text column
+   (that left ~88px dead space under the subhead). */
+.ds-process .et_pb_row .et_pb_column:has(.ds-svc-num) {
+  min-height: 200px !important;
+}
+
+.ds-services h3,
+.ds-services h5,
+.ds-process h3,
+.ds-process h5,
+.ds-work h3,
+.ds-work h4,
+.ds-work h5,
+.ds-about h2,
+.ds-contact h2,
+.page-id-15 .et-l--post h2.et_pb_module_header,
+.page-id-15 .et-l--post h3.et_pb_module_header,
+.page-id-15 .et-l--post h4.et_pb_module_header,
+.page-id-15 .et-l--post h5.et_pb_module_header {
+  font-weight: 700 !important;
+}
+
+.ds-work-link {
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-top: 24px !important;
+  font-weight: 600 !important;
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+}
+
+.ds-stats .et_pb_column {
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+.ds-stats .et_pb_module,
+.ds-stats .et_pb_text,
+.ds-stats .et_pb_text_inner,
+.ds-stats .et_pb_heading,
+.ds-stats .et_pb_module_header,
+.ds-stats h2,
+.ds-stats h3 {
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.ds-stat-num,
+.ds-stat-num .et_pb_module_header,
+.ds-stats .ds-stat-num {
+  margin-bottom: 8px !important;
+  font-weight: 800 !important;
+  font-size: 42px !important;
+  line-height: 1 !important;
+  color: var(--gold1) !important;
+  -webkit-text-fill-color: var(--gold1) !important;
+  font-family: var(--font-sans) !important;
+}
+.ds-stats .et_pb_text_inner {
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+}
+
+/* Quote — centered card + 80% dark veil over atmosphere. */
+.ds-quote {
+  position: relative;
+}
+.ds-quote::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: rgba(10, 10, 11, 0.80);
+}
+.ds-quote > .et_pb_row {
+  position: relative;
+  z-index: 2;
+  /* Grid beats Divi’s column margin-right:0 which blocked auto-centering. */
+  display: grid !important;
+  place-items: center !important;
+  justify-items: center !important;
+  width: 100% !important;
+  max-width: 1200px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.ds-quote-card-col {
+  flex: none !important;
+  width: min(720px, 100%) !important;
+  max-width: 720px !important;
+  margin: 0 !important;
+  justify-self: center !important;
+  background-color: rgba(24, 24, 27, 0.92) !important;
+}
+.ds-quote-card-col,
+.ds-quote-card-col .et_pb_module,
+.ds-quote-card-col .et_pb_text_inner,
+.ds-quote-card-col h3,
+.ds-quote .ds-quote-text {
+  text-align: center !important;
+}
+
+.ds-quote-text .et_pb_module_header,
+.ds-quote-text {
+  font-style: italic !important;
+  font-weight: 300 !important;
+  font-size: 24px !important;
+  line-height: 1.5 !important;
+  margin-bottom: 16px !important;
+}
+
+.ds-quote-attr,
+.ds-quote-attr .et_pb_text_inner {
+  font-family: var(--font-mono) !important;
+  font-size: 12px !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  color: var(--lightgrey) !important;
+  margin-top: 8px !important;
+}
+
+/* Work side cards — landscape rectangles (don’t stretch into squares). */
+.ds-work-bento {
+  align-items: stretch !important;
+}
+.ds-work-bento > .et_pb_column:last-child {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  gap: 16px;
+  height: auto !important;
+}
+.ds-work-bento > .et_pb_column:last-child > .et_pb_row {
+  flex: 0 0 auto !important;
+  margin-bottom: 0 !important;
+  height: auto !important;
+}
+.ds-work-bento > .et_pb_column:last-child .et_pb_column {
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+.ds-work-featured-col .et_pb_module {
+  color: var(--warm-offwhite);
+}
+
+@media (max-width: 980px) {
+  .ds-work-bento .et_pb_column {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  /*
+   * Home multi-column grids — Divi 5 keeps flex-direction:row + nowrap on phone,
+   * which squashes Services (3), Process (5), About (2), Stats (4) into skinny columns.
+   * Force content rows to wrap/stack full-width below tablet.
+   */
+  .page-id-15 #services .et_pb_row:not(:first-child),
+  .page-id-15 #process .et_pb_row:not(:first-child),
+  .page-id-15 #about .et_pb_row,
+  .page-id-15 #stats .et_pb_row,
+  .et-l--post .ds-services .et_pb_row:not(:first-child),
+  .et-l--post .ds-process .et_pb_row:not(:first-child),
+  .et-l--post .ds-about .et_pb_row,
+  .et-l--post .ds-stats .et_pb_row {
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+    row-gap: 16px !important;
+    column-gap: 0 !important;
+    gap: 16px !important;
+  }
+
+  .page-id-15 #services .et_pb_row:not(:first-child) > .et_pb_column,
+  .page-id-15 #process .et_pb_row:not(:first-child) > .et_pb_column,
+  .page-id-15 #about .et_pb_row > .et_pb_column,
+  .page-id-15 #stats .et_pb_row > .et_pb_column,
+  .et-l--post .ds-services .et_pb_row:not(:first-child) > .et_pb_column,
+  .et-l--post .ds-process .et_pb_row:not(:first-child) > .et_pb_column,
+  .et-l--post .ds-about .et_pb_row > .et_pb_column,
+  .et-l--post .ds-stats .et_pb_row > .et_pb_column {
+    flex: 0 0 100% !important;
+    flex-basis: 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* Process portrait minh is fine stacked; avoid absurd tall empty cards on phone */
+  .ds-process .et_pb_row .et_pb_column:has(.ds-svc-num) {
+    min-height: 0 !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 980px) {
+  /* Tablet: stats as 2×2, services as 2-up (process stays stacked — 5 cols) */
+  .page-id-15 #stats .et_pb_row,
+  .et-l--post .ds-stats .et_pb_row {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    row-gap: 24px !important;
+    column-gap: 16px !important;
+    gap: 24px 16px !important;
+  }
+
+  .page-id-15 #stats .et_pb_row > .et_pb_column,
+  .et-l--post .ds-stats .et_pb_row > .et_pb_column {
+    flex: 0 0 calc(50% - 8px) !important;
+    flex-basis: calc(50% - 8px) !important;
+    max-width: calc(50% - 8px) !important;
+    width: calc(50% - 8px) !important;
+  }
+
+  .page-id-15 #services .et_pb_row:not(:first-child),
+  .et-l--post .ds-services .et_pb_row:not(:first-child) {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    row-gap: 16px !important;
+    column-gap: 16px !important;
+    gap: 16px !important;
+  }
+
+  .page-id-15 #services .et_pb_row:not(:first-child) > .et_pb_column,
+  .et-l--post .ds-services .et_pb_row:not(:first-child) > .et_pb_column {
+    flex: 0 0 calc(50% - 8px) !important;
+    flex-basis: calc(50% - 8px) !important;
+    max-width: calc(50% - 8px) !important;
+    width: calc(50% - 8px) !important;
+  }
+}
+
+.ds-contact .et_pb_column,
+.ds-contact-cta-wrap {
+  text-align: center;
+}
+.ds-contact-ctas {
+  justify-content: center;
+}
+
+@media (max-width: 980px) {
+  .ds-work-featured-col {
+    min-height: 320px;
+  }
+}
+
+@media (max-width: 767px) {
+  .ds-quote-text { font-size: 20px; }
+  .ds-work-featured { min-height: 280px; }
+  .ds-about-image img,
+  .ds-about .et_pb_image img {
+    max-width: 100%;
+    margin-left: 0;
+    max-height: 280px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Spacing — Divi-native (theme 0.7.0+)
+   Vertical rhythm, section pads, card pads, and button pads live in
+   Visual Builder module Spacing / Layout gap on Home 15.
+   Keep ONLY a soft column row-gap safety net (Divi default is 30px).
+   Do NOT re-add !important margin locks — that fights the builder.
+   Source numbers (Next engine.tsx): hero 12/24/40 · intros 12/16/48 ·
+   section 100/80/60 · quote 140 · cards pad 32.
+   ═══════════════════════════════════════════════════════════════ */
+
+.et-l--post .ds-hero .et_pb_column,
+.et-l--post .ds-work .et_pb_column,
+.et-l--post .ds-services .et_pb_column,
+.et-l--post .ds-process .et_pb_column,
+.et-l--post .ds-about .et_pb_column,
+.et-l--post .ds-stats .et_pb_column,
+.et-l--post .ds-quote .et_pb_column,
+.et-l--post .ds-contact .et_pb_column,
+.page-id-15 .et-l--post #ds-hero .et_pb_column,
+.page-id-15 .et-l--post #work .et_pb_column,
+.page-id-15 .et-l--post #services .et_pb_column,
+.page-id-15 .et-l--post #process .et_pb_column,
+.page-id-15 .et-l--post #about .et_pb_column,
+.page-id-15 .et-l--post #stats .et_pb_column,
+.page-id-15 .et-l--post #quote .et_pb_column,
+.page-id-15 .et-l--post #contact .et_pb_column {
+  row-gap: 0;
+  gap: 0;
+}
+
+/* Spacing polish 0.7.1 — Divi FE sometimes drops nested-row margins / section gaps.
+   Keep light; primary values live in VB attrs on Home 15. */
+.page-id-15 #work.ds-work,
+.page-id-15 #services.ds-services,
+.page-id-15 #process.ds-process,
+.et-l--post .ds-work.et_pb_section,
+.et-l--post .ds-services.et_pb_section,
+.et-l--post .ds-process.et_pb_section {
+  row-gap: 16px;
+  gap: 16px;
+}
+
+.page-id-15 #work .ds-work-bento > .et_pb_column:last-child,
+.et-l--post .ds-work-bento > .et_pb_column:last-child {
+  row-gap: 16px !important;
+  gap: 16px !important;
+}
+
+.page-id-15 #work .ds-work-bento > .et_pb_column:last-child > .et_pb_row:first-child,
+.et-l--post .ds-work-bento > .et_pb_column:last-child > .et_pb_row:first-child {
+  margin-bottom: 16px !important;
+}

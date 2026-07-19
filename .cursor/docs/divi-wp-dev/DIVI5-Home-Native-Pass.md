@@ -1,8 +1,24 @@
 # Home → Divi-native pass (DigitalStudioz)
 
-**Date:** 2026-07-18 · **Home page ID:** 15 · **Child theme:** `dgtl-digitalstudioz-theme` **0.7.2**
+**Date:** 2026-07-18 · **Home page ID:** 15 · **Child theme:** `dgtl-digitalstudioz-theme` **0.7.4**
 
 **Chrome / spacing issues SoT:** [DIVI5-Problems-Solutions.md](./DIVI5-Problems-Solutions.md)
+
+## Wave 3.6 — Nav right + mobile stack (0.7.3–0.7.4)
+
+| Item | Status |
+|------|--------|
+| Desktop menu → CTA | Links right-aligned next to button (**0.7.3**) |
+| Mobile Services/Process/About/Stats/Footer | Full-width stack ≤980 (**0.7.4**) |
+| Back-to-top vs footer credit | Raised 72/88px — no overlap |
+
+## Wave 3.7 — Ops (no theme bump)
+
+| Item | Status |
+|------|--------|
+| Theme git mirror | `assets/wp-theme/` + `theme:sync` / `theme:backup` |
+| Home smoke | `npm run wp:smoke` PASS @1440/390 |
+| Cadence | [DEV-WORKFLOW.md](./DEV-WORKFLOW.md) · Problems-Solutions **§L** |
 
 ## Wave 3.5 — Spacing polish (0.7.1–0.7.2)
 

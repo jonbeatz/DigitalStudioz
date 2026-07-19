@@ -54,6 +54,16 @@ When user says **update docs** or **update docs and mem0**:
 - Run **`npm run version:sync`** when version changed
 - Align version across `TRUTH.md`, `package.json`, `MASTER-COMMANDS.md`, `.cursor/docs/CHANGELOG.md`
 
+## Log Fixes (Divi / LocalWP problem→solution)
+
+When user says **log fixes**, **record fixes**, **log solutions**, **document fixes**, **update fixes**, or **log fixes and mem0**:
+
+- Execute [`.cursor/prompts/Log-Fixes.md`](../prompts/Log-Fixes.md)
+- Write master log first: `.cursor/docs/divi-wp-dev/DIVI5-Problems-Solutions.md`
+- Then ISSUES-RESOLVED + catalog §4 + ReCall + project-log; mirror to LocalWP docs
+- Do **not** auto-commit — say ready to commit
+- Prefer this over full **update docs** when the session was only Divi/WP chrome/layout fixes
+
 ## Release Version
 
 When user says **release version**, **publish release**, or after a version bump on a milestone branch:

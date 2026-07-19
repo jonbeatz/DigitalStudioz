@@ -11,8 +11,9 @@ Keep fleet/profile docs (START-HERE, TOOLS-*, Hostinger, etc.) in `.cursor/docs/
 
 | Priority | Doc | Role |
 |----------|-----|------|
+| 0 | [DEV-WORKFLOW.md](./DEV-WORKFLOW.md) | Daily cadence: measure → fix → verify → **log fixes** → `theme:sync` |
 | 1 | [DIVI5-LocalWP-Setup-Catalog.md](./DIVI5-LocalWP-Setup-Catalog.md) | Living SoT — stack, checklist, fixes |
-| **1b** | **[DIVI5-Problems-Solutions.md](./DIVI5-Problems-Solutions.md)** | **Master chrome/MCP issues → solutions** (nav → spacing **0.7.2**, MCP) |
+| **1b** | **[DIVI5-Problems-Solutions.md](./DIVI5-Problems-Solutions.md)** | **Master chrome/MCP issues → solutions** (nav → spacing → **mobile 0.7.4**, MCP). After fixes: say **`log fixes`**. |
 | 2 | [ISSUES-RESOLVED.md](./ISSUES-RESOLVED.md) | Short fix index |
 | 3 | [DIVI5-Design-Variables-GoldGrey.md](./DIVI5-Design-Variables-GoldGrey.md) | Design Variables + Fluid type |
 | 4 | [DIVI5-Launch-Preview-Pages.md](./DIVI5-Launch-Preview-Pages.md) | Brand walls 54+57 + ET incident + **agent compose gotchas** |
@@ -34,6 +35,7 @@ Keep fleet/profile docs (START-HERE, TOOLS-*, Hostinger, etc.) in `.cursor/docs/
 ### Setup & issues
 | File | Notes |
 |------|--------|
+| `DEV-WORKFLOW.md` | Cadence + `theme:sync` / `theme:backup` / `wp:smoke` |
 | `DIVI5-Problems-Solutions.md` | **Master** chrome/MCP issue → solution log (nav, freeze, menu, mobile, spacing, MCP) |
 | `DIVI5-LocalWP-Setup-Catalog.md` | Verified stack, sequence, gotchas |
 | `ISSUES-RESOLVED.md` | One-line index → details in Problems-Solutions / catalog |
@@ -71,3 +73,6 @@ Keep fleet/profile docs (START-HERE, TOOLS-*, Hostinger, etc.) in `.cursor/docs/
 
 Assets / scripts stay on the WP machine:  
 `Local-WP/DigitalStudioz-WP/.cursor/assets/Divi-Xtraz/`
+
+**Child theme git mirror (DigitalStudioz repo):**  
+`assets/wp-theme/dgtl-digitalstudioz-theme` — `npm run theme:sync` after CSS/JS changes.

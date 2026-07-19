@@ -4,6 +4,27 @@
 > `.cursor/docs/divi-wp-dev/DIVI5-LocalWP-Setup-Catalog.md`  
 > WP mirror: `Local-WP/DigitalStudioz-WP/.cursor/docs/DIVI5-SETUP-CATALOG.md`
 
+## 2026-07-18 — Ops: theme git mirror + wp:smoke + DEV-WORKFLOW
+
+| Issue | Fix |
+|-------|-----|
+| Theme only on LocalWP (no git history) | Mirror `assets/wp-theme/dgtl-digitalstudioz-theme` + `npm run theme:sync` / `theme:backup` / `theme:push` |
+| No Home layout regression guard | `npm run wp:smoke` (Playwright @1440 + 390) |
+| Unclear post-fix cadence | [DEV-WORKFLOW.md](./DEV-WORKFLOW.md) + End-Project / Log-Fixes wired |
+
+**Canonical:** [DIVI5-Problems-Solutions.md §L](./DIVI5-Problems-Solutions.md#l-theme-git-mirror--home-smoke--cadence)
+
+## 2026-07-18 — Theme 0.7.3–0.7.4 nav right + mobile stack + back-to-top
+
+| Issue | Fix |
+|-------|-----|
+| Menu links mid-bar, far from Start a Project | Middle col `flex:1`; `.et_pb_menu__wrap { justify-content:flex-end }` — theme **0.7.3** |
+| Logo module type? | Text module + HTML-in-Text (`.ds-logo`) — intentional; Menu+Button real since 0.6.0; MutationObserver gone since 0.5.4 |
+| Back-to-top over “Built with DigitalStudioz” | `bottom: 72px` / mobile `88px` — **0.7.4** |
+| Services/Process/About/Stats/Footer skinny on phone | Divi rows stay `row+nowrap` — force column stack ≤980 — **0.7.4** |
+
+**Canonical:** [DIVI5-Problems-Solutions.md §J–§K](./DIVI5-Problems-Solutions.md#j-header-menu-links-right-next-to-cta)
+
 ## 2026-07-18 — Theme 0.7.1–0.7.2 spacing polish (intro dead space + Process minh)
 
 | Issue | Fix |

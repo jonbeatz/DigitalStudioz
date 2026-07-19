@@ -62,6 +62,10 @@
     "backup:quick": "node scripts/project-backup.mjs --standard --yes",
     "backup:full": "node scripts/project-backup.mjs --full",
     "backup:project": "node scripts/project-backup.mjs",
+    "theme:sync": "powershell -ExecutionPolicy Bypass -File scripts/wp-theme-sync.ps1 -Direction Pull",
+    "theme:backup": "powershell -ExecutionPolicy Bypass -File scripts/wp-theme-sync.ps1 -Direction Pull -Backup",
+    "theme:push": "powershell -ExecutionPolicy Bypass -File scripts/wp-theme-sync.ps1 -Direction Push",
+    "wp:smoke": "node scripts/wp-home-smoke.mjs",
     "draven:add": "powershell -File D:\\Hermes\\projects\\_core-scripts\\shared-profile-content\\scripts\\draven-mem0.ps1 -Action add -Text",
     "draven:search": "powershell -File D:\\Hermes\\projects\\_core-scripts\\shared-profile-content\\scripts\\draven-mem0.ps1 -Action search -Query",
     "draven:list": "powershell -File D:\\Hermes\\projects\\_core-scripts\\shared-profile-content\\scripts\\draven-mem0.ps1 -Action list",
@@ -134,6 +138,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
+    "playwright": "^1.61.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

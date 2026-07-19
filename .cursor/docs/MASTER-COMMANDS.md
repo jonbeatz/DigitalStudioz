@@ -288,6 +288,10 @@ LiteLLM / DeepSeek stack scripts live in `D:\Hermes\projects\_core-scripts\deeps
 | `npm run backup:hermes-profile` | Hermes runtime only → `hermes-profile-latest/` (config.yaml, .env, memories) |
 | `npm run backup:profile` | Alias for `backup:quick` (legacy phrase) |
 | `npm run backup:clean` | Retain 10 newest `jonbeatz-project-v*` folders |
+| `npm run theme:sync` | Pull LocalWP Divi child theme → `assets/wp-theme/` |
+| `npm run theme:backup` | theme:sync + zip → `G:\Hermes_Project_BackUpz\DigitalStudioz\themes\` |
+| `npm run theme:push` | Push git theme mirror → LocalWP (restore) |
+| `npm run wp:smoke` | Playwright Home layout guards @ 390 + 1440 (Local site up) |
 
 **Backup root:** `G:\Hermes_Project_BackUpz\JonBeatz` (`JONBEATZ_BACKUP_ROOT` in `.env.local`). Each backup includes `_hermes-profile-snapshot/jonbeatz/` (`config.yaml`, `.env`, `memories/` — no logs/sessions). Restore Hermes: copy `config.yaml` to `%LOCALAPPDATA%\hermes\profiles\jonbeatz\`.
 
@@ -465,6 +469,9 @@ MSC Kanban ports (3001/3005/9119) live in the **MyStudioChannel** repo — not s
 | **Close Project** / **Close Session** | Close-Project.md + `session:handoff` |
 | **End Project** / **End Session** | End-Project.md + `session:stop` (AskQuestion git → dev `:3000` if up → `-StopDeepSeek`) |
 | **update docs** | `docs:sync` / Update-Docs.md |
+| **log fixes** / **record fixes** | Log-Fixes.md → `DIVI5-Problems-Solutions.md` + ISSUES + catalog |
+| **theme sync** / **backup theme** | `theme:sync` / `theme:backup` (LocalWP ↔ `assets/wp-theme/`) |
+| **wp smoke** | `wp:smoke` — Home layout regression @ 390 + 1440 |
 | **backup profile** / **backup quick** | `backup:quick` |
 | **backup project** | `backup:project` |
 | **backup full** | `backup:quick:full` |

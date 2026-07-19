@@ -45,10 +45,15 @@
 
 - **LocalWP site:** `D:\Hermes\projects\Local-WP\DigitalStudioz-WP` (domain `digitalstudioz.local`)
 - **Cursor workspace:** Multi-root — this Next.js profile + DigitalStudioz-WP together
-- **Stack:** WP 7.0.2 · Divi 5.9 · child `dgtl-digitalstudioz-theme` · ACF PRO · Novamira · wpmcp · IAWB
+- **Stack:** WP 7.0.2 · Divi 5.9 · child `dgtl-digitalstudioz-theme` **0.7.4** · ACF PRO · Novamira · wpmcp · IAWB
+- **Theme live SoT:** LocalWP `wp-content/themes/dgtl-digitalstudioz-theme`
+- **Theme git mirror:** `assets/wp-theme/dgtl-digitalstudioz-theme` — `npm run theme:sync` / `theme:backup` / `theme:push`
+- **Home smoke:** `npm run wp:smoke` (Local site up)
+- **WP cadence:** `.cursor/docs/divi-wp-dev/DEV-WORKFLOW.md` · after fixes say **`log fixes`**
 - **MCP config:** `DigitalStudioz-WP/.cursor/mcp.json` (project-scoped; see `.cursor/docs/MCP-SETUP.md` in the WP folder)
 - **WP/Divi docs hub:** `.cursor/docs/divi-wp-dev/` — catalog, issues, PRDs (keep fleet docs out of that folder)
 - **Setup catalog:** `.cursor/docs/divi-wp-dev/DIVI5-LocalWP-Setup-Catalog.md` — verified stack, checklist, issues/fixes (git-backed SoT)
+- **Master issues log:** `.cursor/docs/divi-wp-dev/DIVI5-Problems-Solutions.md`
 - **Design:** Warm Premium only — same tokens as this Next.js reference site
 
 ## Isolation Rules

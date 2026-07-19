@@ -2,27 +2,48 @@
 
 ## LEFT OFF — 2026-07-18 (resume here)
 
-**Where we stopped:** Theme **0.7.2** spacing polish — Contact CTA air, intro→cards dead space closed (~36px), Featured side cards gap/height, Process intro minh scoped. Operator confirmed “much better.” Docs updated with full issue/solution log.
+**Where we stopped:** Ops upgrades shipped — theme git mirror + backup, Playwright Home smoke, DEV-WORKFLOW cadence. Visual QA @ 390/768/1440 clean (nav gap 24px, stacks, back-top clear). Theme still **0.7.4**.
 
-**Working on:** DigitalStudioz **WP + Divi 5** Warm Premium on `https://digitalstudioz.local` — LocalWP `Local-WP/DigitalStudioz-WP`. Child theme **0.7.2**.
+**Working on:** DigitalStudioz **WP + Divi 5** Warm Premium on `https://digitalstudioz.local` — LocalWP `Local-WP/DigitalStudioz-WP`. Child theme **0.7.4**.
 
 **SoT right now:**
 | Artifact | Role |
 |----------|------|
-| **[DIVI5-Problems-Solutions.md](./divi-wp-dev/DIVI5-Problems-Solutions.md)** | **Master issues → solutions** (§F through **0.7.2**) |
-| Page **15** Home | Live — spacing mostly VB + thin CSS bridges |
+| **[DIVI5-Problems-Solutions.md](./divi-wp-dev/DIVI5-Problems-Solutions.md)** | **Master issues → solutions** (§F–§L through **0.7.4** + ops) |
+| **[DEV-WORKFLOW.md](./divi-wp-dev/DEV-WORKFLOW.md)** | Daily cadence + theme:sync / wp:smoke |
+| Page **15** Home | Live |
 | Page **57** / **54** | Brand walls (Divi SoT / CSS ref) |
-| TB **30/31/32** | Protect — header Menu native; footer native (0.7.0) |
+| TB **30/31/32** | Protect — logo Text+HTML; Menu+Button native; no MutationObserver |
+| Theme git mirror | `assets/wp-theme/dgtl-digitalstudioz-theme` (`npm run theme:sync`) |
 
 **Next session priorities:**
 1. Optional: footer link lists → WP Menu modules; Customizer button pad → drop CSS bridge.
 2. Thin remaining typography `!important` toward Design Variables / presets.
 3. Protect TB 30–32; do not revive template 37.
-4. Visual pass any remaining sections (About / Stats / Quote) if rhythm still feels off.
+4. After Divi/WP fix: **`log fixes`** → **`npm run theme:sync`** → commit when asked.
+5. Before polish claims: **`npm run wp:smoke`**.
 
 **Resume:** **Open Project** (warm) or **Start Project** (cold).
 
-**Docs hub:** `.cursor/docs/divi-wp-dev/` — start with **Problems-Solutions** + catalog.
+**Docs hub:** `.cursor/docs/divi-wp-dev/` — start with **DEV-WORKFLOW** + Problems-Solutions. Shortcut: **`log fixes`**.
+
+---
+
+## Session: 2026-07-18 — Ops upgrades (theme mirror + smoke + workflow)
+
+- **`npm run theme:sync` / `theme:backup` / `theme:push`** — LocalWP SoT ↔ `assets/wp-theme/`; zip under `G:\Hermes_Project_BackUpz\DigitalStudioz\themes\`.
+- **`npm run wp:smoke`** — Playwright guards: Contact→CTA ≤80px, Services/Process stack @390, back-top vs credit.
+- **DEV-WORKFLOW.md** + End-Project / START-HERE / MASTER-COMMANDS wired.
+- **Visual QA:** 1440 / 768 / 390 — no layout regressions; tablet Services 2+1 wrap, Stats 2×2.
+
+---
+
+## Session: 2026-07-18 — Theme 0.7.3–0.7.4 + Log-Fixes shortcut
+
+- **0.7.3:** Desktop menu pinned right next to Start a Project (middle col grow + wrap flex-end).
+- **0.7.4:** Mobile stack Services/Process/About/Stats/Footer; back-to-top 72/88px.
+- Header inventory confirmed: logo = Text+HTML; Menu+Button real; MutationObserver gone since 0.5.4.
+- New chat trigger: **`log fixes`** → `.cursor/prompts/Log-Fixes.md` (wired in workflow + global + START-HERE + MASTER-COMMANDS).
 
 ---
 
