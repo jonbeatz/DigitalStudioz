@@ -125,9 +125,26 @@ npm run image:fal → scripts/gen-image-fal.ps1 → scripts/generate-image-fal.p
 | Model id (fal) | Use | ~Cost |
 |----------------|-----|-------|
 | `fal-ai/flux/schnell` | Default cheap still (same family as HF) | ~$0.003 |
+| `fal-ai/flux-2/klein/4b` | **Picture-book dial** — cheap gouache iterates | ~$0.009/MP |
+| `fal-ai/qwen-image-2/text-to-image` | **Picture-book fallback** when Klein misses | ~$0.035/img |
 | `fal-ai/nano-banana` | Fast Google, text in image | ~$0.08 @ 1K |
 | `fal-ai/nano-banana-pro` | Hero / 4K / character consistency | $0.15–0.30 |
+| `fal-ai/nano-banana-pro/edit` | **Picture-book finals** + style refs (`image_urls`) | ~$0.15/img |
 | `fal-ai/gpt-image-2` | Product shots, layouts | ~$0.005–0.21 by quality |
+
+### Picture books (Hermes book workflow)
+
+Locked recipe pioneered on **The-Night-I-Met-Santa** — full playbook lives in that project’s `BOOK-PRODUCTION-SYSTEM.md`. For any future picture book on fal:
+
+| Priority | Lane | Endpoint | When |
+|:--------:|------|----------|------|
+| 1 | Dial / dev | `fal-ai/flux-2/klein/4b` | Layout, vibe, text-zone probes |
+| 2 | Fallback | `fal-ai/qwen-image-2/text-to-image` | Klein missed; before finals spend |
+| 3 | Finals | `fal-ai/nano-banana-pro/edit` + style refs | Approved pages/covers @ 2K |
+
+**Skip:** Ideogram for child Christmas / pajamas beats if fal safety blocks.  
+**Evidence template:** one real-beat compare folder (same prompt/seed) before locking lanes.  
+**Call path:** prefer Cursor MCP `user-fal-ai` over default `image:fal` (Flux schnell) for dial/finals.
 
 Examples:
 
@@ -135,9 +152,10 @@ Examples:
 npm run image:fal -- "cinematic studio hero, dark gold, music producer"
 npm run image:fal:open -- "product card with readable text"
 powershell -File scripts/gen-image-fal.ps1 "portrait" -Model "fal-ai/nano-banana"
+powershell -File scripts/gen-image-fal.ps1 "book sneak beat" -Model "fal-ai/flux-2/klein/4b"
 ```
 
-**Policy:** Daily stills → `image:gen` (HF). fal = bonus only when Jon asks or agent needs premium model.
+**Policy:** Daily stills → `image:gen` (HF). fal = bonus when Jon asks **or** book lanes above. Picture-book finals = Banana `/edit` + refs, not Flux schnell.
 
 ### Scroll transition video (`npm run video:fal`)
 
@@ -150,6 +168,17 @@ npm run video:fal -- -StartImage assembled.png -EndImage exploded.png
 Check balance: [fal.ai/dashboard](https://fal.ai/dashboard).
 
 **fal credits exhausted?** Local fallback (manual install): **LongCat-Video** → **HunyuanVideo** → ComfyUI `generate-video` → **LTX Desktop** (GUI NLE — Jon download later). Same FFmpeg → WebP → `ScrollFrameHero`. Details: `TOOLS-REFERENCE.md` § LongCat / HunyuanVideo / LTX Desktop · `SCROLL-VIDEO-RESEARCH.md` tool matrix.
+
+### Video polish chain (after gen)
+
+Canonical runbook: **[VIDEO-POLISH-CHAIN.md](./VIDEO-POLISH-CHAIN.md)**
+
+```powershell
+npm run video:polish -- -InputPath "D:\Hermes\apps\kinocut-media\inbox\clip.mp4"
+npm run freecut:open   # optional human pass
+```
+
+Flow: fal/OpenMontage → **Kinocut** cut/QC → **FreeCut** (optional) → `polish-out\`.
 
 ---
 

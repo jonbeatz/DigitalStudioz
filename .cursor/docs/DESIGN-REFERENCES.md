@@ -41,6 +41,8 @@ Living list of **design inspiration, component libraries, typography, and UI cra
 | **React components to install** | [21st.dev](https://21st.dev/), [Magic UI](https://magicui.design/), [Aceternity UI](https://ui.aceternity.com/) |
 | **Claude Code skill/agent templates** | [aitmpl.com](https://aitmpl.com/) — REF marketplace (cherry-pick only) |
 | **AI/dev tool discovery** | [Toolfolio](https://toolfolio.com/) — REF directory (bookmark; grades stay in TOOLS-WATCHLIST) |
+| **AI video camera language** | [aicameramovements.com](https://aicameramovements.com/) — copy-paste shot prompts |
+| **Agency prompt library** | [brandmotion.in/prompts.html](https://brandmotion.in/prompts.html) — website/video briefs |
 
 ---
 
@@ -106,6 +108,8 @@ Living list of **design inspiration, component libraries, typography, and UI cra
 | [Hover States](https://hoverstates.com/) | Interaction-focused web design | Scroll + hover reference |
 | [Navbar Gallery](https://navbar.gallery/) | Nav patterns only | Quick header audits |
 | [GitHub responsive-navbar topic](https://github.com/topics/responsive-navbar) | OSS nav pattern index | Fleet REF 2026-07-13 — browse repos for Next.js header implementations |
+| [AI Camera Movements](https://aicameramovements.com/) | Copy-paste **camera move** prompts (pan/dolly/orbit/drone) | REF 2026-07-14 — AI video + R3F shot language; Higgsfield affiliate CTAs ignore |
+| [Brand Motion — Prompt Library](https://brandmotion.in/prompts.html) | Agency reusable website/video/campaign prompts | REF 2026-07-14 — companion to violet-car showcase; cherry-pick language, not stack |
 
 ### Parallax inspiration feeds (gallery — design idea refs only)
 
@@ -415,6 +419,9 @@ Inspected from live `/_next/static/css/*` on [huly.io](https://huly.io/) (Jul 20
 | 2026-07-14 | https://aitmpl.com/ | Resource directory | Jon | Claude Code templates marketplace — B (84) REF |
 | 2026-07-14 | https://toolfolio.com/ | Resource directory | Jon | AI/dev tool directory — B- (81) REF bookmark |
 | 2026-07-14 | https://voicebox.sh/ | Tool (WATCH) | Jon | jamiepine/voicebox local TTS+STT+MCP — A- (92); overlaps Handy/OmniVoice |
+| 2026-07-14 | https://aicameramovements.com/ | Prompt library | Jon | Camera movement AI prompts B+ (88) REF — video + 3D shot language |
+| 2026-07-14 | https://brandmotion.in/prompts.html | Prompt library | Jon | Brand Motion reusable site/video prompts B (84) REF — extend violet-car |
+| 2026-07-14 | https://huggingface.co/microsoft/VibeVoice-ASR | Model (WATCH) | Jon | MS long-form ASR+diarization 9B — A- (90); VRAM heavy vs Handy |
 
 ---
 

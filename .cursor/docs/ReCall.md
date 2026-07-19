@@ -2,30 +2,40 @@
 
 ## LEFT OFF — 2026-07-18 (resume here)
 
-**Where we stopped:** Theme **0.8.1** — footer credit Divi columns + responsive brand-above / centered menu trio. Not ready for Hostinger live yet (WPvivid full backup when go-live).
+**Where we stopped:** Theme **0.8.2** — back-to-top clickable at absolute bottom; Home hero **`ds-hero-klein-a.jpg`** (fal FLUX.2 Klein 4B). Hostinger go-live still deferred.
 
-**Working on:** DigitalStudioz **WP + Divi 5** Warm Premium on `https://digitalstudioz.local` — LocalWP `Local-WP/DigitalStudioz-WP`. Child theme **0.8.1**.
+**Working on:** DigitalStudioz **WP + Divi 5** Warm Premium on `https://digitalstudioz.local` — LocalWP `Local-WP/DigitalStudioz-WP`. Child theme **0.8.2**.
 
 **SoT right now:**
 | Artifact | Role |
 |----------|------|
-| **[DIVI5-Problems-Solutions.md](./divi-wp-dev/DIVI5-Problems-Solutions.md)** | **Master issues → solutions** (§F–§O; theme **0.8.1**) |
+| **[DIVI5-Problems-Solutions.md](./divi-wp-dev/DIVI5-Problems-Solutions.md)** | **Master issues → solutions** (§F–§P; theme **0.8.2**) |
 | **[DIVI5-Native-Audit.md](./divi-wp-dev/DIVI5-Native-Audit.md)** | Re-grade + debt |
 | **[DEV-WORKFLOW.md](./divi-wp-dev/DEV-WORKFLOW.md)** | Daily cadence + theme:sync / wp:smoke |
-| Page **15** Home | Live |
+| Page **15** Home | Live — hero media **130** `ds-hero-klein-a.jpg` |
 | TB **30/31/32** | Protect — footer Menus **9/10/11**; credit `1/2\|1/2` |
 | Theme git mirror | `assets/wp-theme/dgtl-digitalstudioz-theme` (`npm run theme:sync`) |
-| Revert credit bar | `Local-WP/.../.cursor/assets/revert-footer-credit-columns.php` |
+| Hero locals | `DigitalStudioz/media/hero/` |
+| **Live WP sync** | [HOSTINGER-WP-SYNC.md](./divi-wp-dev/HOSTINGER-WP-SYNC.md) — Phase A when Jon says go-live |
 
 **Next session priorities:**
-1. **D5:** Customizer button pad 14/28 → drop CSS `!important`.
-2. **D2:** Typography Variables/presets carefully.
-3. Optional: Hostinger first go-live via **WPvivid files+DB** (domain `digitalstudioz.com` already on account) — only when Jon says ready.
+1. **When ready — first go-live:** follow [HOSTINGER-WP-SYNC.md](./divi-wp-dev/HOSTINGER-WP-SYNC.md) Phase A (full Local → Live WPvivid). Say **go-live migrate**. Ongoing after that = theme-only push (Phase B), not full wipe.
+2. **D5:** Customizer button pad 14/28 → drop CSS `!important`.
+3. **D2:** Typography Variables/presets carefully.
 4. After Divi/WP fix: **`log fixes`** → **`npm run theme:sync`** → commit when asked.
 
 **Resume:** **Open Project** (warm) or **Start Project** (cold).
 
-**Docs hub:** `.cursor/docs/divi-wp-dev/` — Problems-Solutions **§O**. Shortcut: **`log fixes`**.
+**Docs hub:** `.cursor/docs/divi-wp-dev/` — Problems-Solutions **§K.5 / §P**. Shortcut: **`log fixes`**.
+
+---
+
+## Session: 2026-07-18 — Theme 0.8.2 back-to-top + hero Klein A
+
+- **0.8.2:** `.ds-back-top-row { z-index:50 }` so ↑ works at absolute bottom (footer grid was `z-index:4`).
+- Hero: fal **FLUX.2 [klein] 4B** candidates; kept **`ds-hero-klein-a.jpg`** (replaced MSC-Login1).
+- Gotcha: after BG URL change in `post_content`, clear **Divi et-cache** or FE keeps old CSS url.
+- Docs: Problems-Solutions **§K.5 / §P**.
 
 ---
 

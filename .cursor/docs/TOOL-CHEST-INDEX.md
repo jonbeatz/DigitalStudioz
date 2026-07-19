@@ -55,6 +55,9 @@
 | **Browserbase** | SaaS | `BROWSERBASE_*` | JonBeatz project MCP | Hub overlay |
 | **codebase-memory-mcp** | Free | — | `npm run codebase-memory:status` | IN USE — code graph MCP; JonBeatz indexed |
 | **OpenMontage** | Per use‡ | `FAL_KEY` | `npm run openmontage:status` | IN USE — `D:\Hermes\assets\openmontage` |
+| **Kinocut MCP** | Free | — (FFmpeg on PATH) | `npm run kinocut:status` | IN USE — agent trim/QC; workspace `D:\Hermes\apps\kinocut-media` |
+| **FreeCut** | Free | — | `npm run freecut:open` | IN USE — human polish UI (freecut.net) |
+| **Video polish chain** | Free / fal | `FAL_API_KEY` optional | `npm run video:polish:status` | IN USE — VIDEO-POLISH-CHAIN.md |
 | **profile-health-watchdog** | Free | — | Hermes cron every 6h | Fleet — LiteLLM key probe; Telegram on failure |
 
 Run `npm run ecosystem:audit` for exact SET/EMPTY per file.

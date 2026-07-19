@@ -139,6 +139,7 @@ Append new rows at the **top** of the table.
 
 | Date | Symptom | Root cause | Fix that worked | Avoid next time |
 |------|---------|------------|-----------------|-----------------|
+| 2026-07-18 | Back-to-top dead at page bottom; hero was MSC art | Footer grid `z-index:4` over button; wrong BG asset; Divi et-cache | Theme **0.8.2** stack fix; fal Klein → **`ds-hero-klein-a.jpg`**; clear et-cache | After Divi BG URL edits always clear et-cache — [§K.5](./DIVI5-Problems-Solutions.md#k5-click-dead-at-absolute-bottom-theme-082) · [§P](./DIVI5-Problems-Solutions.md#p-hero-background--fal-klein--divi-cache) |
 | 2026-07-18 | Credit bar not Divi columns; phone 4-col squish/overlap; menus flush-left | Flex HTML bar; equal 1/4 @390 too narrow; left-align in thirds | Theme **0.7.6–0.8.1**: TB `1/2\|1/2` credit; brand above + centered trio; **`wp_slash`** on TB writes | Never update Divi content without wp_slash — [§O](./DIVI5-Problems-Solutions.md#o-footer-credit-columns--responsive-grid) |
 | 2026-07-18 | Footer HTML lists; mobile footer left-pushed; Menu swap showed Primary | Missing `menu.advanced.menuId`; Divi phone `text-align:right`; zero row gutters | Theme **0.7.5**: Menus 9/10/11 on TB 31; center phone footer; correct attr path | Always verify FE `ul#menu-footer-*` — [§N](./DIVI5-Problems-Solutions.md#n-footer-menu-modules--mobile-center) |
 | 2026-07-18 | Baseline Native Audit (~88%) outdated vs 0.7.4 | Spacing unlock + footer modules + ops shipped after 0.6.6 audit | Re-audit [DIVI5-Native-Audit.md](./DIVI5-Native-Audit.md) ~**93%**; deleted drafts 35/36; footer menus **9/10/11** ready | Re-grade after each native milestone |
@@ -322,7 +323,7 @@ Honest map of **Divi builder / IAWB** vs **child theme CSS/JS**. This is the bas
 |---------|--------------|-----|
 | Home page structure | Divi + IAWB | Page **15** — section → row → column → Text module |
 | Hero copy / CTAs | Free-form HTML in Text | `.ds-hero-*` classes (not stock `hero` pattern) |
-| Hero background image | Divi section `background.image` | Media **33** `MSC-Login1.jpg` |
+| Hero background image | Divi section `background.image` | Media **130** `ds-hero-klein-a.jpg` (fal Klein 4B; was MSC-Login1) |
 | Hero `100vh` + vertical center | **Both** (see §4.9) | Divi `sizing.minHeight` + `layout` flex **and** scoped child CSS (`.et-l--post…`) for `100svh` / mobile pad |
 | Hero dark overlay | **Divi native** | Gradient `overlaysImage` + image `blend: multiply` (CSS `::before` disabled) — §4.10 |
 | Global header/footer | Theme Builder | Live default uses template **32** → header **30**, footer **31** (duplicate template **37** / layouts **35–36** also exist — prefer **32/30/31**) |
@@ -347,7 +348,7 @@ Honest map of **Divi builder / IAWB** vs **child theme CSS/JS**. This is the bas
 2. Temporarily **disabled** CSS sticky + `is-scrolled` BG + CSS hero `min-height` so Divi could be judged alone.
 3. Wrote Divi attrs via `iawm_divi_page_write`:
    - Header **30** (live): `module.decoration.sticky` (`position: "top"`), transparent default BG + `background.desktop.sticky.color = rgba(10,10,11,0.85)`, kept polished `.ds-site-header` HTML.
-   - Page **15**: `sizing.minHeight: 100vh`, flex `layout` center, same hero HTML + `MSC-Login1.jpg`.
+   - Page **15**: `sizing.minHeight: 100vh`, flex `layout` center, hero HTML + **`ds-hero-klein-a.jpg`** (media 130).
 4. Also wrote alternate header **35** (logo + native `divi/menu` menuId `4`) — **not** the live TB default (template **32** still points at **30**).
 5. Measured in browser (CDP) with CSS experiment flags off.
 
@@ -356,7 +357,7 @@ Honest map of **Divi builder / IAWB** vs **child theme CSS/JS**. This is the bas
 | Target | Native Divi outcome | Evidence |
 |--------|---------------------|----------|
 | Hero `minHeight: 100vh` + flex center | **Works** | Dynamic CSS emits `min-height:100vh; justify-content:center; align-items:center` on `.et_pb_section_0`; computed height ≈ viewport with CSS shell off |
-| Hero BG image via Divi | **Works** | Same dynamic CSS `background-image: url(…MSC-Login1.jpg)` |
+| Hero BG image via Divi | **Works** | Same dynamic CSS `background-image: url(…ds-hero-klein-a.jpg)` |
 | Header sticky position | **Fails on TB header** | Section stays `position: relative`; scrolls away (`sectionTop` negative). No `et_pb_sticky` class ever applied |
 | Sticky-state BG `0.85` | **CSS only — never activates** | Dynamic CSS includes `.et_pb_section_0_tb_header.et_pb_sticky { background-color: rgba(10,10,11,0.85) }` but class never added |
 | Sticky FE runtime | **Not loaded** | `script-library-sticky-elements.js` **not** enqueued; `window.et_pb_sticky_elements` / `diviElementStickyData` are **null** |
@@ -395,7 +396,7 @@ Current IDs/classes on live layouts: `#ds-hero` / `.ds-hero`, `#ds-hero-row`, `#
 
 | Setting | Value |
 |---------|--------|
-| Image | `MSC-Login1.jpg`, cover, center |
+| Image | `ds-hero-klein-a.jpg`, cover, center |
 | Image blend | `multiply` (`decoration.background.*.image.blend`) |
 | Gradient | enabled, `overlaysImage: on`, linear `180deg` |
 | Stop 0% | `rgba(160,28,28,0.82)` dark red (stronger cast) |

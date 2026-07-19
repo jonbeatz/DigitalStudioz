@@ -1,8 +1,15 @@
 # Home → Divi-native pass (DigitalStudioz)
 
-**Date:** 2026-07-18 · **Home page ID:** 15 · **Child theme:** `dgtl-digitalstudioz-theme` **0.7.5**
+**Date:** 2026-07-18 · **Home page ID:** 15 · **Child theme:** `dgtl-digitalstudioz-theme` **0.8.2**
 
 **Chrome / spacing issues SoT:** [DIVI5-Problems-Solutions.md](./DIVI5-Problems-Solutions.md)
+
+## Wave 3.9 — Back-to-top hit + hero Klein A (0.8.2)
+
+| Item | Status |
+|------|--------|
+| Back-to-top at page bottom | Clickable — `.ds-back-top-row` z-index **0.8.2** |
+| Hero background | **`ds-hero-klein-a.jpg`** (media 130); et-cache cleared |
 
 ## Wave 3.8 — Footer Menus + mobile center (0.7.5)
 

@@ -99,6 +99,7 @@ Canonical for the live temp site **and** the WordPress + Divi 5 rebuild. Full to
 | LocalWP site | `D:\Hermes\projects\Local-WP\DigitalStudioz-WP` → `https://digitalstudioz.local` |
 | Child theme (live SoT) | `wp-content/themes/dgtl-digitalstudioz-theme` (+ `js/core-scripts.js`, `acf-json/`) |
 | Theme git mirror | `assets/wp-theme/dgtl-digitalstudioz-theme` — sync with `npm run theme:sync` |
+| **Live WP sync** | `divi-wp-dev/HOSTINGER-WP-SYNC.md` — say **go-live migrate** when ready |
 | Front page | Static **Home** (page ID `15`) |
 | MCP setup | WP folder `.cursor/docs/MCP-SETUP.md` + `.cursor/mcp.json` |
 | **WP/Divi docs hub** | `.cursor/docs/divi-wp-dev/README.md` — catalog, issues, PRDs, research |

@@ -9,6 +9,45 @@ Each entry: grade → summary → fit → overlap/alternatives → verdict.
 
 ---
 
+
+## img2pdf (josch)
+
+| | |
+|--|--|
+| **Grade** | A- (91) |
+| **Verdict** | **IN USE** (2026-07-14) |
+| **Setup** | READY |
+| **Cost** | Free (LGPL-ish / permissive image pipeline — check LICENSE) |
+| **Repo** | https://github.com/josch/img2pdf |
+
+**Summary:** Lossless images→PDF; ideal for POD interiors built from pre-composited page JPEGs.
+
+**Gap:** Typst binder already works; img2pdf is the fast/no-reencode path for `Pages/*.jpg`.
+**Overlap:** Typst `book-final.typ`, PyMuPDF — complementary, not a replace.
+**Risks:** Page size must match bleed canvas (use 8.75" square for Santa book); not for text reflow.
+**Verify:** `npm run book:pdf:doctor` · `npm run book:pdf:from-pages`
+**Where:** The-Night-I-Met-Santa `scripts/book-pdf-from-pages.py`; `pip install -r requirements-book.txt`
+
+## pikepdf
+
+| | |
+|--|--|
+| **Grade** | A- (91) |
+| **Verdict** | **IN USE** (2026-07-14) |
+| **Setup** | READY |
+| **Cost** | Free (MPL-2.0) |
+| **Repo** | https://github.com/pikepdf/pikepdf |
+
+**Summary:** Inspect/set PDF TrimBox/BleedBox/MediaBox before Lulu upload.
+
+**Gap:** Spot-check print boxes so Lulu doesn't crop unexpected edges.
+**Overlap:** img2pdf (pair), PyMuPDF, Acrobat — use pikepdf for scripted QA.
+**Risks:** Windows needs binary wheel (`pip` provides); wrong boxes if trim math wrong — stick to 8.5"+0.125" recipe.
+**Verify:** `npm run book:pdf:verify` · `book:pdf:verify:boxes`
+**Where:** The-Night-I-Met-Santa `scripts/book-pdf-verify.py`; shared `pdf-prepress-doctor.ps1`
+
+---
+
 ## claude-video (`/watch`)
 
 - **URL:** https://github.com/bradautomates/claude-video
@@ -870,7 +909,7 @@ Jon batch: Tripo, 3DGenStudio, LongCat-Video, Meshy, Hyper3D, Fast3D. **Only the
 | **Local mesh pipeline** (ComfyUI @ `:8188`) | [**3DGenStudio**](https://github.com/visualbruno/3DGenStudio) | ComfyUI MCP + vault workflows; TRELLIS.2 separate conda stack | — |
 | **OSS image → PBR GLB** (max fidelity, local) | [**TRELLIS.2**](https://github.com/microsoft/TRELLIS.2) (when HW allows) | Tripo cloud · HF [Space demo](https://huggingface.co/spaces/microsoft/TRELLIS.2) on Windows | — |
 | **Scroll transition clip** (assembled → exploded) | **`npm run video:fal`** (Kling I2V) | LongCat / HunyuanVideo (local, heavy) | — |
-| **Manual clip assembly / trims** | [**OpenCut**](https://opencut.app) classic (browser) | FFmpeg CLI, LTX Desktop | OpenMontage = automated pipelines |
+| **Manual clip assembly / trims** | [**VIDEO-POLISH-CHAIN**](./VIDEO-POLISH-CHAIN.md) — Kinocut + FreeCut | FFmpeg CLI, OpenCut, LTX Desktop | OpenMontage = automated pipelines |
 | **Free existing GLBs** | **GLB-Asset-Sourcing** skill | Poly Haven, poly.pizza | — |
 
 **Vault links:** `ai-scroll-product-workflow/WORKFLOW.md` (Tripo step 1) · `SCROLL-VIDEO-RESEARCH.md` (Kling matrix) · [IMAGE-WORKFLOW.md](./IMAGE-WORKFLOW.md) § `video:fal`
@@ -1316,6 +1355,7 @@ Behavioral skill + optional TypeScript runtime for agents: **CONTEXT → INTENT 
 - **Grade:** **B- (82/100)** · **Cost:** Free (MIT)
 - **Verdict:** **WATCH** — browser CapCut alternative for manual timeline edits; track rewrite MCP
 - **Status:** NOT_INSTALLED — main repo is ground-up rewrite; **opencut-classic** is production UI today
+- **Note (2026-07-14):** Prefer trying **[FreeCut](#freecut)** first for a denser local-first NLE feature set; OpenCut stays on deck for classic simplicity + future MCP rewrite.
 
 ### What it does
 
@@ -1327,7 +1367,7 @@ Open-source video editor (web/desktop/mobile roadmap). Classic: browser timeline
 |-----|---------|---------|
 | Agent video pipelines | **OpenMontage** IN USE | Complementary — human polish pass |
 | Scroll I2V clips | `npm run video:fal` | Import + trim assembled clips |
-| Local AI NLE | **LTX Desktop** WATCH | Lighter — no gen, just edit |
+| Local AI NLE | **LTX Desktop** WATCH · **FreeCut** WATCH | Lighter classic — no on-device gen |
 | Frame strips | FFmpeg → WebP | Optional intermediate assembly |
 
 ### When to use
@@ -1339,8 +1379,186 @@ Open-source video editor (web/desktop/mobile roadmap). Classic: browser timeline
 
 - End-to-end agent video — **OpenMontage**
 - Until rewrite MCP ships — no Hermes automation hook yet
+- Need pro multi-track + local AI captions/music — try **FreeCut**
 
 **Re-grade when:** MCP server + headless mode land; desktop Windows build verified.
+
+---
+
+## Kinocut
+
+- **URL:** https://github.com/KyaniteLabs/kinocut · **Site:** [kinocut.dev](https://kinocut.dev/)
+- **Grade:** **A- (91/100)** · **Cost:** Free (Apache-2.0)
+- **Verdict:** **IN USE** (installed 2026-07-14)
+- **Status:** **READY** — `kino` 1.8.0 via `uv tool`; project MCP `kinocut`
+
+| Factor | Score | Notes |
+|--------|-------|-------|
+| Gap fill | 37/40 | Cursor-native FFmpeg edit surface (trim/caption/resize/QC) — missing piece vs OpenMontage pipelines |
+| Stack fit | 23/25 | Complements OpenMontage + fal; FFmpeg already on PATH; Windows `cmd /c uvx` pattern |
+| Cost/complexity | 17/20 | Free core; optional Whisper/torch extras large — deferred |
+| Maturity/trust | 14/15 | 1.8.0 published; formerly mcp-video; guardrails + Video Receipts |
+
+### Install (JonBeatz)
+
+```powershell
+npm run kinocut:install   # uv tool install kinocut + workspace
+npm run kinocut:status
+```
+
+- CLI: `kino` @ `%USERPROFILE%\.local\bin\`
+- MCP: `.cursor/mcp.json` → `cmd /c uvx --from kinocut kino` (reload Cursor MCP)
+- Workspace: `D:\Hermes\apps\kinocut-media`
+
+### Risks
+
+- Agents can rewrite local media — keep sources outside workspace or copy in first
+- Optional AI extras pull torch (~GB) — install only when needed: `uv tool install "kinocut[transcribe]" --force` (or pip equivalent)
+- Hyperframes tools optional (Node package) — not required for core FFmpeg path
+- 142 MCP tools — prefer `search_tools` / doctor-first workflows to avoid tool sprawl
+
+### vs stack
+
+| Job | Use |
+|-----|-----|
+| Full agent production | **OpenMontage** |
+| Agent trim / Shorts / QC | **Kinocut** |
+| Human timeline | FreeCut / OpenCut |
+
+### Verify
+
+`npm run kinocut:status` · smoke: `kino trim <clip> --start 0 --duration 1 -o D:\Hermes\apps\kinocut-media\out.mp4`
+
+---
+
+## FreeCut
+
+- **URL:** https://github.com/walterlow/freecut · **Live:** [freecut.net](https://freecut.net)
+- **Grade:** **A- (91/100)** · **Cost:** Free (MIT)
+- **Verdict:** **IN USE** (promoted 2026-07-14 — Hermes video polish chain P3)
+- **Status:** **READY** — [freecut.net](https://freecut.net); `npm run freecut:open`
+
+| Factor | Score | Notes |
+|--------|-------|-------|
+| Gap fill | 37/40 | Real pro browser NLE (multi-track, keyframes, scopes, export) beyond OpenCut classic |
+| Stack fit | 22/25 | Complements OpenMontage (agent pipelines) + fal clip polish; Chromium/WebGPU required |
+| Cost/complexity | 17/20 | Free OSS; models download in-browser; Node 22+ for local clone |
+| Maturity/trust | 15/15 | Active (2k+ commits); MIT; **not open contribution** (bug reports OK) |
+
+### What it does
+
+Local-first browser editor: multi-track timeline, WebGPU effects/compositing, WebCodecs export (H.264/AV1/etc.), File System Access workspace. On-device AI: Parakeet transcription, Kokoro TTS, MusicGen, scene detection — **no upload**.
+
+### Risks
+
+- Chrome/Edge 113+ required; **Brave** needs `brave://flags/#file-system-access-api` enabled
+- Dev port **`:5173`** — avoid clashing with other Vite apps
+- Large local model caches (VRAM/disk) when enabling AI features
+- Not open for PRs — fork if customizing
+
+### Verify
+
+```powershell
+npm run freecut:open
+# Pick D:\Hermes\apps\freecut-workspaces when FreeCut asks for a workspace folder
+```
+
+### Recommendation
+
+**IN USE** — human polish after `npm run video:polish` / Kinocut. Prefer [freecut.net](https://freecut.net) + workspace `D:\Hermes\apps\freecut-workspaces`. Clone/`perf` only if offline needed. Does not replace OpenMontage or Kinocut.
+
+See [VIDEO-POLISH-CHAIN.md](./VIDEO-POLISH-CHAIN.md).
+
+---
+
+## loop-engineering
+
+- **URL:** https://github.com/cobusgreyling/loop-engineering
+- **Grade:** **B+ (87/100)** · **Cost:** Free
+- **Verdict:** **WATCH** — conceptual + CLI library for agent loops
+- **Status:** NOT_INSTALLED
+
+| Factor | Score | Notes |
+|--------|-------|-------|
+| Gap fill | 32/40 | Strong framing for automating agent cadences; Hermes rituals already cover much |
+| Stack fit | 22/25 | Maps to Cursor/Claude Code/Codex; has MCP server package; issue backlog mentions Hermes example |
+| Cost/complexity | 16/20 | Free; token cost of unattended loops can explode |
+| Maturity/trust | 17/15 | 7.7k★; SECURITY.md + safety docs; npm scoped packages |
+
+### What it does
+
+Patterns + starters for “design the loop, don’t prompt forever”: daily triage, PR babysitter, CI sweeper, etc. CLIs: `loop-init`, `loop-audit`, `loop-cost`, `loop-sync`, `loop-mcp-server`, `loop-worktree`.
+
+### Security (review gate)
+
+- **`npx @cobusgreyling/loop-init`** scaffolds skills/STATE/LOOP/budget into the target project — treat as **agent-config write**. Never run on JonBeatz hub or MSC without explicit review of files it would create.
+- Unattended L3 loops: denylist `.env`, no auto-merge week one, least-privilege MCP — see upstream SECURITY.md.
+- Prefer **docs + `loop-audit` read-only** before any init.
+
+### Overlap
+
+Hermes Start/Close/End rituals, Cursor babysit hooks, find-skills, agency-agents personas, MGR handoff — similar intent, different packaging.
+
+### Recommendation
+
+WATCH — read patterns / run `npx @cobusgreyling/loop-audit .` in a throwaway clone only when experimenting. Docs-first.
+
+---
+
+## system_prompts_leaks (REF)
+
+- **URL:** https://github.com/asgeirtj/system_prompts_leaks
+- **Grade:** **B (84/100)** · **Cost:** Free
+- **Verdict:** **REF** — research library, not a product install
+- **Status:** **READY** (browse/clone)
+
+### What it is
+
+Crowdsourced catalog of extracted system prompts: Anthropic/OpenAI/Google/xAI/Cursor/Copilot/Perplexity/etc. Frequently updated; large star count.
+
+### Gap / use
+
+Prompt-craft reference when aligning Hermes/Draven behavior or studying competitor tool schemas. **Cursor/** folder is the highest local relevance.
+
+### Risks
+
+- Vendor ToS / rediscovery ethics — **research only**; do not republish as a product feature or claim ownership of stolen prompts
+- Prompt text may be incomplete or stale vs live models
+- No executables — low install risk; still don’t treat as official docs
+
+### Recommendation
+
+REF bookmark — clone under `D:\Hermes\apps\` or assets only if Jon wants offline grep. Not an IN USE tool.
+
+---
+
+## markdownify-mcp
+
+- **URL:** https://github.com/zcaceres/markdownify-mcp
+- **Grade:** **B+ (88/100)** · **Cost:** Free (MIT)
+- **Verdict:** **IN USE** — already configured on JonBeatz
+- **Status:** **READY** — MCP server `project-0-JonBeatz-markdownify`
+
+| Factor | Score | Notes |
+|--------|-------|-------|
+| Gap fill | 34/40 | Unique “anything → MD” toolkit (PDF/Office/YouTube/audio) |
+| Stack fit | 23/25 | Complements fetch/Firecrawl/Tavily; local file conversion path |
+| Cost/complexity | 16/20 | Free; Python venv + bun; Docker options; Windows path care |
+| Maturity/trust | 15/15 | 2.8k★; `MD_ALLOWED_PATHS` hardening available |
+
+### Tools (subset)
+
+`pdf-to-markdown`, `docx/xlsx/pptx-to-markdown`, `webpage-to-markdown`, `youtube-to-markdown`, `audio-to-markdown`, `image-to-markdown`, `git-repo-to-markdown`, etc.
+
+### Risks
+
+- Unrestricted paths if `MD_ALLOWED_PATHS` unset — prefer allowlisting workspace folders
+- Slim Docker image lacks OCR/audio extras
+- Overlap with Firecrawl/fetch for web-only jobs
+
+### Recommendation
+
+Keep IN USE. Optionally tighten `MD_ALLOWED_PATHS` later. No reinstall.
 
 ---
 
@@ -2801,4 +3019,143 @@ Open-source local TTS/STT/voice-cloning desktop app (Windows/macOS/Linux). Multi
 **Verify:** Install MSI → health `:17493` → one Kokoro generate (light) → MCP speak smoke; measure VRAM before enabling larger engines.
 
 **Recommendation:** **WATCH** — excellent capability, but stack already covers dictation + Draven. Spike when cloning / multi-voice production is needed; keep OmniVoice primary for rituals.
+
+---
+
+## VibeVoice-ASR (Microsoft) (2026-07-14)
+
+- **URL:** https://huggingface.co/microsoft/VibeVoice-ASR · [GitHub microsoft/VibeVoice](https://github.com/microsoft/VibeVoice)
+- **Grade:** **A- (90/100)** · **License:** MIT · **Params:** ~9B BF16
+- **Verdict:** **WATCH** — long-form ASR lab; do **not** replace Handy for daily dictation
+- **Status:** **NOT_INSTALLED**
+
+### Summary
+
+Unified speech-to-text for up to **~60 minutes** in one pass with **speaker diarization**, **timestamps**, **hotwords**, and **50+ languages**. Strong fit for meeting notes / podcast / interview transcription — not Win+H-style paste-at-cursor.
+
+### Gap / overlap
+
+| Layer | Hermes |
+|-------|--------|
+| **Handy** | **IN USE** — offline daily dictation |
+| **Whisper** (Voicebox / OpenWhispr) | Short-form ASR path |
+| **VibeVoice-ASR** | Long-form Who/When/What structured transcripts |
+
+### Risks
+
+- **VRAM** — 9B BF16 competes with ComfyUI / LM Studio / Voicebox models
+- **Not a dictation UX** — model lab / Space / transformers pipeline, not hotkey paste
+- **HF download size** — plan disk + one-model-at-a-time policy
+
+**Verify:** HF Space demo first → only then local `transformers` smoke on a short clip; measure VRAM before 60-min jobs.
+
+**Recommendation:** **WATCH** — bookmarked for long-form transcription experiments; Handy stays daily STT.
+
+---
+
+## AI Camera Movements (2026-07-14)
+
+- **URL:** https://aicameramovements.com/
+- **Grade:** **B+ (88/100)** · **Type:** prompt library (web)
+- **Verdict:** **REF** — bookmark only
+- **Status:** **READY** (web)
+
+### Summary
+
+Grid of copy-paste cinematic camera-move prompts (pan, dolly, orbit, drone, handheld, etc.) for AI video generators. Affiliate “Turn into video” links to Higgsfield — ignore for Hermes; copy the prompt text only.
+
+### Overlap
+
+Pairs with fal/HF image+video workflows, OpenMontage, and R3F camera language when briefing shots.
+
+**Recommendation:** **REF** — keep in DESIGN-REFERENCES Motion + SCROLL-3D inspiration.
+
+---
+
+## Brand Motion Prompt Library (2026-07-14)
+
+- **URL:** https://brandmotion.in/prompts.html
+- **Grade:** **B (84/100)** · **Type:** agency prompt library
+- **Verdict:** **REF** — bookmark (extends existing violet-car REF)
+- **Status:** **READY** (web)
+
+### Summary
+
+Reusable prompts for websites, videos, and campaigns from Brand Motion Studios. Companion index to the already-bookmarked [violet-car](https://brandmotion.in/violet-car.html) showcase.
+
+### Risks
+
+- Typography defaults (Inter / Space Grotesk) conflict with Hermes anti-slop / brand-font rules — steal structure, not fonts.
+- Dark cosmic templates may fight MSC/JonBeatz brand systems.
+
+**Recommendation:** **REF** — cherry-pick brief language; do not install as a skill wholesale.
+
+---
+
+## 16wells/divi-docs (Divi 5 technical docs) — 2026-07-18
+
+- **URLs:** https://github.com/16wells/divi-docs · https://16wells.github.io/divi-docs/ · https://16wells.github.io/divi-docs/api/
+- **Grade:** **A- (91/100)** · **Cost:** Free MIT
+- **Verdict:** **REF** · **Setup:** **READY** (web / optional local `mkdocs serve`)
+
+### Summary
+
+Community MkDocs site for **Divi 5 only** — modules, Theme Options, Visual Builder, options groups, API (hooks, REST, block JSON, JS API), CSS reference, LLM playbooks, recipes, troubleshooting. Built for humans + LLM retrieval. Not affiliated with Elegant Themes.
+
+### Gap / Overlap
+
+- **Gap:** Official ET docs are thin on Divi 5 block JSON / REST / AI compose constraints — this fills that.
+- **Overlap:** DigitalStudioz `divi-wp-dev/` Problems-Solutions + IAWB MCP — complementary (docs vs live ops).
+
+### Risks
+
+- Community-scraped + contributed — verify against live Divi version before shipping production attrs.
+- Scraping scripts / Playwright in repo — do not run against ET ToS casually; use published site as SoT.
+
+**Recommendation:** Bookmark as **primary external Divi 5 KB** for LocalWP work. Local clone optional.
+
+---
+
+## divilovewp/divi5-skill — 2026-07-18
+
+- **URL:** https://github.com/divilovewp/divi5-skill
+- **Grade:** **A- (90/100)** · **Cost:** Free
+- **Verdict:** **ADOPT** · **Setup:** NOT_INSTALLED
+
+### Summary
+
+Agent skill for JSON-native Divi 5 page generation (block comments / module attrs). Complements IA Webmaster Bridge — does not replace MCP live edits.
+
+### Risks
+
+- Generated content still needs `wp_slash` / Menu ID path gotchas (see DSZ Problems-Solutions).
+- Overlap with IAWB compose — use skill for drafts, MCP for apply/verify.
+
+**Recommendation:** Clone into skills library when Jon says install; keep IAWB primary for live site.
+
+---
+
+## cjsimon2/Divi5-ToolKit — 2026-07-18
+
+- **URL:** https://github.com/cjsimon2/Divi5-ToolKit
+- **Grade:** **B+ (88/100)** · **Cost:** Free
+- **Verdict:** **WATCH** · **Setup:** NOT_INSTALLED
+
+### Summary
+
+Claude Code plugin: CSS generate/validate, a11y, CWV, Divi 5 breakpoints, optional a11y MCP. Loads via `--plugin-dir` or `.claude/settings.local.json` marketplace.
+
+### Risks
+
+- **Writes agent config** (`.claude/settings*`, PostToolUse hooks) — security-review before global enable.
+- Claude Code–centric; Cursor remains primary for DigitalStudioz.
+- Overlaps child-theme CSS + our responsive chrome — advisory validators only.
+
+**Recommendation:** WATCH until Claude Code WP sessions need it; do not auto-wire into Cursor.
+
+---
+
+## Prisma (ORM + platform) — status note 2026-07-14
+
+**No re-grade.** Still **B- (81) WATCH** — marketing now stresses Agent Infrastructure / Compute; stack choice remains **Drizzle + Neon + Payload**. Treat [prisma.io](https://www.prisma.io/) as the same known alternative.
 

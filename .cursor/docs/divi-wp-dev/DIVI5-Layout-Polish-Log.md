@@ -1,10 +1,16 @@
 # Layout & chrome polish log — Home / Header
 
 **Site:** `digitalstudioz.local` · **Home:** page **15** · **TB header:** **30**  
-**Child theme:** `dgtl-digitalstudioz-theme` **0.8.1**  
+**Child theme:** `dgtl-digitalstudioz-theme` **0.8.2**  
 **Updated:** 2026-07-18
 
 **Master issues/solutions:** [DIVI5-Problems-Solutions.md](./DIVI5-Problems-Solutions.md) (SoT when docs disagree).
+
+---
+
+## Back-to-top hit + hero Klein A (v0.8.2)
+
+↑ clickable at absolute bottom (`.ds-back-top-row` z-index). Hero BG → `ds-hero-klein-a.jpg` (fal Klein); clear et-cache after URL swap. See [§K.5](./DIVI5-Problems-Solutions.md#k5-click-dead-at-absolute-bottom-theme-082) · [§P](./DIVI5-Problems-Solutions.md#p-hero-background--fal-klein--divi-cache).
 
 ---
 

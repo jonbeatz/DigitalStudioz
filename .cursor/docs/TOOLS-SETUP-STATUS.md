@@ -79,7 +79,7 @@ Everything else in **production** below is configured on Jon's PC (2026-07-04) u
 | **Browserbase MCP** | B | READY | `BROWSERBASE_API_KEY`, `BROWSERBASE_PROJECT_ID` | `.env.local` | Cloud browser |
 | **Pencil MCP** | B | NEEDS_LOGIN | None — **desktop app** | Pencil.dev app | App must be running |
 | **Composio MCP** | B | PARTIAL | `COMPOSIO_API_KEY` | `.env.local` | Optional — disable if unused |
-| **markdownify MCP** | B | **READY** | **None** | MCP manifest | URL/PDF → Markdown |
+| **markdownify MCP** | B+ | **READY** | **None** | MCP manifest | URL/PDF/Office → Markdown — zcaceres/markdownify-mcp |
 | **fal-ai MCP** | B+ | READY | `FAL_API_KEY` | `.env.local` | Cloud image bonus pipeline |
 | **terminal-controller MCP** | B | **READY** | **None** | MCP manifest | Terminal automation alt |
 | **Agent-Reach CLI** | B+ | PARTIAL | None (venv); optional login for social | `%USERPROFILE%\.agent-reach-venv` | 7/15 channels; `npm run agent-reach:doctor` |
@@ -99,6 +99,8 @@ Everything else in **production** below is configured on Jon's PC (2026-07-04) u
 
 | Tool | Grade | Verdict | Setup | Keys / connection | Install / configure |
 |------|-------|---------|-------|-------------------|---------------------|
+| **img2pdf** | A- (91) | **IN USE** | **READY** | None (pip) | `python -m pip install img2pdf pikepdf` — Santa book: `npm run book:pdf:doctor` |
+| **pikepdf** | A- (91) | **IN USE** | **READY** | None (pip) | Same venv as img2pdf — `npm run book:pdf:verify` |
 | **claude-video** | A- (92) | IN USE | PARTIAL | Optional `GROQ_API_KEY` | Done — `npx skills add … -g -a cursor` |
 | **Agent-Reach** | B+ (87) | IN USE | PARTIAL | Free; optional login for Twitter/Reddit | Installed 2026-07-04 — venv + `agent-reach install --env=auto --safe` |
 | **React Bits** | B+ (88) | WATCH | **READY** (free) | Pro = paid license only | Browse/copy — no install |
@@ -151,10 +153,20 @@ Everything else in **production** below is configured on Jon's PC (2026-07-04) u
 | **Toolfolio** | B- (81) | REF | **READY** | None (web) | Discovery bookmark only |
 | **Databasement** | A- (90) | **IN USE** | **READY** | Docker Desktop | `D:\Hermes\apps\databasement` — `npm run databasement:*`; localhost `:2226` |
 | **Voicebox** | A- (92) | WATCH | NOT_INSTALLED | Windows MSI + models | Jon self-install from https://voicebox.sh — MCP `:17493`; VRAM heavy |
+| **FreeCut** | A- (91) | **IN USE** | **READY** | None (browser) | [freecut.net](https://freecut.net); `npm run freecut:open`; workspace `D:\Hermes\apps\freecut-workspaces` |
+| **Kinocut** | A- (91) | **IN USE** | **READY** | None (FFmpeg on PATH) | `uv tool install kinocut`; MCP `uvx --from kinocut kino`; media `D:\Hermes\apps\kinocut-media` |
+| **Video polish chain** | — | **IN USE** | **READY** | FAL optional | `npm run video:polish` · docs VIDEO-POLISH-CHAIN.md |
+| **loop-engineering** | B+ (87) | WATCH | NOT_INSTALLED | None | Docs / `loop-audit` only — **no** `loop-init` on hub yet |
+| **system_prompts_leaks** | B (84) | **REF** | **READY** | None | Browse/clone research; ToS gray |
+| **markdownify-mcp** | B+ (88) | **IN USE** | **READY** | None | Already wired — MCP `markdownify` |
+| **VibeVoice-ASR** | A- (90) | WATCH | NOT_INSTALLED | GPU + transformers / demo Space | HF `microsoft/VibeVoice-ASR` — 9B BF16; long-form + diarization lab only |
 | **Theatre.js** | B+ (86) | WATCH | **PARTIAL** | None | Dev deps in JonBeatz playground — not wired to routes yet |
 | **Threlte** | B (84) | WATCH | NOT_INSTALLED | None | Svelte-only — reference; use R3F for JonBeatz/MSC stack |
 | **Nellavio** | B- (81) | WATCH | NOT_INSTALLED | None | Clone `nellavio/nellavio` — dashboard shell spike only |
 | **awesome-freellm-apis** | B+ (87) | **REF** | **READY** | None | **Bookmark:** https://freellm.net/ — Jon 2026-07-13; config at freellm.net/config/ |
+| **16wells/divi-docs** | A- (91) | **REF** | **READY** | None | **Bookmark:** https://16wells.github.io/divi-docs/ + /api/ — Jon 2026-07-18; DSZ Divi KB |
+| **divilovewp/divi5-skill** | A- (90) | **ADOPT** | NOT_INSTALLED | None | Clone when Jon approves — complements IAWB JSON compose |
+| **cjsimon2/Divi5-ToolKit** | B+ (88) | WATCH | NOT_INSTALLED | None | Claude Code `--plugin-dir` only; security gate before enable |
 | **Mnemosyne** | B+ (89) | **IN USE (Cursor MCP trial)** | READY | None (local SQLite) | `npm run mnemosyne:status` — JonBeatz only; Mem0 canonical |
 | **hermes-browser-extension** | A (93) | **ADOPT** | **READY** | `API_SERVER_KEY` + `API_SERVER_CORS_ORIGINS` | Chrome+Brave `:8642` + companion plugin `hermes-browser-companion` enabled (Jon 2026-07-13) |
 | **deepseek-mcp-server** | B (83) | WATCH | NOT_INSTALLED | `DEEPSEEK_API_KEY` | `npx -y deepseek-mcp-server` stdio — **do not** use hosted `ragweld.com` |
@@ -226,6 +238,8 @@ Run after install or when flipping Setup → **READY**. Add a row here when a ne
 
 | Tool | Verify command | Notes |
 |------|----------------|-------|
+| **img2pdf** | `npm run book:pdf:doctor` (Santa) or `python -c "import img2pdf; print(img2pdf.__version__)"` | Lossless Pages→PDF: `book:pdf:from-pages` |
+| **pikepdf** | `npm run book:pdf:verify` | Optional `--apply-boxes` / `book:pdf:verify:boxes` |
 | **codebase-memory-mcp** | `npm run codebase-memory:status` | Reindex: `codebase-memory:reindex` |
 | **OpenMontage** | `npm run openmontage:status` | Needs `FAL_KEY` for cloud gen |
 | **Agent-Reach** | `npm run agent-reach:doctor` | Optional channel logins |
@@ -248,6 +262,12 @@ Run after install or when flipping Setup → **READY**. Add a row here when a ne
 | **PocketBase** | `npm run pocketbase:install` → `npm run pocketbase:status` → optional `npm run pocketbase:start` | JonBeatz hub; `:8090` localhost only |
 | **Databasement** | `npm run databasement:install` → `npm run databasement:status` | JonBeatz hub; `:2226` localhost only; data under `D:\Hermes\apps\databasement\data` |
 | **InsForge** | `npm run insforge:install` → `npm run insforge:status` | JonBeatz hub; `:7130` localhost; creds `D:\Hermes\apps\insforge\ADMIN-CREDENTIALS.txt`; never Neon |
+| **FreeCut** | `npm run freecut:open` → pick `D:\Hermes\apps\freecut-workspaces` | Chrome/Edge; after Kinocut polish-out |
+| **Kinocut** | `npm run kinocut:install` → `npm run kinocut:status` → enable MCP `kinocut` in Cursor | Core FFmpeg tools; optional `kinocut[transcribe]` later (~1 GB torch) |
+| **Video polish chain** | `npm run video:polish:status` → `npm run video:polish -- -InputPath <mp4>` | See VIDEO-POLISH-CHAIN.md |
+| **loop-engineering** | Read README / `npx @cobusgreyling/loop-audit .` in throwaway only | **Never** `loop-init` on JonBeatz hub without file review |
+| **system_prompts_leaks** | Browse GitHub / optional clone for offline grep | REF only — ToS gray; research |
+| **markdownify-mcp** | Cursor MCP tools list includes `pdf-to-markdown` etc. | Already IN USE; optional `MD_ALLOWED_PATHS` |
 | **Theatre.js** | `npm ls @theatre/core @theatre/r3f` in JonBeatz playground | Deps on deck — spike when showcase chapter needs timeline |
 | **Nellavio** | `git clone` → `npm i` → dev smoke on dashboard pages | Overlaps shadcn IN USE — spike only |
 | **3D vault bundles** | `npm run workflows:3d:status` | Asset paths on `D:\Hermes\assets` |

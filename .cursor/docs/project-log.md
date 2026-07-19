@@ -1,5 +1,13 @@
 # DigitalStudioz — Project Log
 
+## 2026-07-18 — Theme 0.8.2 back-to-top + hero + Hostinger WP sync plan
+
+- **0.8.2:** Back-to-top clickable at absolute bottom (`.ds-back-top-row` above Divi `z-index:4` grid).
+- Hero: fal **FLUX.2 Klein 4B** → live **`ds-hero-klein-a.jpg`** (media 130); et-cache clear gotcha.
+- Divi KB batch: 16wells docs / divi5-skill / ToolKit → fleet TOOLS-* + `DIVI5-EXTERNAL-KB.md`.
+- Hostinger: live login verified; playbook **[HOSTINGER-WP-SYNC.md](./divi-wp-dev/HOSTINGER-WP-SYNC.md)** — Phase A when Jon says go-live; ongoing = theme-only push.
+- Problems-Solutions **§K.5 / §P**; theme mirror **0.8.2**.
+
 ## 2026-07-18 — Theme 0.7.6–0.8.1 footer credit columns + responsive grid
 
 - TB **31**: credit bar → Divi `1/2|1/2` Text (© / Built with); Menus **9/10/11** unchanged.

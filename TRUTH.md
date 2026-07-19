@@ -45,7 +45,7 @@
 
 - **LocalWP site:** `D:\Hermes\projects\Local-WP\DigitalStudioz-WP` (domain `digitalstudioz.local`)
 - **Cursor workspace:** Multi-root — this Next.js profile + DigitalStudioz-WP together
-- **Stack:** WP 7.0.2 · Divi 5.9 · child `dgtl-digitalstudioz-theme` **0.8.1** · ACF PRO · Novamira · wpmcp · IAWB
+- **Stack:** WP 7.0.2 · Divi 5.9 · child `dgtl-digitalstudioz-theme` **0.8.2** · ACF PRO · Novamira · wpmcp · IAWB
 - **Theme live SoT:** LocalWP `wp-content/themes/dgtl-digitalstudioz-theme`
 - **Theme git mirror:** `assets/wp-theme/dgtl-digitalstudioz-theme` — `npm run theme:sync` / `theme:backup` / `theme:push`
 - **Home smoke:** `npm run wp:smoke` (Local site up)

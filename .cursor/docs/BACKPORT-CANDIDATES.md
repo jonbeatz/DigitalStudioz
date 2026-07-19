@@ -22,6 +22,7 @@ When you discover something during a session that could benefit future projects,
 
 | # | What | Version | Date |
 |---|------|---------|------|
+| 7 | Picture-book fal model-lane recipe (Klein dial → Qwen fallback → Banana finals) in shared IMAGE-WORKFLOW | 1.31.5 | 2026-07-15 |
 | 6 | Extended Health sidecar: system Python launcher (not Hermes venv) for `hermes update` safety | 1.29.2 | 2026-07-11 |
 | 5 | End Project clickable AskQuestion UX (`end-project-ritual.mdc`, Hard UI rule, never Reply 1/2) | 1.29.1 | 2026-07-11 |
 | 4 | n8n `N8N_LISTEN_ADDRESS` gotcha + Extended Health sidecar pattern (CE no Execute Command) | 1.29.0 | 2026-07-11 |

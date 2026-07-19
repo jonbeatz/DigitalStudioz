@@ -4,6 +4,16 @@
 > `.cursor/docs/divi-wp-dev/DIVI5-LocalWP-Setup-Catalog.md`  
 > WP mirror: `Local-WP/DigitalStudioz-WP/.cursor/docs/DIVI5-SETUP-CATALOG.md`
 
+## 2026-07-18 — Theme 0.8.2 back-to-top hit + hero Klein A
+
+| Issue | Fix |
+|-------|-----|
+| ↑ button dead at absolute page bottom | Footer grid `z-index:4` stole hits; promote `.ds-back-top-row` — theme **0.8.2** |
+| Hero was MSC login art | fal **FLUX.2 Klein 4B** → kept **`ds-hero-klein-a.jpg`** (media 130) on Home 15 |
+| BG URL changed but FE still old | Clear `et_core_clear_wp_cache(15)` + wipe `wp-content/et-cache/` |
+
+**Canonical:** [DIVI5-Problems-Solutions.md §K.5](./DIVI5-Problems-Solutions.md#k5-click-dead-at-absolute-bottom-theme-082) · [§P](./DIVI5-Problems-Solutions.md#p-hero-background--fal-klein--divi-cache)
+
 ## 2026-07-18 — Theme 0.7.6–0.8.1 footer credit columns + responsive grid
 
 | Issue | Fix |

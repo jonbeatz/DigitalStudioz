@@ -48,6 +48,8 @@ Jon researches tools → paste links in Cursor (often from **JonBeatz hub**) →
 
 | Tool | Grade | Verdict | Setup | Cost | One-line summary |
 |------|-------|---------|-------|------|------------------|
+| [**img2pdf**](https://github.com/josch/img2pdf) | **A- (91)** | **IN USE** | **READY** | Free | Lossless images→PDF (POD interiors from page JPEGs) |
+| [**pikepdf**](https://github.com/pikepdf/pikepdf) | **A- (91)** | **IN USE** | **READY** | Free MPL | PDF Trim/Bleed/MediaBox QA for Lulu uploads |
 | **claude-video `/watch`** | **A- (92)** | IN USE | PARTIAL‡ | Free† | Agent watches video — frames + transcript; best for visual analysis |
 | **find-skills** | **A- (91)** | IN USE | **READY** | Free | Meta-skill — discover + install from 2000+ skill catalog via `npx skills find` |
 | **Hallmark** | **B+ (88)** | IN USE | **READY** | Free | Anti-slop design skill — build/audit/redesign UI; 57 slop gates; complements NovaMira |
@@ -84,6 +86,11 @@ Jon researches tools → paste links in Cursor (often from **JonBeatz hub**) →
 | [**TRELLIS.2**](https://github.com/microsoft/TRELLIS.2) | **B- (82)** | WATCH | NOT_INSTALLED | Free§ | MSFT 4B image→PBR GLB — Linux + **24GB VRAM**; HF Space demo on Win |
 | [**Step Beyond**](https://github.com/aievolutionpl/step-beyond) | **B- (80)** | WATCH | NOT_INSTALLED | Free | Agent behavior skill v4 alpha — cherry-pick verify/slop refs; rituals already cover |
 | [**OpenCut**](https://github.com/OpenCut-app/OpenCut) | **B- (82)** | WATCH | NOT_INSTALLED | Free | OSS CapCut alt — use [opencut.app](https://opencut.app) classic; rewrite + MCP coming |
+| [**FreeCut**](https://github.com/walterlow/freecut) | **A- (91)** | **IN USE** | **READY** | Free MIT | Human polish UI after Kinocut — [freecut.net](https://freecut.net); `npm run freecut:open`; workspace `D:\Hermes\apps\freecut-workspaces` |
+| [**Kinocut**](https://github.com/KyaniteLabs/kinocut) | **A- (91)** | **IN USE** | **READY** | Free Apache-2 | Agent FFmpeg video MCP (`kino` / `uvx`) — trim/caption/9:16/QC; chain: [VIDEO-POLISH-CHAIN.md](./VIDEO-POLISH-CHAIN.md) |
+| [**loop-engineering**](https://github.com/cobusgreyling/loop-engineering) | **B+ (87)** | WATCH | NOT_INSTALLED | Free | Agent loop patterns + `loop-audit`/`loop-init` CLIs — docs-first; **do not** `loop-init` on hub without review |
+| [**system_prompts_leaks**](https://github.com/asgeirtj/system_prompts_leaks) | **B (84)** | **REF** | **READY** | Free | Catalog of extracted vendor system prompts (incl. Cursor) — research only; ToS gray |
+| [**markdownify-mcp**](https://github.com/zcaceres/markdownify-mcp) | **B+ (88)** | **IN USE** | **READY** | Free MIT | PDF/URL/Office → Markdown MCP — already in JonBeatz MCP manifest (`project-0-JonBeatz-markdownify`) |
 | [**NoSignups**](https://nosignups.net/) | **B (84)** | **REF** | **READY** | Free | 210 no-signup OSS browser tools — discovery bookmark (not install) |
 | [**Nemotron-Shared-Memory**](https://github.com/TheLasTech/Nemotron-Shared-Memory) | **B- (80)** | **REF** | **READY** | Free CC BY | Public MD+Git memory patterns — vault hygiene reference (not Nemotron model) |
 | **LongCat-Video** | B+ (87) | WATCH | NOT_INSTALLED | Free§ | Local 13.6B I2V — **fal fallback #1**; Avatar 1.5 = talking-head branch |
@@ -103,6 +110,7 @@ Jon researches tools → paste links in Cursor (often from **JonBeatz hub**) →
 | [**Toolfolio**](https://toolfolio.com/) | **B- (81)** | **REF** | **READY** | Free | Tool discovery directory — bookmark only (not install) |
 | [**Databasement**](https://github.com/David-Crty/databasement) | **A- (90)** | **IN USE** | **READY** | Free MIT | DB backup UI @ `D:\Hermes\apps\databasement` — localhost `:2226` |
 | [**Voicebox**](https://github.com/jamiepine/voicebox) | **A- (92)** | WATCH | NOT_INSTALLED | Free MIT | Local TTS+STT studio + MCP `:17493` — Jon self-install later; overlaps Handy+OmniVoice |
+| [**VibeVoice-ASR**](https://huggingface.co/microsoft/VibeVoice-ASR) | **A- (90)** | WATCH | NOT_INSTALLED | Free MIT | MS 9B long-form ASR + diarization + hotwords (~60 min); VRAM-heavy vs Handy |
 | [**Theatre.js**](https://www.theatrejs.com/) | **B+ (86)** | WATCH | NOT_INSTALLED | Free Apache-2.0 | Visual R3F timeline (`@theatre/r3f`) — showcase 3D; last major push 2024 |
 | [**Threlte**](https://threlte.xyz/) | **B (84)** | WATCH | NOT_INSTALLED | Free MIT | Svelte 3D on Three.js — reference only; fleet stack is Next.js + R3F |
 | [**Nellavio**](https://github.com/nellavio/nellavio) | **B- (81)** | WATCH | NOT_INSTALLED | Free MIT | Next.js dashboard starter (auth, RBAC, i18n, 90+ components) — overlaps shadcn/Premium-UI |
@@ -150,6 +158,9 @@ Jon researches tools → paste links in Cursor (often from **JonBeatz hub**) →
 | **React Hook Form** | **A (93)** | **IN USE** | **READY** | Free OSS | Forms — MSC; use with Zod resolver |
 | **TanStack Query** | **A (94)** | **ADOPT** | NOT_INSTALLED | Free OSS | Client server-state; App Router prefetch/hydrate |
 | **bknd** | B+ (87) | WATCH | NOT_INSTALLED | Free OSS | Embedded BaaS (beta); Firebase alt; Next.js embed |
+| [**16wells/divi-docs**](https://github.com/16wells/divi-docs) | **A- (91)** | **REF** | **READY** | Free MIT | Community Divi 5 tech docs + [LLM playbooks](https://16wells.github.io/divi-docs/) — primary external KB for DSZ LocalWP |
+| [**divilovewp/divi5-skill**](https://github.com/divilovewp/divi5-skill) | **A- (90)** | **ADOPT** | NOT_INSTALLED | Free | JSON-native Divi 5 page-gen skill — complements IAWB; clone when ready |
+| [**cjsimon2/Divi5-ToolKit**](https://github.com/cjsimon2/Divi5-ToolKit) | **B+ (88)** | **WATCH** | NOT_INSTALLED | Free | Claude Code Divi 5 CSS/a11y/CWV plugin — useful if CC on WP; Cursor stays primary |
 
 † Stack Auth: MIT SDK + AGPL backend.  
 ‡ Directus: BSL 1.1 under revenue cap; GPL alternative.  
@@ -219,7 +230,9 @@ Install any of these only after Jon approves. None replace `draven:speak` until 
 | Cloud **video / lip sync GUI** | fal Kling (`video:fal`) | **Open Generative AI + muapi** | OSS studio + muapi wallet; alt to Higgsfield-style UIs |
 | Local **images/video** | ComfyUI | — | Generation, not consumption |
 | **Image → PBR GLB** | **Tripo Studio** (cloud) | **3DGenStudio** (Comfy Kanban), [**TRELLIS.2**](https://github.com/microsoft/TRELLIS.2) | TRELLIS.2 = OSS SOTA but Linux + 24GB VRAM; HF Space demo on Win |
-| **Manual video timeline** | FFmpeg + browser | [**OpenCut**](https://opencut.app) classic, LTX Desktop | OpenMontage = agent pipelines; OpenCut = human NLE cuts |
+| **Manual video timeline** | FFmpeg + browser | [**FreeCut**](https://freecut.net) (preferred WATCH), [**OpenCut**](https://opencut.app) classic, LTX Desktop | OpenMontage = agent pipelines; FreeCut/OpenCut = human NLE cuts |
+| **Agent trim / caption / Shorts QC** | [**Kinocut**](https://github.com/KyaniteLabs/kinocut) MCP **IN USE** | Raw FFmpeg | See [VIDEO-POLISH-CHAIN.md](./VIDEO-POLISH-CHAIN.md) |
+| **Human timeline polish** | [**FreeCut**](https://freecut.net) **IN USE** | OpenCut classic, LTX Desktop | After Kinocut; `npm run freecut:open` |
 | **No-signup tool discovery** | Bookmarks + TOOL-CHEST | [**NoSignups**](https://nosignups.net/) | 210 curated browser OSS utilities — not an install |
 | **Agent behavior formalism** | Cursor rules + rituals + Hallmark | [**Step Beyond**](https://github.com/aievolutionpl/step-beyond) skill | Cherry-pick verify/slop refs only; no runtime without adapter |
 | **Agent token analytics** | **TokenTracker** (spend) + **AgentsView** (sessions) | ccusage | Jon 2026-07-04 — ccusage demoted |
@@ -427,6 +440,17 @@ Install any of these only after Jon approves. None replace `draven:speak` until 
 | 2026-07-14 | [Toolfolio](https://toolfolio.com/) | B- (81) | **REF** — tool discovery directory bookmark |
 | 2026-07-14 | [Databasement](https://github.com/David-Crty/databasement) | A- (90) | **IN USE** — Docker localhost `:2226` @ `D:\Hermes\apps\databasement` |
 | 2026-07-14 | [Voicebox](https://github.com/jamiepine/voicebox) | A- (92) | **WATCH** — Jon self-install later; keep Handy/OmniVoice primary |
+| 2026-07-14 | [AI Camera Movements](https://aicameramovements.com/) | B+ (88) | **REF** — camera-move prompt library for AI video / 3D |
+| 2026-07-14 | [Brand Motion prompts](https://brandmotion.in/prompts.html) | B (84) | **REF** — agency prompt library (extend violet-car bookmark) |
+| 2026-07-14 | [VibeVoice-ASR](https://huggingface.co/microsoft/VibeVoice-ASR) | A- (90) | **WATCH** — MS long-form ASR+diarization; not Handy replacement |
+| 2026-07-14 | [markdownify-mcp](https://github.com/zcaceres/markdownify-mcp) | B+ (88) | **IN USE** — re-confirmed; already in JonBeatz MCP manifest |
+| 2026-07-14 | [system_prompts_leaks](https://github.com/asgeirtj/system_prompts_leaks) | B (84) | **REF** — vendor prompt catalog research; ToS gray; Cursor folder useful |
+| 2026-07-14 | [loop-engineering](https://github.com/cobusgreyling/loop-engineering) | B+ (87) | **WATCH** — loop patterns + CLIs; docs-first; no hub `loop-init` yet |
+| 2026-07-14 | [FreeCut](https://github.com/walterlow/freecut) | A- (91) | **IN USE** — promoted P3 polish UI (freecut.net); `npm run freecut:open` |
+| 2026-07-14 | Video polish chain | — | **IN USE** — VIDEO-POLISH-CHAIN.md + `npm run video:polish` (Kinocut cut → FreeCut optional) |
+| 2026-07-14 | [Kinocut](https://github.com/KyaniteLabs/kinocut) | A- (91) | **IN USE** — uv tool 1.8.0 + project MCP; workspace `D:\Hermes\apps\kinocut-media`; `npm run kinocut:status` |
+| 2026-07-14 | [img2pdf](https://github.com/josch/img2pdf) | A- (91) | **IN USE** — pip; The-Night-I-Met-Santa `npm run book:pdf:*`; lossless page JPEG→PDF |
+| 2026-07-14 | [pikepdf](https://github.com/pikepdf/pikepdf) | A- (91) | **IN USE** — pip; `book:pdf:verify` Trim/Bleed boxes for Lulu |
 
 ---
 

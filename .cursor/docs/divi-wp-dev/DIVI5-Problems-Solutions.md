@@ -1,7 +1,7 @@
 # Divi 5 / LocalWP — Problems & Solutions (master log)
 
 **Site:** `https://digitalstudioz.local/` · **Home:** page **15** · **TB:** header **30** / footer **31** / template **32**  
-**Child theme:** `dgtl-digitalstudioz-theme` **0.8.1**  
+**Child theme:** `dgtl-digitalstudioz-theme` **0.8.2**  
 **Updated:** 2026-07-18  
 **SoT for this file:** when docs disagree on WP/Divi chrome issues, **this document wins** (then START-HERE / ReCall).
 
@@ -25,11 +25,12 @@
 | [H](#h-pee-aye-creative-plugins) | Pee-Aye plugins (buy/skip) | skip for now |
 | [I](#i-protect-list--never-again) | Protect list / never-again | standing |
 | [J](#j-header-menu-links-right-next-to-cta) | Header menu → right next to CTA | **0.7.3** |
-| [K](#k-mobile-stack--back-to-top-clearance) | Mobile stack + back-to-top | **0.7.4** |
+| [K](#k-mobile-stack--back-to-top-clearance) | Mobile stack + back-to-top | **0.7.4** / **0.8.2** |
 | [L](#l-theme-git-mirror--home-smoke--cadence) | Theme git mirror + Home smoke + cadence | **ops 2026-07-18** |
 | [M](#m-native-audit-re-grade-074) | Native audit re-grade | **~93% @ 0.7.4** |
 | [N](#n-footer-menu-modules--mobile-center) | Footer Menu modules + mobile center | **0.7.5** |
 | [O](#o-footer-credit-columns--responsive-grid) | Footer credit columns + responsive grid | **0.7.6–0.8.1** |
+| [P](#p-hero-background--fal-klein--divi-cache) | Hero BG (fal Klein) + Divi et-cache | **Home 15 · 2026-07-18** |
 
 ### Theme version cheat sheet (chrome)
 
@@ -53,6 +54,7 @@
 | **0.7.6–0.7.7** | Credit bar → Divi `1/2\|1/2` Text modules; tighter letter-spacing; **`wp_slash` required** on TB writes |
 | **0.8.0** | ≤980: brand centered full-width above; SERVICES\|COMPANY\|CONNECT in one row (no 4-col squish) |
 | **0.8.1** | Menu trio content centered under brand (not flush-left) |
+| **0.8.2** | Back-to-top clickable at page bottom — raise `.ds-back-top-row` above Divi flex `z-index:4` grid |
 | ops | Theme git mirror (`assets/wp-theme/`) + `theme:sync` / `theme:backup` + `wp:smoke` + [DEV-WORKFLOW.md](./DEV-WORKFLOW.md) |
 
 ---
@@ -412,6 +414,15 @@ Verified @ 390px: service titles full (“3D Web Experiences”); process titles
 - After building multi-column Divi rows, **always** add a ≤980px stack rule (or set Divi responsive column widths in VB and verify FE).
 - Measure with CDP: column widths + `flexDirection` at `width:390`.
 - Keep back-to-top above footer credit; don’t rely on horizontal miss alone (credit can be wider on desktop).
+- **Stacking:** Divi flex footer rows use `z-index:4` (grid). A fixed `.ds-back-top` with high z-index still loses hit-tests if its parent row is `z-index:auto` — promote `.ds-back-top-row` (theme **0.8.2**: `z-index:50` + `pointer-events:none` on row, `auto` on visible button).
+
+### K.5 Click dead at absolute bottom (theme **0.8.2**)
+
+**Symptom:** ↑ works mid-page; fails when scrolled fully to footer.
+
+**Cause:** `.ds-footer-grid { z-index:4 }` painted over the button’s hit target; button’s own `z-index` was trapped under the sibling row stacking context.
+
+**Fix:** `.ds-back-top-row { z-index:50; pointer-events:none }` · `.ds-back-top { z-index:10050 }` · `.is-visible { pointer-events:auto }`.
 
 ---
 
@@ -526,6 +537,31 @@ Verified @ 390px: service titles full (“3D Web Experiences”); process titles
 
 ---
 
+## P. Hero background — fal Klein + Divi cache
+
+### P.1 Problems
+
+1. Hero used **`MSC-Login1.jpg`** (MSC branding) — wrong brand for DigitalStudioz Warm Premium.
+2. After swapping the Divi section `background.image.url` in `post_content`, FE still showed the old URL until **et-cache** cleared.
+
+### P.2 Fixes (2026-07-18)
+
+| Step | Detail |
+|------|--------|
+| Model | fal.ai **`fal-ai/flux-2/klein/4b`** (FLUX.2 [klein] 4B — Jon: “Kein 4B”) |
+| Chosen asset | **`ds-hero-klein-a.jpg`** (media **130**) — kept; atelier HD / B discarded for live |
+| Locals | `DigitalStudioz/media/hero/` (`ds-hero-klein-a/b/hd.jpg`, `ds-hero-atelier-hd.jpg`) |
+| Write | Replace URL in Home **15** with **`wp_slash`**; then `et_core_clear_wp_cache(15)` + wipe `wp-content/et-cache/` |
+| Overlay | Existing gold→void linear gradient + `overlaysImage` unchanged |
+
+### P.3 Never again
+
+- After changing Divi background image URLs in `post_content`, **always clear Divi et-cache** (or FE keeps the old CSS `url(...)`).
+- Do not ship MSC/other-profile assets as DSZ hero backgrounds.
+- Prefer Warm Premium dark void + muted gold atmosphere; keep center quiet for type.
+
+---
+
 ## Verify checklist (after chrome / spacing / MCP changes)
 
 - [ ] Hard-refresh Home; hero stack feels tight (not “30px air” between lines) — ≈ **12 / 24 / 40**  
@@ -536,6 +572,8 @@ Verified @ 390px: service titles full (“3D Web Experiences”); process titles
 - [ ] Desktop: menu links sit next to Start a Project (~24px gap); CTA unmoved  
 - [ ] ≤980px: Services/Process/About/Stats **stack** (no skinny multi-col)  
 - [ ] Back-to-top does **not** cover “Built with DigitalStudioz”  
+- [ ] Back-to-top **clicks** at absolute page bottom (not only mid-scroll) — §K.5  
+- [ ] Hero BG is **`ds-hero-klein-a.jpg`** (not MSC-Login1) — hard-refresh after et-cache clear — §P  
 - [ ] Footer desktop: 4-col left; © left / Built with right (`1/2\|1/2`)  
 - [ ] Footer ≤980: brand centered above; three menus **centered** under brand; no logo/SERVICES overlap  
 - [ ] Footer links editable via WP menus **9/10/11** (not Primary)  

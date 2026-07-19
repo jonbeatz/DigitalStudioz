@@ -4,7 +4,7 @@ Theme URI: https://digitalstudioz.com
 Description: Premium Divi 5 child theme for DigitalStudioz.com
 Author: JonBeatz / DigitalStudioz
 Template: Divi
-Version: 0.8.1
+Version: 0.8.2
 Text Domain: dgtl-digitalstudioz
 */
 
@@ -1117,12 +1117,29 @@ header.et-l--header > .ds-mobile-drawer {
   text-decoration: none !important;
 }
 
+/*
+  Back-to-top lives in TB footer row `.ds-back-top-row` (height 0).
+  Divi flex rows use z-index:4 on `.ds-footer-grid` — that layer steals
+  clicks when the footer is fully on-screen. Promote the back-top row
+  above sibling footer rows; keep the empty row itself non-interactive.
+*/
+.et-l--footer .ds-back-top-row {
+  position: relative;
+  z-index: 50;
+  height: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  pointer-events: none;
+  overflow: visible !important;
+}
+
 .ds-back-top {
   position: fixed;
   right: 24px;
   /* Clear footer credit (“Built with DigitalStudioz”) when scrolled to bottom */
   bottom: 72px;
-  z-index: 90;
+  z-index: 10050;
   width: 40px;
   height: 40px;
   display: flex;

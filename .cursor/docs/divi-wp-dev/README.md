@@ -23,6 +23,8 @@ Keep fleet/profile docs (START-HERE, TOOLS-*, Hostinger, etc.) in `.cursor/docs/
 | 5c | [DIVI5-Layout-Polish-Log.md](./DIVI5-Layout-Polish-Log.md) | Nav opacity, section padding, hero center — problems → solutions |
 | 6 | [WP-Divi5-Dev-PRD-FINAL-v3.md](./WP-Divi5-Dev-PRD-FINAL-v3.md) | Product PRD (current) |
 | 7 | [youtube-channel-watchlist-2026-07.md](./youtube-channel-watchlist-2026-07.md) | Divi YouTube watchlist |
+| **7b** | **[DIVI5-EXTERNAL-KB.md](./DIVI5-EXTERNAL-KB.md)** | External Divi 5 KB grades — 16wells docs, divi5-skill, ToolKit |
+| **8** | **[HOSTINGER-WP-SYNC.md](./HOSTINGER-WP-SYNC.md)** | Local → live WPvivid + theme-only push (no full wipe every time) |
 
 **Shared design tokens (Next.js + WP):** stay in parent docs → [`../WARM-PREMIUM-PALETTE.md`](../WARM-PREMIUM-PALETTE.md)
 
