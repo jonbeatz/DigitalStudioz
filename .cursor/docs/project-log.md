@@ -1,5 +1,28 @@
 # DigitalStudioz — Project Log
 
+## 2026-07-18 — Theme 0.7.6–0.8.1 footer credit columns + responsive grid
+
+- TB **31**: credit bar → Divi `1/2|1/2` Text (© / Built with); Menus **9/10/11** unchanged.
+- **Gotcha:** `wp_update_post` needs **`wp_slash`** or Divi `\u` escapes corrupt FE.
+- **0.8.0:** ≤980 brand centered above; three menus in a row (no 4-col squish/overlap).
+- **0.8.1:** menu trio content centered under brand.
+- Hostinger: deferred; when ready use WPvivid full files+DB (`digitalstudioz.com` exists).
+- Problems-Solutions **§O**; theme mirror **0.8.1**.
+
+## 2026-07-18 — Theme 0.7.5 footer Menu swap + mobile center
+
+- TB **31**: three Menu modules → WP menus **9/10/11** (Services/Studio/Connect).
+- Gotcha: `menu.advanced.menuId` required — else Primary fallback.
+- Mobile footer centered; tablet 1+3 layout; gutters restored.
+- `theme:sync` + `wp:smoke` PASS. Problems-Solutions **§N**. Native ~**95%**.
+
+## 2026-07-18 — Native Audit re-grade (~93%) + D7 cleanup
+
+- Re-audit vs 0.6.6 baseline: overall **~93%** (was ~88%); Home ~96%; TB chrome ~90%.
+- **D7:** deleted draft TB layouts 35/36. **D14 prep:** WP menus Footer Services/Studio/Connect (**9/10/11**).
+- Doc: [DIVI5-Native-Audit.md](./divi-wp-dev/DIVI5-Native-Audit.md); Problems-Solutions §M.
+- Open next: footer Menu swap · button pad · typography `!important`.
+
 ## 2026-07-18 — Ops upgrades: theme mirror, wp:smoke, DEV-WORKFLOW
 
 - **theme:sync / theme:backup / theme:push** — LocalWP child theme ↔ `assets/wp-theme/`; zip backups under `G:\Hermes_Project_BackUpz\DigitalStudioz\themes\`.

@@ -12,6 +12,7 @@ Keep fleet/profile docs (START-HERE, TOOLS-*, Hostinger, etc.) in `.cursor/docs/
 | Priority | Doc | Role |
 |----------|-----|------|
 | 0 | [DEV-WORKFLOW.md](./DEV-WORKFLOW.md) | Daily cadence: measure → fix → verify → **log fixes** → `theme:sync` |
+| **0b** | **[DIVI5-Native-Audit.md](./DIVI5-Native-Audit.md)** | **Re-grade** vs 0.6.6 baseline — overall **~93%** (was ~88%); debt D1–D14 |
 | 1 | [DIVI5-LocalWP-Setup-Catalog.md](./DIVI5-LocalWP-Setup-Catalog.md) | Living SoT — stack, checklist, fixes |
 | **1b** | **[DIVI5-Problems-Solutions.md](./DIVI5-Problems-Solutions.md)** | **Master chrome/MCP issues → solutions** (nav → spacing → **mobile 0.7.4**, MCP). After fixes: say **`log fixes`**. |
 | 2 | [ISSUES-RESOLVED.md](./ISSUES-RESOLVED.md) | Short fix index |
@@ -36,6 +37,7 @@ Keep fleet/profile docs (START-HERE, TOOLS-*, Hostinger, etc.) in `.cursor/docs/
 | File | Notes |
 |------|--------|
 | `DEV-WORKFLOW.md` | Cadence + `theme:sync` / `theme:backup` / `wp:smoke` |
+| `DIVI5-Native-Audit.md` | Native % grades + debt scoreboard (re-audit 0.7.4) |
 | `DIVI5-Problems-Solutions.md` | **Master** chrome/MCP issue → solution log (nav, freeze, menu, mobile, spacing, MCP) |
 | `DIVI5-LocalWP-Setup-Catalog.md` | Verified stack, sequence, gotchas |
 | `ISSUES-RESOLVED.md` | One-line index → details in Problems-Solutions / catalog |

@@ -1,10 +1,22 @@
 # Layout & chrome polish log — Home / Header
 
 **Site:** `digitalstudioz.local` · **Home:** page **15** · **TB header:** **30**  
-**Child theme:** `dgtl-digitalstudioz-theme` **0.7.4**  
+**Child theme:** `dgtl-digitalstudioz-theme` **0.8.1**  
 **Updated:** 2026-07-18
 
 **Master issues/solutions:** [DIVI5-Problems-Solutions.md](./DIVI5-Problems-Solutions.md) (SoT when docs disagree).
+
+---
+
+## Footer credit columns + responsive grid (v0.7.6–0.8.1)
+
+TB 31 credit → Divi `1/2|1/2`. ≤980: brand centered above; three menus centered under brand. See [§O](./DIVI5-Problems-Solutions.md#o-footer-credit-columns--responsive-grid).
+
+---
+
+## Footer Menu modules + mobile center (v0.7.5)
+
+TB 31 HTML lists → Divi Menu (WP 9/10/11). Mobile footer centered (override Divi phone right-align). See [§N](./DIVI5-Problems-Solutions.md#n-footer-menu-modules--mobile-center).
 
 ---
 

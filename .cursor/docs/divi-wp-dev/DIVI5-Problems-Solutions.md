@@ -1,11 +1,11 @@
 # Divi 5 / LocalWP — Problems & Solutions (master log)
 
 **Site:** `https://digitalstudioz.local/` · **Home:** page **15** · **TB:** header **30** / footer **31** / template **32**  
-**Child theme:** `dgtl-digitalstudioz-theme` **0.7.4**  
+**Child theme:** `dgtl-digitalstudioz-theme` **0.8.1**  
 **Updated:** 2026-07-18  
 **SoT for this file:** when docs disagree on WP/Divi chrome issues, **this document wins** (then START-HERE / ReCall).
 
-**Companions:** [DEV-WORKFLOW.md](./DEV-WORKFLOW.md) · [NAV-HTML-REVERT.md](./NAV-HTML-REVERT.md) · [DIVI5-Layout-Polish-Log.md](./DIVI5-Layout-Polish-Log.md) · [DIVI5-Home-Native-Pass.md](./DIVI5-Home-Native-Pass.md) · [DIVI5-LocalWP-Setup-Catalog.md](./DIVI5-LocalWP-Setup-Catalog.md) · WP day-to-day MCP: `Local-WP/DigitalStudioz-WP/.cursor/docs/MCP-SETUP.md` · Next spacing SoT: `lib/experience-engine/engine.tsx`
+**Companions:** [DEV-WORKFLOW.md](./DEV-WORKFLOW.md) · [DIVI5-Native-Audit.md](./DIVI5-Native-Audit.md) · [NAV-HTML-REVERT.md](./NAV-HTML-REVERT.md) · [DIVI5-Layout-Polish-Log.md](./DIVI5-Layout-Polish-Log.md) · [DIVI5-Home-Native-Pass.md](./DIVI5-Home-Native-Pass.md) · [DIVI5-LocalWP-Setup-Catalog.md](./DIVI5-LocalWP-Setup-Catalog.md) · WP day-to-day MCP: `Local-WP/DigitalStudioz-WP/.cursor/docs/MCP-SETUP.md` · Next spacing SoT: `lib/experience-engine/engine.tsx`
 
 **Operator shortcut:** after a fix session, say **`log fixes`** → [Log-Fixes.md](../../prompts/Log-Fixes.md). Then **`npm run theme:sync`**. Before polish claims: **`npm run wp:smoke`**.
 
@@ -27,6 +27,9 @@
 | [J](#j-header-menu-links-right-next-to-cta) | Header menu → right next to CTA | **0.7.3** |
 | [K](#k-mobile-stack--back-to-top-clearance) | Mobile stack + back-to-top | **0.7.4** |
 | [L](#l-theme-git-mirror--home-smoke--cadence) | Theme git mirror + Home smoke + cadence | **ops 2026-07-18** |
+| [M](#m-native-audit-re-grade-074) | Native audit re-grade | **~93% @ 0.7.4** |
+| [N](#n-footer-menu-modules--mobile-center) | Footer Menu modules + mobile center | **0.7.5** |
+| [O](#o-footer-credit-columns--responsive-grid) | Footer credit columns + responsive grid | **0.7.6–0.8.1** |
 
 ### Theme version cheat sheet (chrome)
 
@@ -46,6 +49,10 @@
 | 0.7.2 | Process intro `min-height:200px` scoped to **card columns only** (`:has(.ds-svc-num)`) |
 | 0.7.3 | Desktop menu links pinned **right** next to Start a Project (middle col grows) |
 | **0.7.4** | Mobile stack Services/Process/About/Stats/Footer; back-to-top raised clear of footer credit |
+| **0.7.5** | Footer TB 31 Menu modules (WP 9/10/11); mobile footer centered; `menu.advanced.menuId` gotcha |
+| **0.7.6–0.7.7** | Credit bar → Divi `1/2\|1/2` Text modules; tighter letter-spacing; **`wp_slash` required** on TB writes |
+| **0.8.0** | ≤980: brand centered full-width above; SERVICES\|COMPANY\|CONNECT in one row (no 4-col squish) |
+| **0.8.1** | Menu trio content centered under brand (not flush-left) |
 | ops | Theme git mirror (`assets/wp-theme/`) + `theme:sync` / `theme:backup` + `wp:smoke` + [DEV-WORKFLOW.md](./DEV-WORKFLOW.md) |
 
 ---
@@ -447,19 +454,91 @@ Verified @ 390px: service titles full (“3D Web Experiences”); process titles
 
 ---
 
+## M. Native audit re-grade (0.7.4)
+
+**Full write-up:** [DIVI5-Native-Audit.md](./DIVI5-Native-Audit.md)
+
+| Metric | Baseline (0.6.6) | Now (0.7.4) |
+|--------|------------------|-------------|
+| Overall Divi-native | ~88% | **~93%** |
+| Home modules | ~95% | ~96% |
+| TB chrome | ~80% | **~90%** |
+
+**Resolved since baseline:** D1 spacing lock · D3/D14 footer Menus (**0.7.5**) · D7 orphans · D8 dead JS · D12 theme git.  
+**Open:** D2 typography · D5 button pad.  
+**Keep:** D4 glass/drawer · D10 hex BGs · D11 mobile stack CSS.
+
+---
+
+## N. Footer Menu modules + mobile center
+
+### N.1 Problems
+
+| Symptom | Root cause |
+|---------|------------|
+| Footer link columns were HTML `<ul>` in Text modules (D14) | Native gap after 0.7.0 module rebuild |
+| Scripted Menu swap showed **Primary** links in all three columns | Divi reads `attrs.menu.advanced.menuId` — omitting `advanced` → empty ID → falls back to `primary-menu` ([MenuUtils.php](file:///D:/Hermes/projects/Local-WP/DigitalStudioz-WP/app/public/wp-content/themes/Divi/includes/builder-5/server/Packages/ModuleLibrary/Menu/MenuUtils.php)) |
+| Mobile footer looked flush-left / skinny | Chrome reset zeroed row padding; Divi Menu adds `et_pb_text_align_right-phone`; stack was left-aligned |
+
+### N.2 Fixes (theme **0.7.5**)
+
+| Fix | Detail |
+|-----|--------|
+| TB **31** | Replaced 3× `ds-footer-links` Text modules with `divi/menu` bound to WP menus **9 / 10 / 11** (Services / Studio / Connect) |
+| Attr path | `"menu":{"advanced":{"menuId":{"desktop":{"value":"9"}}}}` (not `menu.menuId`) |
+| CSS | Style footer menus as vertical lists; hide hamburger; gutters 24/20px; phone **center** stack; tablet brand full-width + 3 link cols |
+| Backup | `Local-WP/.../.cursor/assets/footer-31-pre-menu-swap.html` |
+
+### N.3 Never again
+
+- Always set **`menu.advanced.menuId`** when composing Menu modules — verify FE `ul#menu-*` slug, not Primary.
+- After footer chrome: check **390** midpoints (heading/links ~`vw/2`) — `text-align:center` on column alone is not enough against Divi phone right-align.
+- Edit footer links via **Appearance → Menus** (9/10/11), not HTML.
+
+---
+
+## O. Footer credit columns + responsive grid
+
+### O.1 Problems
+
+| Symptom | Root cause |
+|---------|------------|
+| © / Built with stacked or flex-only in one Text | Credit bar was one HTML flex div, not Divi columns |
+| `wp_update_post` without `wp_slash` corrupted logo to literal `u003ca…` | WP stripslashes destroys Divi `\uXXXX` JSON escapes in block comments |
+| Phone 4-col row: logo overlapped SERVICES; columns ~78px | Equal `1/4` on ~390px is too narrow for brand blurb + menus |
+| Menu trio flush-left under centered brand | Left-aligned text inside equal thirds reads as “pushed left” |
+
+### O.2 Fixes (theme **0.7.6 → 0.8.1**)
+
+| Ver | Fix |
+|-----|-----|
+| **0.7.6–0.7.7** | TB 31 credit row → `1/2,1/2` Text modules (`.ds-footer-bar-copy` / `.ds-footer-bar-credit`); backups `footer-31-pre-credit-columns.html` + revert script |
+| **wp_slash** | Always `wp_update_post([…, 'post_content' => wp_slash($content)])` when patching Divi layouts |
+| **0.8.0** | ≤980: brand full-width **centered** above; three menu cols in a row with restored padding/gaps |
+| **0.8.1** | Menu headings + links **centered** in each col; row `justify-content:center` |
+
+### O.3 Never again
+
+- Never `wp_update_post` Divi `post_content` without **`wp_slash`** — restore from backup immediately if `u003c` appears in FE text.
+- Do not force 4 equal footer columns on phone — brand on its own row first.
+- Desktop stays `1/4×4` left-aligned; phone/tablet use brand-above + centered trio.
+- Hostinger go-live (when ready): **WPvivid full files+DB** — not theme zip only; not MSC Node FTPS. Domain `digitalstudioz.com` already on account.
+
+---
+
 ## Verify checklist (after chrome / spacing / MCP changes)
 
 - [ ] Hard-refresh Home; hero stack feels tight (not “30px air” between lines) — ≈ **12 / 24 / 40**  
-- [ ] Work / Services / Process: intro→cards ≈ **36px** (not ~136+)  
+- [ ] Work / Services / Process: intro→cards ≈ **36px**  
 - [ ] Contact: body→buttons ≈ **32px**  
 - [ ] Featured side cards: not touching; pad ~**20**; gap ~**16–32**  
 - [ ] Process intro column not stuck at `min-height:200px`  
 - [ ] Desktop: menu links sit next to Start a Project (~24px gap); CTA unmoved  
-- [ ] ≤980px: Services/Process/About/Stats/Footer **stack** (no skinny 5-col Process)  
+- [ ] ≤980px: Services/Process/About/Stats **stack** (no skinny multi-col)  
 - [ ] Back-to-top does **not** cover “Built with DigitalStudioz”  
-- [ ] ≤980px: hamburger → frost drawer flush under bar → X closes → widen clears drawer  
-- [ ] Scroll: nav glass lightens (~0.28); no freeze  
-- [ ] Cursor MCP: single `ai-editor-divi5`, `local-wp` green, IAWB green  
+- [ ] Footer desktop: 4-col left; © left / Built with right (`1/2\|1/2`)  
+- [ ] Footer ≤980: brand centered above; three menus **centered** under brand; no logo/SERVICES overlap  
+- [ ] Footer links editable via WP menus **9/10/11** (not Primary)  
 - [ ] **`npm run wp:smoke`** PASS (when Local site up)  
 - [ ] **`npm run theme:sync`** after CSS/JS; commit `assets/wp-theme/` when asked  
 

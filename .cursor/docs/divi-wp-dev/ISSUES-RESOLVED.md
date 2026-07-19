@@ -4,6 +4,38 @@
 > `.cursor/docs/divi-wp-dev/DIVI5-LocalWP-Setup-Catalog.md`  
 > WP mirror: `Local-WP/DigitalStudioz-WP/.cursor/docs/DIVI5-SETUP-CATALOG.md`
 
+## 2026-07-18 — Theme 0.7.6–0.8.1 footer credit columns + responsive grid
+
+| Issue | Fix |
+|-------|-----|
+| Credit bar not real Divi columns | TB 31 → `1/2\|1/2` Text modules (© / Built with) |
+| `wp_update_post` corrupted logo HTML escapes | Always **`wp_slash($content)`**; restore from `footer-31-pre-credit-columns.html` |
+| Phone 4-col squish / logo over SERVICES | **0.8.0:** brand full-width centered above; 3 menu cols below |
+| Menu trio flush-left under brand | **0.8.1:** center headings + links in each menu col |
+
+**Canonical:** [DIVI5-Problems-Solutions.md §O](./DIVI5-Problems-Solutions.md#o-footer-credit-columns--responsive-grid)
+
+## 2026-07-18 — Theme 0.7.5 footer Menu swap + mobile center
+
+| Issue | Fix |
+|-------|-----|
+| Footer HTML `<ul>` lists (D14) | TB 31 → three `divi/menu` modules on WP menus **9/10/11** |
+| Menus rendered Primary instead of footer menus | Must use `menu.advanced.menuId` (not `menu.menuId`) |
+| Mobile footer flush-left / unbalanced | Theme **0.7.5**: gutters + phone center stack; override Divi `text-align:right-phone` |
+| Tablet footer 4 skinny stacks | Brand full-width; three link cols in a row @768–980 |
+
+**Canonical:** [DIVI5-Problems-Solutions.md §N](./DIVI5-Problems-Solutions.md#n-footer-menu-modules--mobile-center)
+
+## 2026-07-18 — Native Audit re-grade (0.7.4) + D7 cleanup
+
+| Issue | Fix |
+|-------|------|
+| Baseline audit stale at 0.6.6 / ~88% | New [DIVI5-Native-Audit.md](./DIVI5-Native-Audit.md) — overall **~93%**, Home ~96%, TB ~90% |
+| Draft TB layouts 35/36 confusion debt (D7) | Force-deleted; only live 30/31/32 remain |
+| Footer Menu swap prep (D14) | WP menus **Footer Services/Studio/Connect** (9/10/11) populated — not yet wired into TB 31 |
+
+**Open next:** D14 Menu modules in footer · D5 button pad · D2 typography `!important`
+
 ## 2026-07-18 — Ops: theme git mirror + wp:smoke + DEV-WORKFLOW
 
 | Issue | Fix |

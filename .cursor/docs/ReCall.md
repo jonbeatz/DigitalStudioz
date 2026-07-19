@@ -2,30 +2,57 @@
 
 ## LEFT OFF — 2026-07-18 (resume here)
 
-**Where we stopped:** Ops upgrades shipped — theme git mirror + backup, Playwright Home smoke, DEV-WORKFLOW cadence. Visual QA @ 390/768/1440 clean (nav gap 24px, stacks, back-top clear). Theme still **0.7.4**.
+**Where we stopped:** Theme **0.8.1** — footer credit Divi columns + responsive brand-above / centered menu trio. Not ready for Hostinger live yet (WPvivid full backup when go-live).
 
-**Working on:** DigitalStudioz **WP + Divi 5** Warm Premium on `https://digitalstudioz.local` — LocalWP `Local-WP/DigitalStudioz-WP`. Child theme **0.7.4**.
+**Working on:** DigitalStudioz **WP + Divi 5** Warm Premium on `https://digitalstudioz.local` — LocalWP `Local-WP/DigitalStudioz-WP`. Child theme **0.8.1**.
 
 **SoT right now:**
 | Artifact | Role |
 |----------|------|
-| **[DIVI5-Problems-Solutions.md](./divi-wp-dev/DIVI5-Problems-Solutions.md)** | **Master issues → solutions** (§F–§L through **0.7.4** + ops) |
+| **[DIVI5-Problems-Solutions.md](./divi-wp-dev/DIVI5-Problems-Solutions.md)** | **Master issues → solutions** (§F–§O; theme **0.8.1**) |
+| **[DIVI5-Native-Audit.md](./divi-wp-dev/DIVI5-Native-Audit.md)** | Re-grade + debt |
 | **[DEV-WORKFLOW.md](./divi-wp-dev/DEV-WORKFLOW.md)** | Daily cadence + theme:sync / wp:smoke |
 | Page **15** Home | Live |
-| Page **57** / **54** | Brand walls (Divi SoT / CSS ref) |
-| TB **30/31/32** | Protect — logo Text+HTML; Menu+Button native; no MutationObserver |
+| TB **30/31/32** | Protect — footer Menus **9/10/11**; credit `1/2\|1/2` |
 | Theme git mirror | `assets/wp-theme/dgtl-digitalstudioz-theme` (`npm run theme:sync`) |
+| Revert credit bar | `Local-WP/.../.cursor/assets/revert-footer-credit-columns.php` |
 
 **Next session priorities:**
-1. Optional: footer link lists → WP Menu modules; Customizer button pad → drop CSS bridge.
-2. Thin remaining typography `!important` toward Design Variables / presets.
-3. Protect TB 30–32; do not revive template 37.
+1. **D5:** Customizer button pad 14/28 → drop CSS `!important`.
+2. **D2:** Typography Variables/presets carefully.
+3. Optional: Hostinger first go-live via **WPvivid files+DB** (domain `digitalstudioz.com` already on account) — only when Jon says ready.
 4. After Divi/WP fix: **`log fixes`** → **`npm run theme:sync`** → commit when asked.
-5. Before polish claims: **`npm run wp:smoke`**.
 
 **Resume:** **Open Project** (warm) or **Start Project** (cold).
 
-**Docs hub:** `.cursor/docs/divi-wp-dev/` — start with **DEV-WORKFLOW** + Problems-Solutions. Shortcut: **`log fixes`**.
+**Docs hub:** `.cursor/docs/divi-wp-dev/` — Problems-Solutions **§O**. Shortcut: **`log fixes`**.
+
+---
+
+## Session: 2026-07-18 — Theme 0.7.6–0.8.1 footer credit columns + mobile grid
+
+- Credit bar: Divi `1/2|1/2` Text modules (keep real columns); backups + `wp_slash` gotcha (without it logo → `u003ca…`).
+- Mobile: brand centered above; SERVICES|COMPANY|CONNECT in one row; **0.8.1** centers menu content under brand.
+- Hostinger: thinking ahead only — WPvivid full migrate later; not Node FTPS.
+- Theme **0.8.1** synced to git mirror.
+
+---
+
+## Session: 2026-07-18 — Theme 0.7.5 footer Menus + mobile center
+
+- TB 31: HTML lists → Menu modules (WP **9/10/11**). Gotcha: must use `menu.advanced.menuId` or Divi falls back to Primary.
+- Mobile footer: gutters + centered stack; tablet brand full-width + 3 link cols.
+- Backup: `footer-31-pre-menu-swap.html`. `theme:sync` + `wp:smoke` PASS.
+- Docs: Problems-Solutions §N; Native Audit D3/D14 DONE (~95%).
+
+---
+
+## Session: 2026-07-18 — Native Audit re-grade (~93%)
+
+- Compared baseline 0.6.6 audit (~88%) → live **0.7.4** (~93% overall; TB chrome +10 pts).
+- D7: deleted draft layouts 35/36. D14 prep: Footer Services/Studio/Connect menus **9/10/11** populated.
+- Open: D2 typography, D5 button pad. Keep: D4 chrome, D10 hex, D11 mobile stack.
+- Doc: `divi-wp-dev/DIVI5-Native-Audit.md` + Problems-Solutions §M.
 
 ---
 
@@ -34,261 +61,5 @@
 - **`npm run theme:sync` / `theme:backup` / `theme:push`** — LocalWP SoT ↔ `assets/wp-theme/`; zip under `G:\Hermes_Project_BackUpz\DigitalStudioz\themes\`.
 - **`npm run wp:smoke`** — Playwright guards: Contact→CTA ≤80px, Services/Process stack @390, back-top vs credit.
 - **DEV-WORKFLOW.md** + End-Project / START-HERE / MASTER-COMMANDS wired.
-- **Visual QA:** 1440 / 768 / 390 — no layout regressions; tablet Services 2+1 wrap, Stats 2×2.
 
 ---
-
-## Session: 2026-07-18 — Theme 0.7.3–0.7.4 + Log-Fixes shortcut
-
-- **0.7.3:** Desktop menu pinned right next to Start a Project (middle col grow + wrap flex-end).
-- **0.7.4:** Mobile stack Services/Process/About/Stats/Footer; back-to-top 72/88px.
-- Header inventory confirmed: logo = Text+HTML; Menu+Button real; MutationObserver gone since 0.5.4.
-- New chat trigger: **`log fixes`** → `.cursor/prompts/Log-Fixes.md` (wired in workflow + global + START-HERE + MASTER-COMMANDS).
-
----
-
-## Session: 2026-07-18 — Theme 0.7.1–0.7.2 spacing polish + docs
-
-- Contact CTAs: para `mb:32px` (nested-row margin-top ignored on FE).
-- Intro→cards: intro mb 20 + section rowGap 16 → ~**36px** (was ~136).
-- Featured sides: pad 20 + 16px stack gap; Services pad/gutter 20/28.
-- Process leftover gap: CSS `min-height:200px` on all process columns → scoped `:has(.ds-svc-num)` (**0.7.2**).
-- Docs: Problems-Solutions §F.5–F.8, ISSUES-RESOLVED, catalog rows, Layout Polish, Home Native, ReCall, project-log.
-
----
-
-## Session: 2026-07-18 — Theme 0.7.0 Divi-native unlock
-
-- Home 15: Next spacing → Divi attrs; CSS lock stripped; soft `row-gap:0` only.
-- Footer 31: native Text/Heading (21 blocks); backups in uploads + IAWB #1.
-- Fonts → Inter; deleted TB template 37; drafted 35/36.
-- QA: hero **12/24/40**, `rowGap:0`, footer headings ×3.
-- Still CSS: glass nav, hamburger/drawer, label mono, button Customizer bridge.
-
----
-
-## Session: 2026-07-18 — Spacing + MCP + docs closeout
-
-- **Spacing:** Divi 5 `row-gap:30px` was doubling Next margins; theme **0.6.6** lock (hero 12/24/40 measured).
-- **Mobile:** frost drawer **0.6.4**; Menu module path **0.6.0+**.
-- **MCP:** AI Editor free tier tested; Local WP fixed (`type:http` + auth); Novamira/wpmcp MCP disabled; triple-register trap documented.
-- **Docs:** Rewrote `DIVI5-Problems-Solutions.md` as master log; updated Layout Polish, Home Native, catalog issues table, README, WP `MCP-SETUP.md`, ISSUES-RESOLVED, ReCall.
-
-## Session: 2026-07-18 — Hermes profile aligned to digitalstudioz
-
-- Confirmed DSZ Hermes profile exists (`profiles/digitalstudioz`, Mem0 `digitalstudioz_memories`, `.env.local` already correct).
-- Desktop active was leftover **`the-night-i-met-santa`**; CLI file was **`jonbeatz`**. Light align → **`digitalstudioz`** (Desktop + project-dir + CLI `active_profile`).
-- Wired `profile:align` / `profile:align:full` / `profile:align:check` into DigitalStudioz `package.json`.
-- Switcher fix: `set-active` now syncs LocalAppData CLI pointers + explicit `exit 0` (child sync was causing false Align failures).
-
-## Session: 2026-07-18 — Brand walls + agent compose gotchas
-
-- **Divi SoT:** `/dsz-brand-system-divi/` page **57** — modules, Fluid presets, text Variables, hex section/card/chip BGs, Home `.ds-btn`, dual-color title, 12px cards, field shells.
-- **CSS ref:** page **54** — builder off; white line was Divi `#main-content .container::before` (killed in child theme **v0.3.4**).
-- **Agent gotchas documented:** (1) raw `<` in block JSON → front code dump → `\u003c` + `wp_slash`; (2) `$variable()` section BGs may not emit CSS → use hex; (3) purge `et-cache/{id}` after rebuild; (4) never VB on page 54.
-- **Docs updated:** `DIVI5-Launch-Preview-Pages.md`, `ISSUES-RESOLVED.md`, catalog **§4.14**, `DIVI5-Section-Patterns.md`, `DIVI5-Design-Variables-GoldGrey.md`, `divi-wp-dev/README.md`, Divi-Xtraz README; Local-WP catalog mirror synced.
-- **Rebuild:** `Divi-Xtraz/dsz-branded/_build-brand-system-divi.php` (Local PHP 8.4.10).
-- **Protect:** TB 30/31/32; do not import Launch Variables/TB over live.
-
-## Session: 2026-07-18 — WP/Divi docs consolidated under `divi-wp-dev/`
-
-- Moved all LocalWP/Divi playbooks, PRDs, YouTube research, and WP `ISSUES-RESOLVED` into `.cursor/docs/divi-wp-dev/` (index: `README.md`).
-- Stub left at `.cursor/docs/ISSUES-RESOLVED.md` + `playbooks/README.md` pointing to the new hub.
-- `WARM-PREMIUM-PALETTE.md` stays in parent `.cursor/docs/` (shared Next.js + WP tokens).
-- Rule: new WP/Divi notes go in `divi-wp-dev/` — do not dump large write-ups into docs root.
-
-## Session: 2026-07-18 — LocalWP + Divi5 MCP stack green; Home static; setup catalog
-
-- **Workspace:** Multi-root Cursor — `DigitalStudioz` (Next.js Warm Premium reference) + `Local-WP\DigitalStudioz-WP` (WP 7.0.2 / Divi 5.9 / child theme).
-- **Site:** `https://digitalstudioz.local` (HTTP still OK for Node MCP). Child theme `dgtl-digitalstudioz-theme` active; empty `index.php` removed (was blank front). Added `js/core-scripts.js` enqueued from `functions.php`.
-- **Front page:** Static **Home** (ID `15`) — `show_on_front=page`, `page_on_front=15`.
-- **MCP green + verified:** `local-wp` (WP-CLI on Local PHP 8.4.10), `novamira-digitalstudioz`, `wpmcp-digitalstudioz` (`/mcp/wpmcp-server` via mu-plugin), `acf-mcp`, `ia-webmaster-bridge`. Brave Playwright logged into wp-admin as jonbeatz.
-- **Gotchas fixed:** (1) HTTPS self-signed broke Node MCP → prefer `http://` for Novamira/wpmcp/IAWB + TLS bypass. (2) Winget PHP 8.5 + Local php.ini broke WP-CLI → Agent Tools uses Local `php-8.4.10`. (3) Standalone `mcp-adapter` deactivated (kept on disk); Novamira-bundled adapter is enough.
-- **Docs:** Living catalog `divi-wp-dev/DIVI5-LocalWP-Setup-Catalog.md` (git SoT) + WP mirror `DIVI5-SETUP-CATALOG.md` — stack, checklist, issues/fixes, watch-outs. Linked from START-HERE / TRUTH / ISSUES-RESOLVED / MCP-SETUP.
-- **Plugins active:** ACF PRO, Novamira + Pro, wpmcp, IAWB, WPvivid. Fluent/Rank Math/Squad still optional (not needed for homepage start).
-- **Backups:** `npm run backup:*` = Next.js repo only. WP needs WPvivid / Local export separately.
-- **Next:** Divi 5 Warm Premium homepage from Next.js reference; append catalog rows as new fixes land.
-
-## Session: 2026-07-17 — Warm Premium locked for WP+Divi rebuild
-
-- **Design fork closed:** Production DigitalStudioz.com uses **Warm Premium** (current Next.js aesthetic: gold `#c8a45c`, void `#0a0a0b`, cream `#e8e2d9`, 8px/16px radius) — **not** Tactile Brutalism / acid cyan.
-- **Docs updated:** `WP-Divi5-Dev-PRD-MASTER-COMPLETE.md`, `WP-Divi5-Dev-PRD-FINAL-v3.md`, `AI-Blog-Automation-Playbook.md`, `WARM-PREMIUM-PALETTE.md`, `START-HERE.md`. Companion PDFs may lag.
-- **Reference freeze:** Full backup `G:\Hermes_Project_BackUpz\DigitalStudioz\nextjs-warm-premium-temp-reference-2026-07-17` (+ sequential `v1-d`). Live temp still at `:3000`.
-- **Next:** LocalWP + Divi 5 child theme with Warm Premium globals — then ACF/MCP.
-
-## Session: 2026-07-04 — Start Project + ComfyUI MCP (JonBeatz/skeleton)
-
-- **Start Project:** Stack WARM (LiteLLM :4000, ngrok, LM Studio, Telegram online). Light `session:start` + Mem0 preflight OK. Voice greeting verified (OmniVoice test heard).
-- **Ops Q&A:** Documented that Start Project ensures LM Studio via Mem0 preflight (launches app only if API down); Obsidian **not** required for vault/Mem0 writes (filesystem only).
-- **ComfyUI MCP:** Researched official Comfy Cloud vs local options — chose **local `comfyui-mcp`** only (no cloud). Added to **JonBeatz** `.cursor/mcp.json` + `mcp.json.example`, `sync:mcp-env` path sync, `IMAGE-WORKFLOW.md`. Skeleton **v1.17.3** — optional `comfyui` in manifest (disabled by default). Commits: JonBeatz `e41793c`, _core-scripts `f213a70`.
-- **DigitalStudioz repo:** Clean on `57ccbbb` — no DS code changes this session.
-- **Follow-up:** Enable `comfyui` in Cursor Settings → MCP when working from **JonBeatz** workspace.
-
-## Session: 2026-07-03 (Late Night) — Responsive design + responsive-by-default policy
-
-- **Site:** Implemented mobile-first responsive layout for DigitalStudioz — `useMediaQuery` / `useBreakpoints` hook, `MobileMenu` hamburger overlay (tablet + mobile), responsive grids/fonts/padding across all sections in `engine.tsx` via inline `S` + `mq()` helper. Build + dev smoke **PASS**.
-- **Policy:** Elevated **responsive-by-default** to a project + skeleton requirement. **`digitalstudioz-layout` skill → v2.1.0** — breakpoint table, grid recipes, mobile nav, responsive pre-edit checklist. **`_core-scripts` taste catalog** — notice that all `--Website` scaffolds ship responsive hooks + hamburger nav.
-- **Commits:** DigitalStudioz `4277d97` (layout skill); _core-scripts `cc77bc5` (taste catalog). Draven memory saved.
-- **Nothing in progress** — dev server was running; operator confirmed mobile layout "much better for now."
-
-## Session: 2026-07-03 (Night) — DeepSeek V4 unveiled + Cursor hangup fixed
-
-- **Root truth:** From bootstrapping until this moment, both `deepseek-v4-pro` and `deepseek-v4-flash` in Cursor/Hermes were aliased via LiteLLM to the **legacy** `deepseek/deepseek-chat` endpoint. We were **never actually calling DeepSeek V4**. Both names hit the same old chat model — no Pro vs Flash difference existed.
-- **v1.17.0 (commit `0541641`)** — corrected the backend: Pro now hits `deepseek/deepseek-v4-pro`, Flash hits `deepseek/deepseek-v4-flash`. Legacy `deepseek-chat` retires July 24, 2026.
-- **v1.17.1 (commit `46a8f31`)** — Cursor hangup discovered: V4 Pro with thinking enabled returns **empty `content`** and **only `reasoning_content`** (chain-of-thought). Cursor Agent waits for visible content → hangs. **Fix:** both models set to `thinking: { type: disabled }` (not `reasoning_effort: none` — V4 API rejects that). New `litellm-verify-reasoning.mjs` catches reasoning-only replies. All paths verified: localhost + ngrok remote + Hermes billing mode = **ALL PASS**.
-- **What stays the same:** Cursor URL `http://127.0.0.1:4000/v1`, key `sk-jonbeatz-deepseek-2026`, model names `deepseek-v4-pro` / `deepseek-v4-flash`. Hermes Desktop + Telegram unchanged.
-- **Draven memory:** context saved — the two-model-looked-like-V4-but-wasn't gotcha is documented.
-
-## Session: 2026-07-03 (Late) — DeepSeek V4 API via LiteLLM
-
-- **Problem:** LiteLLM `litellm_config.yaml` mapped both `deepseek-v4-pro` and `deepseek-v4-flash` to the **legacy** backend `deepseek/deepseek-chat` — same endpoint twice. Legacy IDs retire **July 24, 2026**.
-- **Fix (_core-scripts v1.17.0, commit `0541641`):**
-  - `deepseek-v4-pro` → `deepseek/deepseek-v4-pro` with `reasoning_effort: high` + thinking enabled
-  - `deepseek-v4-flash` → `deepseek/deepseek-v4-flash` with `reasoning_effort: low` + thinking disabled
-  - **Friendly names unchanged** — Hermes Desktop, Telegram, Cursor still use `deepseek-v4-pro` / `deepseek-v4-flash` at `http://127.0.0.1:4000/v1`, key `sk-jonbeatz-deepseek-2026`
-- **Verified:** `litellm-verify.mjs` PASS (models list + pro chat); flash smoke OK. LiteLLM **1.86.2** on port **4000**.
-- **No reasoner** added — only Pro + Flash as requested.
-
-## Session: 2026-07-03 (Eve) — Ecosystem health sweep + _core-scripts Context7
-
-- **5-project health sweep** (MyStudioChannel, VaderLabz, DigitalStudioz, JonBeatz, JonBeatz.dev): all clean git trees, valid `package.json`, core docs present, **zero encoding/mojibake** across `.md`/`.mdc`/`.cursorrules`. Versions align with each `TRUTH.md`.
-- **Fixes applied (committed + pushed):**
-  - **MyStudioChannel:** pushed `MSC-Website-v10` to origin (was local-only → now tracked); renamed `package.json` name `my-project` → `mystudiochannel`; refreshed `TRUTH.md` timestamp.
-  - **VaderLabz:** pinned `next` to exact **16.2.10** (was `^16.2.10`) in `package.json` + lockfile, to match ecosystem pinning.
-- **_core-scripts audit → v1.16.0 (committed + pushed):** the always-on `library-docs.mdc` directs every agent to use **Context7**, but the canonical `mcp.json` manifest didn't declare it — new projects inherited the rule without the server. **Added `context7` to `shared-profile-content/mcp.json` (now 14 servers)**, updated the count in README + UPGRADES-SYSTEMS, and removed a stray `_mem0export.py`. Verified all 18 template script targets exist, 29 skills / 19 rules present, bootstrap sound.
-- **Takeaway:** shared skeleton is healthy and now internally consistent (rule ↔ MCP manifest); any newly bootstrapped project inherits Context7 alongside the rule that depends on it.
-
-## Session: 2026-07-03 (PM) — LM Studio VRAM fix + Obsidian/Mem0 verify
-
-- **Corrects earlier "LM Studio tuned 81920/parallel 2" note** — that giant context was the *cause* of runaway VRAM (a 2.5 GB 4B model ballooned to ~14 GB). Not a leak; KV cache scales with `context × parallel`.
-- **Fix:** every loadable LM Studio model set to **parallel 1** via the GUI ("Max Concurrent Predictions → 1"), which writes the *live vendor-keyed* config. 4B + 9B at **16384** context; everything else on the safe **8192** global default (`settings.json → defaultContextLength`).
-- **Key gotcha:** LM Studio only reads **vendor-keyed** per-model configs (`qwen\`, `deepseek\`, `google\`, `flux\`, `jonbeatz\`). Old **download-source** configs (`unsloth\`, `bartowski\`, …) are **orphaned/ignored** — proven by loading the 14B (ignored its `bartowski\` 12288, used global 8192). Don't hand-edit; use the GUI.
-- **Obsidian Copilot** verified talking to local **Qwen3.5 9B** (server logs matched chat timestamps). JIT load/switch works; Copilot model name must exactly match the LM Studio id.
-- **Mem0** pipeline green (`mem0:preflight`) — shares the loaded 9B, no swap; parallel 1 is harmless (requests are sequential).
-- **Vault:** added Draven's own section `03_AI_Memory/Draven/Draven.md`; appended full resolution to `02_Knowledge/Gotchas/LMStudio-context-eats-VRAM.md`.
-- Knob locations: **LM Studio** = load/VRAM (context, parallel, GPU offload); **Obsidian Copilot** = generation (temperature, token limit, overrides per-request).
-
-## Session: 2026-07-03 — Skill library v1.14.0 + sync workflow
-
-- Central skill library is the **single source of truth** (`_core-scripts/shared-profile-content/skills`). Edit skills **there**, never per-project.
-- New interactive-web skills available: **Scroll-Motion** (Lenis+GSAP), **Scroll-Video-Sequence** (Apple scroll frame-scrub), **Component-Registries** (shadcn ecosystem), **View-Transitions**, **Motion-Accessibility**, plus vendored **frontend-design**.
-- `npm run sync:skills` refreshes this project's `.cursor/skills` from the library (keeps `digitalstudioz-layout`); auto-runs at Start Project. `npm run sync:docs` = preview doc drift, `-- -Write` to apply.
-
-## Session: 2026-07-03 — Warm Premium Redesign + Layout Lock
-
-### Major Milestone
-
-After multiple rewrite iterations, the site is stable on **inline `const S` layout in `engine.tsx`** with **FadeUp** scroll reveals. Tailwind remains in the project for non-engine components; **Tailwind layout inside `engine.tsx` is locked out** after repeated regressions.
-
-### Root Cause (final, honest)
-
-| Cause | Status |
-|-------|--------|
-| Mixing Tailwind + inline on **same property** | Confirmed — caused conflicts |
-| `max-w-7xl` (1280px) vs 1200px design width | Confirmed contributor |
-| `StudioRails` mounted alongside new nav | Confirmed — ghost STORY/SERVICES links |
-| Incomplete Tailwind refactors / JSX errors | Confirmed — broke builds |
-| Tailwind v4 + Turbopack incompatibility | **Unproven** — needs isolated spike branch |
-
-### Production layout policy (LOCKED)
-
-1. **`engine.tsx`:** inline `S` object — `maxWidth: 1200`, `padding: '100px 0'` sections
-2. **`globals.css`:** CSS variables + reset + `.text-gradient` + `.glass-card` only
-3. **`layout.tsx`:** Lenis only — `StudioRails` and `CustomCursor` **unmounted**
-4. **Tailwind:** use freely in **other** files — not for engine.tsx page shell
-5. **Skill:** `.cursor/skills/digitalstudioz-layout/SKILL.md` v2.0.0 documents locked patterns
-
-### What worked
-
-- Warm Premium palette (gold `#c8a45c`, cream `#e8e2d9`, void `#0a0a0b`)
-- 8-scene page structure (Hero → Work → Services → Process → About → Stats → Quote → Contact → Footer)
-- FadeUp IntersectionObserver reveals
-- 8 FLUX demo images (`ds-demo-*.jpg`)
-- Removing 3D canvas from main page flow
-- Unmounting StudioRails (fixed top-of-page clutter)
-
-### Current page structure
-
-- ~5030px scroll height, 1200px centered container
-- Hero → Work (2:1 grid) → Services (3-col) → Process (5-col) → About (1:1) → Stats → Quote → Contact → Footer
-
-### Files changed (authoritative)
-
-| File | State |
-|------|-------|
-| `lib/experience-engine/engine.tsx` | Inline `S` + FadeUp — **production** |
-| `app/globals.css` | Minimal tokens — no `@theme inline` |
-| `app/layout.tsx` | Lenis only — rails/cursor removed |
-| `.cursor/skills/digitalstudioz-layout/SKILL.md` | v2.0.0 inline lock |
-| `app/page.tsx` | Config wrapper |
-| `lib/experience-engine/types.ts` | Warm Premium constants |
-
-### Known open items
-
-- No contact form (email link only)
-- Mobile responsiveness not fully tested (fixed grid columns)
-- README partially updated — see START-HERE for current architecture
-- Future: `tailwind-layout-spike` branch if we want to prove Tailwind-in-engine
-
-### Hard lesson
-
-**Docs must match code.** Agents re-broke layout when START-HERE/skill said "use Tailwind in engine.tsx" while production code was inline. All docs now aligned to v2.0.0 inline lock.
-
-### Hermes ↔ Cursor parity (2026-07-03)
-
-Doc: `.cursor/docs/HERMES-DESKTOP-PARITY.md`
-
-- **Cursor = primary Draven cockpit** for DigitalStudioz; Hermes Desktop/Telegram = satellite UIs
-- Chat history does **not** auto-sync — bridge via `draven_memories`, `digitalstudioz_memories`, and `ReCall.md`
-- Skip `session:start -Full` when `:4000` + `:4040` already online (duplicate LiteLLM on e.g. `:41803`)
-- `Start-Project.md` updated: `deepseek:status` first, `-Full` only on cold boot
-- Optional SOUL load from `%LOCALAPPDATA%\hermes\profiles\jonbeatz\SOUL.md` for Matrix rituals in Cursor
-- Multi-agent: Cursor Task subagents (in IDE) vs Hermes `delegation` (Desktop/Telegram) — one driver per task; see parity doc § Multi-agent orchestration
-
----
-
-## Hermes Full-Control Setup — 2026-07-03
-
-One-time setup for off-Cursor sessions (browser + desktop control).
-
-### What was installed
-- **cua-driver v0.7.0** (`hermes computer-use install`) for computer_use / desktop automation
-- **Edge CDP browser** launched on `:9222` via dedicated script
-
-### Config changes (jonbeatz profile)
-- `browser.cdp_url` → `http://127.0.0.1:9222`
-- `browser.allow_private_urls` → `true`, timeouts increased
-- `security.allow_private_urls` → `true`
-- `platform_toolsets.cli` already included `browser` + `computer_use` (verified)
-
-### Scripts created
-- `D:\Hermes\projects\JonBeatz\scripts\Start-Hermes-CdpBrowser.ps1` — launches Edge on :9222
-- `D:\Hermes\projects\JonBeatz\scripts\Start-Hermes-FullControl.ps1` — combined pre-flight
-- npm scripts: `hermes:cdp-browser`, `hermes:full-control`
-
-### Verifications
-- CDP :9222 — tested with `browser_navigate` to example.com + `browser_console` JS eval
-- cua-driver doctor — all checks pass (binary, platform, UIA, screen capture, MCP session active)
-- LiteLLM :4000 — online (DeepSeek proxy)
-- agent-browser v0.27.0 — installed globally
-- Browserbase API keys present in `.env.local` for public-site scraping
-
-### Pre-session commands
-```bash
-cd D:\Hermes\projects\JonBeatz
-npm run hermes:full-control
-```
-Then confirm CDP :9222, LiteLLM :4000, computer_use doctor all OK.
-
-### PC boot policy (2026-07-03)
-- **Hermes Desktop GUI** no longer auto-starts at Windows login (`Master-Startup-Hidden.vbs` → `-SkipDesktop`)
-- **Telegram gateway + LiteLLM + ngrok** still auto-start (Master-Startup + `Hermes_Gateway_jonbeatz` scheduled task)
-- Removed duplicate `Startup\Hermes_Gateway_jonbeatz.cmd` via `npm run boot:setup`
-- Open Desktop on demand: `npm run hermes:desktop-ready` (JonBeatz)
-- Audit: `npm run boot:doctor`
-- Docs synced: TELEGRAM-WORKFLOW, START-HERE, HERMES-DESKTOP-PARITY, MASTER-COMMANDS (JonBeatz + shared), `_core-scripts` TRUTH/README
-
-### Ecosystem upgrade sprints (2026-07-03)
-- **Sprint 1–3:** shortcut cleanup, stack-status, skip-if-up -Full, boot:doctor, Context7 MCP, sync:hermes-skills, profiles.json
-- **Sprint 4 (2026-07-03):** LM Studio tuned 81920/parallel 2; Next.js JonBeatz + JonBeatz.dev → 16.2.10; Kristina → 15.5.19; VaderLabz → 16.2.10; VaderLabz `.env.local.example`; DS `sync:mcp-env` → JonBeatz canonical; ngrok handoff file `deepseek-api/logs/ngrok-public-url.txt`; Open-Generative-AI TRUTH.md
-- Plan: `.cursor/plans/2026-07-03_HERMES-ECOSYSTEM-AUDIT.md`

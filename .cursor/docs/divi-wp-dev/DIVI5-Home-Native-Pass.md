@@ -1,8 +1,16 @@
 # Home → Divi-native pass (DigitalStudioz)
 
-**Date:** 2026-07-18 · **Home page ID:** 15 · **Child theme:** `dgtl-digitalstudioz-theme` **0.7.4**
+**Date:** 2026-07-18 · **Home page ID:** 15 · **Child theme:** `dgtl-digitalstudioz-theme` **0.7.5**
 
 **Chrome / spacing issues SoT:** [DIVI5-Problems-Solutions.md](./DIVI5-Problems-Solutions.md)
+
+## Wave 3.8 — Footer Menus + mobile center (0.7.5)
+
+| Item | Status |
+|------|--------|
+| Footer link columns | Divi **Menu** modules → WP **9/10/11** |
+| Mobile footer layout | Centered stack + gutters |
+| `menu.advanced.menuId` | Required (else Primary fallback) |
 
 ## Wave 3.6 — Nav right + mobile stack (0.7.3–0.7.4)
 

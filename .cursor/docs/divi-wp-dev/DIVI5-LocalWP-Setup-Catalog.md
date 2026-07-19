@@ -4,7 +4,7 @@
 
 **Status:** Active — append new findings at the top of each section (newest first).  
 **Started:** 2026-07-18  
-**Last updated:** 2026-07-18 (Ops §L: theme git mirror + `wp:smoke` + DEV-WORKFLOW; theme **0.7.4** chrome §J–§K)
+**Last updated:** 2026-07-18 (Theme **0.7.5** footer Menus + mobile center — Problems-Solutions §N)
 
 | Role | Path |
 |------|------|
@@ -28,7 +28,7 @@
 | WordPress | **7.0.2** |
 | PHP (Local lightning) | **8.4.10** |
 | Parent theme | **Divi 5.9.0** |
-| Child theme | `dgtl-digitalstudioz-theme` **0.7.4** (active) |
+| Child theme | `dgtl-digitalstudioz-theme` **0.7.5** (active) |
 | Theme git mirror | `DigitalStudioz/assets/wp-theme/dgtl-digitalstudioz-theme` — `npm run theme:sync` |
 | Theme zip backups | `G:\Hermes_Project_BackUpz\DigitalStudioz\themes\` — `npm run theme:backup` |
 | Home layout smoke | `npm run wp:smoke` (Playwright; Local site must be up) |
@@ -139,6 +139,9 @@ Append new rows at the **top** of the table.
 
 | Date | Symptom | Root cause | Fix that worked | Avoid next time |
 |------|---------|------------|-----------------|-----------------|
+| 2026-07-18 | Credit bar not Divi columns; phone 4-col squish/overlap; menus flush-left | Flex HTML bar; equal 1/4 @390 too narrow; left-align in thirds | Theme **0.7.6–0.8.1**: TB `1/2\|1/2` credit; brand above + centered trio; **`wp_slash`** on TB writes | Never update Divi content without wp_slash — [§O](./DIVI5-Problems-Solutions.md#o-footer-credit-columns--responsive-grid) |
+| 2026-07-18 | Footer HTML lists; mobile footer left-pushed; Menu swap showed Primary | Missing `menu.advanced.menuId`; Divi phone `text-align:right`; zero row gutters | Theme **0.7.5**: Menus 9/10/11 on TB 31; center phone footer; correct attr path | Always verify FE `ul#menu-footer-*` — [§N](./DIVI5-Problems-Solutions.md#n-footer-menu-modules--mobile-center) |
+| 2026-07-18 | Baseline Native Audit (~88%) outdated vs 0.7.4 | Spacing unlock + footer modules + ops shipped after 0.6.6 audit | Re-audit [DIVI5-Native-Audit.md](./DIVI5-Native-Audit.md) ~**93%**; deleted drafts 35/36; footer menus **9/10/11** ready | Re-grade after each native milestone |
 | 2026-07-18 | Theme only on LocalWP; no Home regression guard | Child theme outside DigitalStudioz git; manual QA only | `theme:sync`/`theme:backup` → `assets/wp-theme/`; `wp:smoke`; [DEV-WORKFLOW.md](./DEV-WORKFLOW.md) | After CSS/JS: sync + smoke — [§L](./DIVI5-Problems-Solutions.md#l-theme-git-mirror--home-smoke--cadence) |
 | 2026-07-18 | Mobile sections skinny/squashed; back-to-top over footer credit | Divi rows `row+nowrap` on phone; `.ds-back-top { bottom:24px }` | Theme **0.7.4**: force column stack ≤980 (Services/Process/About/Stats/Footer); back-to-top 72/88px | Always add mobile stack CSS for multi-col Divi rows — [§K](./DIVI5-Problems-Solutions.md#k-mobile-stack--back-to-top-clearance) |
 | 2026-07-18 | Nav links mid-bar, not next to Start a Project | Menu col `flex-grow:0` + wrap `justify-content:flex-start` | Theme **0.7.3**: middle col grows; wrap `flex-end`; CTA unmoved | `ul` flex-end alone is not enough — [§J](./DIVI5-Problems-Solutions.md#j-header-menu-links-right-next-to-cta) |
