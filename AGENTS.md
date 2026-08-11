@@ -70,8 +70,11 @@ Available domain skills (see `SKILL-INDEX.md` for full list with tags):
 - **Draven:** Shared `draven_memories` collection across all profiles — store AI assistant cross-session context only.
 - **Boundaries:** Stay within this profile. Do not mix other profiles' context.
 - **Recovery:** Run recovery commands yourself — don't only tell the operator.
-- **Backup root:** `G:\Hermes_Project_BackUpz\DigitalStudioz\`
+- **Backup root:** `G:\\Hermes_Project_BackUpz\\DigitalStudioz\\`
+- **Vader_Vault:** Project hub at `H:\\Vader_Vault\\01_Projects\\DigitalStudioz.md`. Log major sessions using the vault auto-log skill.
 
 ---
 
 *Created: 2026-07-01*
+
+- **Versioned backup:** Before any file edit, backup to `_backups/YYYY-MM-DD_v{version}.ext`. See `tnims-book-review` skill for protocol.

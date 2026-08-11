@@ -226,3 +226,8 @@
 - **Branch:** main
 - **Changes:** End Project: Divi brand SoT page 57 + agent gotchas documented; next = Warm Premium Divi homepage
 - **Status:** completed
+
+### 2026-08-11 — Close Project handoff
+- **Branch:** main
+- **Changes:** Scaffolded sibling PullaraLaw profile at Local-WP/PullaraLaw-WP from DSZ Divi/Novamira lessons; DSZ secrets/MCP untouched; switching Cursor to PullaraLaw; fleet left running
+- **Status:** handoff (git dirty — operator gate pending)

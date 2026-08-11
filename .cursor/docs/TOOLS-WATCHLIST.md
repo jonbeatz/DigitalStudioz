@@ -50,6 +50,8 @@ Jon researches tools → paste links in Cursor (often from **JonBeatz hub**) →
 |------|-------|---------|-------|------|------------------|
 | [**img2pdf**](https://github.com/josch/img2pdf) | **A- (91)** | **IN USE** | **READY** | Free | Lossless images→PDF (POD interiors from page JPEGs) |
 | [**pikepdf**](https://github.com/pikepdf/pikepdf) | **A- (91)** | **IN USE** | **READY** | Free MPL | PDF Trim/Bleed/MediaBox QA for Lulu uploads |
+| **Affinity MCP** (Studio beta) | **B+ (88)** | **IN USE** | **READY** | Free‡ | Local SSE `:6767` → Cursor via `mcp-proxy`; TNIMS polish lane — Affinity must be open (not Creative Cloud) |
+| **InDesign UXP MCP** (Bridge) | **A- (90)** | **IN USE** | **READY** | Free‡ | UXP + bridge `:19300/:19301` + UDT. **Cold flow:** CC Desktop signed in (operator confirms) → UDT+InDesign+bridge → operator **Load & Watch** (agent cannot) → MCP. Web adobe.com login not enough. Keep CC installed; Startup disable OK |
 | **claude-video `/watch`** | **A- (92)** | IN USE | PARTIAL‡ | Free† | Agent watches video — frames + transcript; best for visual analysis |
 | **find-skills** | **A- (91)** | IN USE | **READY** | Free | Meta-skill — discover + install from 2000+ skill catalog via `npx skills find` |
 | **Hallmark** | **B+ (88)** | IN USE | **READY** | Free | Anti-slop design skill — build/audit/redesign UI; 57 slop gates; complements NovaMira |
@@ -81,6 +83,7 @@ Jon researches tools → paste links in Cursor (often from **JonBeatz hub**) →
 | **Firecrawl MCP** | **B+ (86)** | WATCH | NEEDS_KEY | Freemium | Deep web scrape; skills exist — MCP optional alt to Tavily/fetch |
 | **Composio MCP** | **B (84)** | WATCH | PARTIAL | Freemium | Social automation; already in manifest, optional |
 | **Penpot** | **B (82)** | WATCH | NOT_INSTALLED | Free OSS | Figma alt + MCP; alt to Pencil when designer handoff needed |
+| **DesignLab** (alias **VaderBoard**) | **A- (90)** | **IN USE** | **READY** | Free MIT | Local Excalidraw mood board / ref studio — `D:\Hermes\apps\designlab` · `:3090` · `npm run designlab:dev` |
 | **Tripo Studio** | **A (93)** | **PRIMARY** | **READY**‡ | Freemium | Cloud image/text → GLB — product scroll §2; vault WORKFLOW |
 | **3DGenStudio** | **A- (91)** | **IN USE** | **READY**‡ | Free | Local Comfy Kanban 3D — `:3021`/`:5183`; Tripo web still primary |
 | [**TRELLIS.2**](https://github.com/microsoft/TRELLIS.2) | **B- (82)** | WATCH | NOT_INSTALLED | Free§ | MSFT 4B image→PBR GLB — Linux + **24GB VRAM**; HF Space demo on Win |
@@ -132,6 +135,8 @@ Jon researches tools → paste links in Cursor (often from **JonBeatz hub**) →
 | **Hermes WebUI** | B+ (88) | WATCH | NOT_INSTALLED | Free OSS | Native Hermes web/mobile UI — **prerequisite for Hermex**; bookmark with Hermex path |
 | **Open WebUI** | B (85) | WATCH | NOT_INSTALLED | Free OSS | Docker chat UI + Hermes API `:8642` |
 | **MemPalace** | B (84) | WATCH | NOT_INSTALLED | Free MIT | **Bookmark Jon 2026-07-13** — verbatim local memory + MCP; setup later; Mem0 stays primary |
+| **Headroom** | B- (81) | WATCH | NOT_INSTALLED | Free Apache-2.0 | **2026-07-21** — local token compress (proxy/MCP/library); do not wrap Cursor vs LiteLLM; avoid `:8787` (Hermex/WebUI) |
+| [**ArcRift**](https://github.com/Eshaan-Nair/ArcRift) | **C (74)** | **WATCH** | NOT_INSTALLED | Free MIT | **Record Jon 2026-07-19** — browser AI chats→Cursor MCP + SQLite KG; below B- threshold but Jon asked to persist; Mem0/Mnemosyne primary — **do not install** |
 | **Refero MCP** | A- (91) | WATCH | NOT_INSTALLED | Paid $17/mo | **Bookmark Jon 2026-07-13** — 135k screens/flows MCP; setup later ($17/mo Pro) |
 | **Refero Styles** | B+ (88) | WATCH | NOT_INSTALLED | Freemium‡ | **Bookmark Jon 2026-07-13** — 2k+ DESIGN.md examples; pair Refero MCP + DesignMD later |
 | **AgentsView** | B+ (87) | IN USE | **READY** | Free OSS | Session search + messages — `:8080` |
@@ -178,7 +183,7 @@ Jon researches tools → paste links in Cursor (often from **JonBeatz hub**) →
 
 ## Voice / TTS watch deck (Jon 2026-07-04)
 
-**Production:** OmniVoice instruct (CPU, ritual-only) + Edge Ryan fallback — do not replace.
+**Production:** Edge Liam (`en-CA-LiamNeural`, ritual-only; matches Hermes) + OmniVoice optional restore — do not remove Omni install.
 
 | Tool | Grade | Verdict | When to reach for it |
 |------|-------|---------|----------------------|
@@ -192,7 +197,7 @@ Install any of these only after Jon approves. None replace `draven:speak` until 
 
 ## Voice dictation watch deck (Jon 2026-07-04)
 
-**Baseline:** Windows **Win+H** talk-to-type. **Production speak-out:** OmniVoice (`draven:speak`) — do not replace.
+**Baseline:** Windows **Win+H** talk-to-type. **Production speak-out:** Edge Liam via `draven:speak` (OmniVoice optional restore) — do not remove Omni.
 
 | Tool | Grade | Verdict | When to reach for it |
 |------|-------|---------|----------------------|
@@ -214,11 +219,12 @@ Install any of these only after Jon approves. None replace `draven:speak` until 
 | **Skill discovery** | Manual `npx skills add` | **find-skills** | Ask "is there a skill for X?" → `npx skills find [query]` |
 | **Browser automation** | cursor-ide-browser MCP | Agent Browser, Playwright, Browserbase | cursor-ide-browser default in Cursor; agent-browser for Rust CLI/MCP |
 | **Engineering workflow** | Hermes rituals + Workflow-Portable | Agent Skills (Osmani) | Cherry-pick Osmani gates; don't replace Start/End Project |
-| **Draven TTS** | OmniVoice (CPU, voice design) | NeuTTS, LuxTTS (clone) | Keep Omni primary; clones need ref clip |
+| **Draven TTS** | Edge Liam (ritual) + OmniVoice (optional) | NeuTTS, LuxTTS (clone) | Liam primary; Omni restore documented; clones need ref clip |
 | **Voice dictation (STT in)** | Windows Win+H | **OpenWhispr**, **Calliop** | Local OSS alt; paste-at-cursor; try later |
 | **TTS studio / GUI** | `draven:speak` scripts | OmniVoice-Studio | Optional GUI for dubbing/clone experiments |
 | Web **research** | Tavily + fetch MCP | Firecrawl, Agent-Reach Exa | Different depth/speed |
 | **Design** mockups | Code-first (Nova/Premium-UI) | **Hallmark**, Pencil MCP, Penpot | Hallmark = agent-time anti-slop gates |
+| **DTP / picture-book layout** | Pillow + Typst (TNIMS print default) | **Affinity MCP**, **InDesign UXP Bridge** | Optional polish; see TNIMS `tools/layout-mcp/SETUP.md` |
 | **Animation taste / easing** | Scroll-Motion + gsap skills | [**emilkowalski/skills**](https://github.com/emilkowalski/skills) | `improve-animations` audits whole codebase; complements Hallmark |
 | **Cross-tool memory patterns** | Mem0 + **Vader Vault** + ReCall | [**Nemotron-Shared-Memory**](https://github.com/TheLasTech/Nemotron-Shared-Memory) | Public-safe MD+Git patterns — REF only, not a runtime |
 | **Blog / SEO content** | Manual | **Claude Blog** | Articles, changelog posts; optional Gemini for hero images |
@@ -432,6 +438,10 @@ Install any of these only after Jon approves. None replace `draven:speak` until 
 | 2026-07-13 | [MiMo Code](https://github.com/XiaomiMiMo/MiMo-Code) | C+ (76) | **REF bookmark** — Jon: blog/concepts only; no install |
 | 2026-07-13 | [AgentsView](https://github.com/kenn-io/agentsview) | B+ (87) | **RE-CONFIRMED IN USE** — 4.4k★; `:8080` (unchanged) |
 | 2026-07-13 | [MemPalace](https://github.com/MemPalace/mempalace) | B (84) | **WATCH bookmark** — Jon: setup later; additive vs Mem0 |
+| 2026-07-19 | [ArcRift](https://github.com/Eshaan-Nair/ArcRift) | C (74) | **WATCH record** — Jon asked persist despite &lt;B-; browser→IDE memory; skip install (Mem0/Mnemosyne) |
+| 2026-07-21 | [Headroom](https://github.com/headroomlabs-ai/headroom) | B- (81) | **WATCH** — token compress proxy/MCP; trial later; never blind `wrap cursor` |
+| 2026-07-21 | [MemPalace](https://github.com/MemPalace/mempalace) | B (84) | **DUPLICATE** — already WATCH bookmark 2026-07-13; no re-grade |
+| 2026-07-21 | [alisaitteke/photoshop-mcp](https://github.com/alisaitteke/photoshop-mcp) | C (72) | **SKIP** — COM; UXP path locked LIVE (chat grade; SKIP pointer in table) |
 | 2026-07-13 | [Hermex](https://github.com/uzairansaruzi/hermex) | B+ (88) | **WATCH bookmark** — Jon: setup later; needs hermes-webui + tunnel; Telegram stays primary |
 | 2026-07-13 | [Aight](https://aight.cool/) | B (85) | **WATCH bookmark** — Jon: setup later; Hermes gateway native iOS; Telegram stays primary |
 | 2026-07-13 | [Strands Agents](https://strandsagents.com/) | C+ (74) | **SKIP** — AWS agent SDK; heavy Hermes overlap (chat only) |

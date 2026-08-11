@@ -61,6 +61,7 @@ Earlier validation used Vertex via LiteLLM. **Daily driver is now DeepSeek** —
 |-------|------|-----------|--------------|
 | **Outbound alerts** | `scripts/telegram-notify.mjs` | PC → iPhone | Boot pings, test messages, agent notifications |
 | **Two-way chat** | **Hermes Telegram Gateway** | iPhone ↔ PC | `hermes -p <profile> gateway …` — full agent with tools |
+| **Cursor live bridge** | **Hermes MCP (`hermes mcp serve`)** | Cursor ↔ Telegram | Cursor user MCP `hermes` — **IN USE** 2026-08-04; JonBeatz `HERMES-MCP-BRIDGE.md`. Gateway required; Desktop optional |
 | **Fallback relay** | `msc-telegram-bot.mjs --standalone` | iPhone ↔ LiteLLM only | Only when gateway is **off** and Desktop is **off** |
 
 **Never run two pollers on the same bot token.** Hermes gateway + `msc-telegram-bot` together drops messages.
@@ -200,7 +201,7 @@ Test ping: `npm run telegram:test` — time line shows `PDT`/`PST` and timezone 
 | Garbled emoji `ðŸ°` | Emoji passed via PowerShell argv | Use `--startup` or `TELEGRAM_MESSAGE` env var |
 | Weird `**n**` in replies | Markdown on AI text | Fixed: AI replies use plain text |
 | Proxy errors | LiteLLM `:4000` down | `npm run deepseek:on` (the legacy `google-api` stack is retired) |
-| "Model provider failed after retries" | Wrong gateway profile won Telegram token (e.g. `next-flick` with `vader-3-flash` while Cursor active profile ≠ jonbeatz) **or** LiteLLM offline | `npm run boot:setup` (removes `Hermes_Gateway_*.vbs` dupes); `hermes -p jonbeatz gateway stop` then `Start-Telegram-Gateway.ps1`; confirm only **one** `gateway run` and profile **jonbeatz**; `python scripts/hermes-billing-mode.py --mode deepseek` |
+| "Model provider failed after retries" | Wrong gateway profile won Telegram token (e.g. `next-flick` with an outdated model (e.g. `vader-3-flash`) while Cursor active profile ≠ jonbeatz) **or** LiteLLM offline | `npm run boot:setup` (removes `Hermes_Gateway_*.vbs` dupes); `hermes -p jonbeatz gateway stop` then `Start-Telegram-Gateway.ps1`; confirm only **one** `gateway run` and profile **jonbeatz**; `python scripts/hermes-billing-mode.py --mode deepseek` |
 | Wrong / stale reply content | Old Telegram session history | Send **`/new`** before test messages |
 | Gateway shutdown mid-chat | `deepseek:on` recycled proxy (fixed) | Now uses `--keep-gateway`; gateway stays up |
 | Random missed messages | Two pollers same token | Stop `msc-telegram-bot` when gateway runs |

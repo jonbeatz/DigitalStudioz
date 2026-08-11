@@ -54,8 +54,12 @@ Everything else in **production** below is configured on Jon's PC (2026-07-04) u
 | **Mem0 + Qdrant** | A | READY | `MEM0_API_KEY` | `.env.local` per profile | `npm run mem0:preflight` |
 | **Draven Mem0** | A | READY | (hardcoded collection) | `scripts/draven-mem0.ps1` | Cross-project — `npm run draven:add` |
 | **Telegram gateway** | A- | READY | `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`, `TELEGRAM_ALLOWED_USERS` | `.env.local` + profile `.env` | `npm run telegram:ensure` |
+| **Hermes MCP (`hermes mcp serve`)** | A- | **READY** / **IN USE** | None (local hermes.exe) | `%USERPROFILE%\.cursor\mcp.json` + `HERMES_HOME`=jonbeatz profile | Cursor ↔ Telegram messaging; gateway up for sends — JonBeatz `HERMES-MCP-BRIDGE.md` |
+| **Hermes client `hermes-fs`** | A- | **READY** / **IN USE** | None | jonbeatz `config.yaml` mcp_servers | Read-only: projects/apps/assets + Vader_Vault |
+| **Hermes client `n8n`** | A- | **READY** / **IN USE** | `N8N_API_KEY` in `%USERPROFILE%\.config\n8n-mcp\env` | `D:\Hermes\apps\hermes-n8n-mcp` | `npm run n8n:mcp:test` · `/reload-mcp` in Desktop |
 | **ngrok (Cursor bridge)** | A- | READY | `NGROK_AUTHTOKEN` | `.env.local` | `:4040` when LiteLLM ngrok on |
-| **OmniVoice Draven** | A- | READY | `OMNIVOICE_PYTHON` (path) | `.env.local` | Lazy start on ritual speak |
+| **Edge Liam Draven** | A- | READY | network (Edge TTS) | `.env.local` `DRAVEN_EDGE_VOICE` | Ritual primary (2026-08-03) |
+| **OmniVoice Draven** | A- | READY | `OMNIVOICE_PYTHON` (path) | `.env.local` Omni knobs | Optional restore / Edge fallback |
 | **Context7 MCP** | A | **READY** | **None** | MCP manifest | Always on |
 | **filesystem MCP** | A | **READY** | **None** | Built-in | Always on |
 | **fetch MCP** | A- | **READY** | **None** | MCP manifest | Always on |
@@ -101,11 +105,15 @@ Everything else in **production** below is configured on Jon's PC (2026-07-04) u
 |------|-------|---------|-------|-------------------|---------------------|
 | **img2pdf** | A- (91) | **IN USE** | **READY** | None (pip) | `python -m pip install img2pdf pikepdf` — Santa book: `npm run book:pdf:doctor` |
 | **pikepdf** | A- (91) | **IN USE** | **READY** | None (pip) | Same venv as img2pdf — `npm run book:pdf:verify` |
+| **Affinity MCP** | B+ (88) | **IN USE** | **READY** | None (local app) | Affinity open + MCP toggles ON · Cursor `affinity` via `uvx mcp-proxy` → `http://127.0.0.1:6767/sse` — TNIMS `.cursor/mcp.json` (not Adobe CC) |
+| **InDesign UXP MCP** | A- (90) | **IN USE** | **READY** | None (local) | Cold: CC Desktop signed in → `layout:indesign-bridge` + UDT Load & Watch (operator) → `:19300/:19301`. TNIMS `tools/layout-mcp/SETUP.md`. Keep CC Desktop; Startup disable OK |
 | **claude-video** | A- (92) | IN USE | PARTIAL | Optional `GROQ_API_KEY` | Done — `npx skills add … -g -a cursor` |
 | **Agent-Reach** | B+ (87) | IN USE | PARTIAL | Free; optional login for Twitter/Reddit | Installed 2026-07-04 — venv + `agent-reach install --env=auto --safe` |
 | **React Bits** | B+ (88) | WATCH | **READY** (free) | Pro = paid license only | Browse/copy — no install |
 | **Firecrawl MCP** | B+ (86) | WATCH | NEEDS_KEY | `FIRECRAWL_API_KEY` | Enable in MCP + key; skills exist |
 | **Penpot** | B (82) | WATCH | NOT_INSTALLED | Self-host or cloud account | penpot.app + MCP when needed |
+| **DesignLab** (VaderBoard) | A- (90) | **IN USE** | **READY** | None (local) | `D:\Hermes\apps\designlab` · `npm run designlab:dev` · http://127.0.0.1:3090 |
+| **DesignLab** (VaderBoard) | A- (90) | **IN USE** | **READY** | None (local) | `D:\Hermes\apps\designlab` · `npm run designlab:dev` · http://127.0.0.1:3090 |
 | **Composio** | B (84) | WATCH | PARTIAL | `COMPOSIO_API_KEY` | Already in JonBeatz manifest |
 | **NeuTTS** | A- (90) | WATCH | NOT_INSTALLED | None (local HF models) | Clone TTS — ref wav + transcript on install |
 | **OmniVoice-Studio** | B+ (87) | WATCH | NOT_INSTALLED | None (local desktop) | GUI + MCP hub — install on approval |
@@ -180,6 +188,8 @@ Everything else in **production** below is configured on Jon's PC (2026-07-04) u
 | **Refero MCP** | A- (91) | WATCH | NOT_INSTALLED | Pro ($17/mo) when ready | **Bookmark** — Cursor MCP; Jon 2026-07-13 |
 | **Refero Styles** | B+ (88) | WATCH | NOT_INSTALLED | Refero account when ready | **Bookmark** — DESIGN.md library |
 | **MemPalace** | B (84) | WATCH | NOT_INSTALLED | None (local embed) | **Bookmark** — `uv tool install mempalace` when ready; Mem0 primary |
+| **Headroom** | B- (81) | WATCH | NOT_INSTALLED | None (local; optional HF Kompress) | **Bookmark** — `uv tool install "headroom-ai[all]"` → `headroom doctor`; proxy on **non-8787** port; MCP `headroom mcp serve` only — no `wrap cursor` vs LiteLLM/ngrok |
+| **ArcRift** | C (74) | WATCH | NOT_INSTALLED | Optional Groq; Ollama for local | **Record only** — do not install; `:3001` + tray + extension; Mem0 primary |
 | **AgentsView** | B+ (87) | IN USE | **READY** | None | Sessions `:8080` — 2026-07-04 |
 | **TokenTracker** | B+ (87) | IN USE | **READY** | None | Primary spend dashboard `:7680` |
 | **ccusage** | B+ (86) | WATCH | **READY** | None | Demoted 2026-07-04 — optional `npx ccusage hermes daily` |
@@ -240,6 +250,8 @@ Run after install or when flipping Setup → **READY**. Add a row here when a ne
 |------|----------------|-------|
 | **img2pdf** | `npm run book:pdf:doctor` (Santa) or `python -c "import img2pdf; print(img2pdf.__version__)"` | Lossless Pages→PDF: `book:pdf:from-pages` |
 | **pikepdf** | `npm run book:pdf:verify` | Optional `--apply-boxes` / `book:pdf:verify:boxes` |
+| **Affinity MCP** | Affinity open · TCP `:6767` · Cursor `affinity` tools listed | TNIMS `.cursor/mcp.json`; Edit→Settings→MCP all ON |
+| **InDesign UXP MCP** | `npm run layout:indesign-bridge` · Bridge Panel Connected ✓ · Cursor `indesign-uxp` | UDT Watching `tools/layout-mcp/.../plugin/manifest.json` |
 | **codebase-memory-mcp** | `npm run codebase-memory:status` | Reindex: `codebase-memory:reindex` |
 | **OpenMontage** | `npm run openmontage:status` | Needs `FAL_KEY` for cloud gen |
 | **Agent-Reach** | `npm run agent-reach:doctor` | Optional channel logins |

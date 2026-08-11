@@ -1,10 +1,12 @@
 # DigitalStudioz — ReCall Update
 
-## LEFT OFF — 2026-07-18 (resume here)
+## LEFT OFF — 2026-08-11 (resume here)
 
-**Where we stopped:** Theme **0.8.2** — back-to-top clickable at absolute bottom; Home hero **`ds-hero-klein-a.jpg`** (fal FLUX.2 Klein 4B). Hostinger go-live still deferred.
+**Where we stopped:** Opened DSZ warm; used Divi/Novamira lessons to scaffold **PullaraLaw** at `Local-WP\PullaraLaw-WP`. DSZ `.env.local` / WP MCP **untouched**. Switching to PullaraLaw next.
 
-**Working on:** DigitalStudioz **WP + Divi 5** Warm Premium on `https://digitalstudioz.local` — LocalWP `Local-WP/DigitalStudioz-WP`. Child theme **0.8.2**.
+**Fleet:** left running (LiteLLM :4000, ngrok :4040, LM Studio :1234) — use **Open Project** in next workspace.
+
+**Working on (when you return here):** DigitalStudioz **WP + Divi 5** Warm Premium — theme **0.8.2**, go-live still deferred.
 
 **SoT right now:**
 | Artifact | Role |
@@ -17,9 +19,10 @@
 | Theme git mirror | `assets/wp-theme/dgtl-digitalstudioz-theme` (`npm run theme:sync`) |
 | Hero locals | `DigitalStudioz/media/hero/` |
 | **Live WP sync** | [HOSTINGER-WP-SYNC.md](./divi-wp-dev/HOSTINGER-WP-SYNC.md) — Phase A when Jon says go-live |
+| **PullaraLaw (sibling)** | `D:\Hermes\projects\Local-WP\PullaraLaw-WP` — own Mem0/MCP; open that folder separately |
 
-**Next session priorities:**
-1. **When ready — first go-live:** follow [HOSTINGER-WP-SYNC.md](./divi-wp-dev/HOSTINGER-WP-SYNC.md) Phase A (full Local → Live WPvivid). Say **go-live migrate**. Ongoing after that = theme-only push (Phase B), not full wipe.
+**Next session priorities (DSZ):**
+1. **When ready — first go-live:** follow [HOSTINGER-WP-SYNC.md](./divi-wp-dev/HOSTINGER-WP-SYNC.md) Phase A. Say **go-live migrate**.
 2. **D5:** Customizer button pad 14/28 → drop CSS `!important`.
 3. **D2:** Typography Variables/presets carefully.
 4. After Divi/WP fix: **`log fixes`** → **`npm run theme:sync`** → commit when asked.
@@ -27,6 +30,15 @@
 **Resume:** **Open Project** (warm) or **Start Project** (cold).
 
 **Docs hub:** `.cursor/docs/divi-wp-dev/` — Problems-Solutions **§K.5 / §P**. Shortcut: **`log fixes`**.
+
+---
+
+## Session: 2026-08-11 — Handoff → PullaraLaw scaffold
+
+- Open Project (warm); Hermes fleet active stayed jonbeatz (align skipped).
+- Scaffolded PullaraLaw Hermes profile **inside** `Local-WP\PullaraLaw-WP` (rituals, Mem0 `pullaralaw_memories`, Novamira MCP, Divi playbook).
+- **Did not** modify DigitalStudioz `.env.local` or DigitalStudioz-WP MCP.
+- Close Project: switching Cursor to PullaraLaw; fleet left running.
 
 ---
 
