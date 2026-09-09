@@ -4,7 +4,7 @@
 
 **With Mem0:** `update docs and mem0` (includes Phase 5b)
 
-> **Fleet first:** Universal docs and **all tool reviews** live in `_core-scripts/shared-profile-content/docs/`. Edit canonical files there, then `npm run docs:sync`. JonBeatz is often the open workspace — not the source of truth. See [FLEET-TOOLS-KNOWLEDGE.md](../docs/FLEET-TOOLS-KNOWLEDGE.md).
+> **Fleet first:** Universal docs and **all tool reviews** live in `_core-scripts/shared-profile-content/docs/`. Edit canonical files there, then `npm run sync:docs -- -Write`. **`docs:sync`** is the alignment auditor (TRUTH / START-HERE / encoding) — it does not copy the fleet library. JonBeatz is often the open workspace — not the source of truth. See [FLEET-TOOLS-KNOWLEDGE.md](../docs/FLEET-TOOLS-KNOWLEDGE.md).
 
 ---
 
@@ -16,7 +16,7 @@
 | `TOOL-CHEST-INDEX`, `DESIGN-REFERENCES`, `MASTER-COMMANDS` (shared) | `CHANGELOG.md`, `Checkpoint.md` |
 | `shared-profile-content/skills/`, `scripts/`, `rules/`, `prompts/` | Site deploy runbooks, profile-specific plans |
 
-After shared edits: `npm run docs:sync -- -Write` from current profile.  
+After shared edits: `npm run sync:docs -- -Write` from current profile.  
 After skills/scripts/rules: `npm run fleet:sync` from **JonBeatz hub**.
 
 ---

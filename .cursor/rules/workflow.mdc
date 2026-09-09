@@ -87,9 +87,10 @@ When user says **backup profile** or **backup**:
 | Trigger | Action |
 |---------|--------|
 | **review tool** / one repo URL | [Review-Tool.md](../prompts/Review-Tool.md) single mode |
-| **review batch** / multiple URLs | Review-Tool.md batch mode — all grades first, one install AskQuestion |
+| **review batch** / multiple URLs | Review-Tool.md batch — grades + scoreboard this turn; AskQuestion next turn only |
 | **review design** / **grade this site** | Review-Tool.md design grade → DESIGN-REFERENCES + optional showcase queue |
 | Design URL only (no grade keyword) | DESIGN-REFERENCES + HERMES-SHOWCASE-SPEC add queue (bookmark) |
+| Prompt library / template gallery | DESIGN-REFERENCES even if an MCP exists; grade generator separately if Jon wants install |
 | **re-review** / **refresh grade** | Re-grade per TOOLS-WATCHLIST policy |
 | **review session done** | [Review-Session-Done.md](../prompts/Review-Session-Done.md) |
 

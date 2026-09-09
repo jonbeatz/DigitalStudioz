@@ -37,7 +37,9 @@ Tools **not 100% ready** — configure when you want full capability:
 | P3 | **Composio** | PARTIAL | Key in manifest; disable in Cursor if unused | `COMPOSIO_API_KEY` |
 | P3 | **Penpot** | NOT_INSTALLED | Self-host or Penpot Cloud + MCP setup | Penpot account / self-host URL |
 | P3 | **React Bits Pro** | NEEDS_KEY | Only if buying Pro tier | Pro license at reactbits.dev |
+| P3 | **NVIDIA Build / NIM** | NEEDS_KEY | **On deck — do not wire.** Key already in `_core-scripts\.env.local.master` as `BUILD_NVIDIA_API`. When Jon says go: copy to `NVIDIA_API_KEY` in JonBeatz `.env.local` + LiteLLM `nvidia_nim/` alias | Never commit the value. **Not** ComfyUI. Runbook: vault [[NVIDIA-Build-NIM-catalog]] |
 | P4 | **NeuTTS** | NOT_INSTALLED | Install on approval; needs ref wav + transcript for clone | HuggingFace GGUF models |
+| P4 | **Kokoro-82M** | PARTIAL | On-deck CPU venv; not wired to Draven. `npm run kokoro:test` | `D:\Hermes\apps\kokoro` — **not** kokoroai.org |
 | P4 | **OmniVoice-Studio** | NOT_INSTALLED | Install on approval; GPU optional | Desktop app + AGPL |
 | P4 | **LuxTTS** | NOT_INSTALLED | Install on approval; ~1 GB VRAM when GPU path | Python venv / GPU |
 
@@ -69,14 +71,14 @@ Everything else in **production** below is configured on Jon's PC (2026-07-04) u
 | **cursor-ide-browser MCP** | A- | **READY** | **None** | Cursor built-in | Browser tab automation |
 | **GitHub MCP** | A- | READY | `GITHUB_PERSONAL_ACCESS_TOKEN` | `.env.local` | `sync:mcp-env` |
 | **Tavily MCP** | A- | READY | `TAVILY_API_KEY` | `.env.local` | `sync:mcp-env` |
-| **Hostinger MCPs** (4) | A- | READY | `HOSTINGER_API_TOKEN` | `.env.local` | DNS / hosting / VPS / domains |
+| **Hostinger MCPs** (4) | A- | READY | `HOSTINGER_API_TOKEN` | `.env.local` | DNS / hosting / VPS / domains — scoped launcher; **not** Hostinger Connector extension |
 | **Stripe MCP** | B+ | NEEDS_LOGIN | `STRIPE_API_KEY` (when billing tasks) | `.env.local` | Plugin — use when needed |
 | **Vercel MCP** | B+ | NEEDS_LOGIN | Vercel login via plugin | Cursor plugin auth | Deploy tasks only |
 | **Firebase MCP** | B+ | NEEDS_LOGIN | Firebase project via plugin | Cursor plugin auth | When mobile/Firebase work |
 | **vault MCP** | B+ | **READY** | **None** (local path) | `H:\Vader_Vault` | Obsidian vault filesystem |
 | **ComfyUI MCP** | A- | PARTIAL | `COMFYUI_ROOT`, `COMFYUI_URL` — **no API key** | `.env.local` + MCP | **Start ComfyUI** `:8188` first |
 | **Hugging Face image:gen** | A | READY | `HF_TOKEN` | `.env.local` | `npm run image:gen` — cloud, zero VRAM |
-| **fal.ai** | B+ | READY | `FAL_API_KEY` | `.env.local` | Optional paid bonus pipeline |
+| **fal.ai** | B+ | READY | `FAL_API_KEY` | `.env.local` + Cursor MCP | API/MCP READY. Dashboard = browser OAuth. Tiers: IMAGE-WORKFLOW 2026-09-05 |
 | **Obsidian Copilot** | B+ | PARTIAL | LM Studio or LiteLLM URL in plugin | Obsidian plugin settings | Vault chat — local LLM |
 | **claude-video `/watch`** | A- | PARTIAL | **Optional** `GROQ_API_KEY` | `%USERPROFILE%\.config\watch\.env` | **YouTube captions = no key.** Skill installed globally |
 | **21st-dev Magic MCP** | B | READY | `21ST_DEV_MAGIC_API_KEY` | `.env.local` | UI component registry |
@@ -116,15 +118,17 @@ Everything else in **production** below is configured on Jon's PC (2026-07-04) u
 | **DesignLab** (VaderBoard) | A- (90) | **IN USE** | **READY** | None (local) | `D:\Hermes\apps\designlab` · `npm run designlab:dev` · http://127.0.0.1:3090 |
 | **Composio** | B (84) | WATCH | PARTIAL | `COMPOSIO_API_KEY` | Already in JonBeatz manifest |
 | **NeuTTS** | A- (90) | WATCH | NOT_INSTALLED | None (local HF models) | Clone TTS — ref wav + transcript on install |
+| **Kokoro-82M** | B (86) | **ADOPT** | **PARTIAL** | None (local HF cache) | `D:\Hermes\apps\kokoro` — `npm run kokoro:status` / `kokoro:test`. Not Draven |
 | **OmniVoice-Studio** | B+ (87) | WATCH | NOT_INSTALLED | None (local desktop) | GUI + MCP hub — install on approval |
 | **LuxTTS** | B (86) | WATCH | NOT_INSTALLED | None (local) | GPU ~1 GB VRAM for fast clone path |
 | **find-skills** | A- (91) | IN USE | **READY** | None | Installed 2026-07-04 — `npx skills find [query]` |
+| **obsidian-skills** | A- (91) | **IN USE** | **READY** | None | Cherry-pick: `obsidian-markdown` + `json-canvas` in shared library → `sync:skills` |
 | **Hallmark** | B+ (88) | IN USE | **READY** | None | Installed 2026-07-04 — `npm run skills:hallmark:install` |
 | **emilkowalski/skills** | A- (90) | **IN USE** | **READY** | None | Installed 2026-07-13 — 5 skills; `npm run skills:emil:status` |
 | **Claude Blog** | B (84) | IN USE | **READY** | Optional `GOOGLE_AI_API_KEY` (hero images) | Installed 2026-07-04 — skills + `npm run skills:claude-blog:scripts` |
 | **Claude Watch** | B+ (88) | IN USE | PARTIAL | Optional `GROQ_API_KEY` | Installed 2026-07-04 — persistent study notes |
 | **Agent Browser** | B+ (86) | IN USE | **READY** | None (local Chrome) | Installed 2026-07-04 — CLI; MCP optional |
-| **AgentMail** | A- (91) | **ADOPT** | PARTIAL | `AGENTMAIL_API_KEY` | Key SET Next-Flick `.env.local` (2026-07-07); install SDK/MCP on first use |
+| **AgentMail** | A- (91) | **IN USE** (Grok Bot) | PARTIAL | OAuth plugin + `AGENTMAIL_API_KEY` | Grok Bot **READY** — `jonbeatz-clerk@agentmail.to` send+receive PASS 2026-08-27. Cursor SDK/MCP not installed. Key still Next-Flick/master |
 | **Agent Skills (Osmani)** | B (84) | IN USE | **READY** | None | Installed 2026-07-04 — cherry-pick vs rituals |
 | **devini-tea** | A (93) | REF | **READY** | None | Reference repo — see SCROLL-3D-REFERENCES |
 | **cinematic-scroll-skill** | A- (92) | **ADOPT** | **READY** | None (vault clone) | Vendored `D:\Hermes\assets\3d-web-workflows\cinematic-scroll-skill` — `npm run vault:cinematic-scroll-skill`; `npm install` in vault for doctor |
@@ -132,7 +136,7 @@ Everything else in **production** below is configured on Jon's PC (2026-07-04) u
 | **fullPage.js** | B- (82) | WATCH | NOT_INSTALLED | Commercial license for paid sites | Section-based scroll — alt pattern to Lenis chapters |
 | **codebase-memory-mcp** | A- (92) | **IN USE** | **READY** | None (static binary) | Binary: `%USERPROFILE%\.local\bin\`; index per repo. Script: `shared-profile-content/scripts/codebase-memory-status.ps1` |
 | **OpenMontage** | A- (90) | **IN USE** | **READY**‡ | `FAL_KEY` | Install: `D:\Hermes\assets\openmontage` (fleet vault). Script: `shared-profile-content/scripts/openmontage-status.ps1` |
-| **profile-health-watchdog** | — | **IN USE** | **READY** | None (Hermes cron) | Fleet LiteLLM key probe — 7 profiles every 6h; Telegram alert on auth failure; silent = healthy |
+| **profile-health-watchdog** | — | **IN USE** | **READY** | None (Windows task) | Fleet LiteLLM key probe — hidden task 00/06/12/18; Hermes cron paused; Telegram on auth failure; silent = healthy |
 | **agency-agents** | B+ (86) | WATCH | NOT_INSTALLED | None | Cherry-pick agents only — `install.sh --tool cursor` or Hermes plugin |
 | **AnythingLLM** | B (83) | WATCH | NOT_INSTALLED | LLM keys (DeepSeek/LM Studio via LiteLLM) | Desktop/Docker RAG app — overlaps Hermes Desktop; study patterns only |
 | **Open Notebook** | B- (82) | WATCH | NOT_INSTALLED | Docker + optional LLM keys | `:8502` UI · `:5055` API · SurrealDB `:8000` localhost |
@@ -141,6 +145,7 @@ Everything else in **production** below is configured on Jon's PC (2026-07-04) u
 | **Flowise** | B- (82) | WATCH | NOT_INSTALLED | LLM API keys | Visual agent builder — `:3000` clashes with JonBeatz dev; use n8n/Hermes instead |
 | **Hermes Agora** | B (84) | WATCH | PRE_RELEASE | None | Wait for launch — local Hermes gateway; unofficial fan project |
 | **OpenRouter** | A- (92) | **IN USE** | **READY** | `OPENROUTER_API_KEY` | ~22 LiteLLM `*-or` aliases; key in JonBeatz `.env.local` → `sync:deepseek-env` |
+| **Cursor Origin** | B (84) | **IN USE (trial, 1 repo)** | **PARTIAL** | Cursor Pro+ (web login) | Namespace `jonbeatz`; GitHub mirror `JonBeatz-Command-Center` only; **no MCP**; playbook JonBeatz `CURSOR-ORIGIN.md` |
 | **OmniRoute** | B (85) | WATCH | NOT_INSTALLED | None (local `:20128`) | LiteLLM **alternative** — isolated trial only |
 | **mockit-mcp** | B- (81) | WATCH | NOT_INSTALLED | Claude CLI or `ANTHROPIC_API_KEY` | iOS UI mock MCP — mobile workspace |
 | **OpenWhispr** | B (85) | WATCH | NOT_INSTALLED | None (local STT); optional LM Studio `:1234` for cleanup | `.exe` from GitHub releases — Local → Parakeet |
@@ -153,16 +158,28 @@ Everything else in **production** below is configured on Jon's PC (2026-07-04) u
 | **mp4-to-jpg** | B (85) | **REF** | **READY** | None (web demo) | Bookmark: https://allarddewinter.github.io/mp4-to-jpg/ — Jon 2026-07-13 |
 | **Video To JPG** | B+ (88) | **REF** | **READY** | None (web) | **Bookmark:** https://videotojpg.com/ — Jon 2026-07-13 |
 | **free-llm-api-resources** | B+ (88) | **REF** | **READY** | None | GitHub discovery list — pair with `CURSOR-MODELS-CHEATSHEET.md` |
+| **Agent Arena** | A- (90) | **REF** | **READY** | None (web; login only if using Arena Agent Mode) | https://arena.ai/leaderboard/agent — Pareto + Code/Chat/Work filters |
+| **Bitwarden MCP** | B- (80) | WATCH | NOT_INSTALLED | `BW_SESSION` (never commit) | `@bitwarden/mcp-server` — **do not** add to JonBeatz `.cursor/mcp.json` |
+| **proton-pass-community-mcp** | C (76) | WATCH | NOT_INSTALLED | `pass-cli` session (Visionary+) | Unofficial; write tools need `ALLOW_WRITE=1` |
+| **protonpass-mcp (aureTheDev)** | C (70) | **SKIP** | NOT_INSTALLED | Docker volume session | Do not build/run |
 | **cto.new** | B (83) | WATCH | NOT_INSTALLED | None (SaaS signup) | https://cto.new/ — free pilot; overlaps Hermes Desktop |
 | **Supabase** | B+ (88) | **REF** | **READY** | None (bookmark) | **Bookmark:** https://supabase.com/ — Neon alt for Next-Flick (Jon 2026-07-13) |
 | **PocketBase** | A- (91) | WATCH | **PARTIAL** | None (local binary) | `D:\Hermes\apps\pocketbase` — `npm run pocketbase:install` smoke OK; start `:8090` on demand |
 | **InsForge** | B+ (88) | **IN USE** | **READY** | Docker Desktop | `D:\Hermes\apps\insforge` — `npm run insforge:*`; localhost `:7130` / `:15432`; spike only |
 | **aitmpl.com** | B (84) | REF | **READY** | None (web) | Browse/install individual Claude Code components cautiously |
+| **GitReverse** | B- (80) | WATCH | NOT_INSTALLED | None (web) | https://www.gitreverse.com/ — public GitHub/site → prompt; [library](https://gitreverse.com/library) |
 | **Toolfolio** | B- (81) | REF | **READY** | None (web) | Discovery bookmark only |
 | **Databasement** | A- (90) | **IN USE** | **READY** | Docker Desktop | `D:\Hermes\apps\databasement` — `npm run databasement:*`; localhost `:2226` |
 | **Voicebox** | A- (92) | WATCH | NOT_INSTALLED | Windows MSI + models | Jon self-install from https://voicebox.sh — MCP `:17493`; VRAM heavy |
 | **FreeCut** | A- (91) | **IN USE** | **READY** | None (browser) | [freecut.net](https://freecut.net); `npm run freecut:open`; workspace `D:\Hermes\apps\freecut-workspaces` |
+| **Clypra** | B- (80) | WATCH | NOT_INSTALLED | Optional `VITE_CLYPRA_API_KEY` for cloud effects | Windows MSI from GitHub Releases — **do not** install today; telemetry on by default |
 | **Kinocut** | A- (91) | **IN USE** | **READY** | None (FFmpeg on PATH) | `uv tool install kinocut`; MCP `uvx --from kinocut kino`; media `D:\Hermes\apps\kinocut-media` |
+| **video-use** | B- (80) | WATCH | NOT_INSTALLED | `ELEVENLABS_API_KEY` (Scribe) | Isolated clone only if asked — **do not** paste setup prompt; **do not** symlink into Hermes/`~/.claude/skills`; ffmpeg already on PATH |
+| **Presenton** | B (85) | REF | READY | LiteLLM/LM Studio when installed | Bookmark: https://presenton.ai/ — later Docker `-p 5001:80` or Windows `.exe`; **never** host `:3000`; **do not** add MCP yet |
+| **Camera Control** | B- (82) | REF | READY | None (web) | Bookmark: https://aicameracontrol.com/ — 3D block then fal; ignore Higgsfield send |
+| **FigJam** | C (73) | REF | READY | Figma account if you already have one | Bookmark: https://www.figma.com/figjam/ — **do not** subscribe for this shop; DesignLab `:3090` stays |
+| **TestingCatalog** | B- (80) | REF | READY | None (web) | Bookmark: https://www.testingcatalog.com/ — rumor desk; do not treat leaks as install truth |
+| **book-to-skill** | B- (80) | WATCH | NOT_INSTALLED | Local extractors (poppler/pypdf); LLM via existing agent | Isolated convert of a book **you own** — **do not** `npx skills add virgiliojr94/book-to-skill` into Cursor/Hermes |
 | **Video polish chain** | — | **IN USE** | **READY** | FAL optional | `npm run video:polish` · docs VIDEO-POLISH-CHAIN.md |
 | **loop-engineering** | B+ (87) | WATCH | NOT_INSTALLED | None | Docs / `loop-audit` only — **no** `loop-init` on hub yet |
 | **system_prompts_leaks** | B (84) | **REF** | **READY** | None | Browse/clone research; ToS gray |
@@ -184,12 +201,34 @@ Everything else in **production** below is configured on Jon's PC (2026-07-04) u
 | **Hermex** | B+ (88) | WATCH | NOT_INSTALLED | App Store + `hermes-webui` + tunnel | iOS 18+; Cloudflare Tunnel or Tailscale to `:8787` |
 | **Aight** | B (85) | WATCH | NOT_INSTALLED | App Store; Pro optional | Hermes mode → gateway; free tier = 1 mode only |
 | **Hermes WebUI** | B+ (88) | WATCH | NOT_INSTALLED | None | `:8787` Hermes-native web UI — prerequisite for Hermex |
+| **Hermes Control Deck** | B- (81) | WATCH | NOT_INSTALLED | `CONTROL_AUTH_TOKEN` + `HERMES_PASSWORD` | Isolated clone → `npm start` on `127.0.0.1:4240` — **do not** bind `0.0.0.0`; Telegram stays primary |
+| **oh-my-hermes** | B- (80) | WATCH | NOT_INSTALLED | None | **Do not** `omh setup` on jonbeatz. **Never** `irm https://raw.githubusercontent.com/rlaope/oh-my-hermes/main/install.ps1 \| iex`. Homebrew/Bun/npm also rewrite Hermes registration |
+| **Unsloth** | B- (80) | WATCH | NOT_INSTALLED | None for local Core/Desktop | GitHub Desktop `.exe` only if trial — **never** `irm https://unsloth.ai/install.ps1 \| iex` or `unsloth start hermes`; Docker `:8888/:8000` clashes Hindsight |
+| **Comfy Canvas** | B (84) | WATCH | NOT_INSTALLED | None | Clone into `ComfyUI/custom_nodes/comfy_canvas` when asked — restart `:8188`; no extra Flask |
+| **Hermes Session Analyzer** | B- (81) | WATCH | NOT_INSTALLED | None | `$env:HERMES_HOME="$env:LOCALAPPDATA\hermes\profiles\jonbeatz"` then `install.ps1` — restart Desktop; TokenTracker stays spend |
+| **DeepSeek Harness** | B- (80) | REF | READY | None for bookmark | Docs: https://deepseek-harness.github.io/deepseek-harness/ — **do not** `npx @deepseek-ai/dsh web` on this workstation |
+| **Paperclip** | B- (81) | WATCH | NOT_INSTALLED | Agent provider keys | `pnpm dev` → `:3100` from a clone — **never** `curl https://paperclip.ing/install.sh \| bash`; Node 24 |
+| **LoopX** | B- (80) | WATCH | NOT_INSTALLED | None for core CLI (Python 3.11+) | Isolated `pipx install loopx` → `loopx doctor` only — **do not** `loopx workflow-skills --install` or slash-commands into Cursor; dashboard Vite `:5173` |
+| **The Complete Shelf** | B+ (88) | REF | READY | None | Live: https://mengto.github.io/complete-shelf/ — local `python -m http.server 4173` |
 | **Open WebUI** | B (85) | WATCH | NOT_INSTALLED | Docker + `API_SERVER_KEY` | Hermes `:8642/v1` integration |
 | **Refero MCP** | A- (91) | WATCH | NOT_INSTALLED | Pro ($17/mo) when ready | **Bookmark** — Cursor MCP; Jon 2026-07-13 |
 | **Refero Styles** | B+ (88) | WATCH | NOT_INSTALLED | Refero account when ready | **Bookmark** — DESIGN.md library |
 | **MemPalace** | B (84) | WATCH | NOT_INSTALLED | None (local embed) | **Bookmark** — `uv tool install mempalace` when ready; Mem0 primary |
+| **Hindsight** | B (83) | WATCH | NOT_INSTALLED | LLM key (OpenAI/LiteLLM/LM Studio) for retain | Docker `:8888` API + `:9999` UI — **do not** `hindsight-cursor init` (writes `.cursor/mcp.json` + hooks) |
+| **OpenViking** | B- (80) | WATCH | NOT_INSTALLED | Provider in `~/.openviking/ov.conf` | Default server `:1933` — **do not** `hermes memory setup openviking`; AGPLv3 |
+| **watermarks-remover** | B- (81) | WATCH | NOT_INSTALLED | None for CLI; optional Ollama for Layer B rewrite | `py service/scripts/inspect_file.py <file>` — **do not** `install_skill.py --target cursor` or PostToolUse hooks; optional HTTP `:8765` |
+| **Honcho** | B- (81) | WATCH | NOT_INSTALLED | `HONCHO_API_KEY` (managed) or local LLM keys + Docker | Local API `:8000` / managed `api.honcho.dev` — **do not** `hermes memory setup honcho`; AGPL-3.0 |
+| **krypt.cc/tools** | C (73) | **SKIP** | NOT_INSTALLED | None | Catalog only — **do not** download Tweaker / Cleaner / Cursor / Ghost / Cord / VPN |
+| **MeiGen** | B- (81) | WATCH | NOT_INSTALLED | Optional `MEIGEN_API_TOKEN` for gen | **Jon 2026-08-27: bookmark [meigen.ai](https://www.meigen.ai/) only.** MCP later/optional — never `npx meigen init cursor` |
 | **Headroom** | B- (81) | WATCH | NOT_INSTALLED | None (local; optional HF Kompress) | **Bookmark** — `uv tool install "headroom-ai[all]"` → `headroom doctor`; proxy on **non-8787** port; MCP `headroom mcp serve` only — no `wrap cursor` vs LiteLLM/ngrok |
 | **ArcRift** | C (74) | WATCH | NOT_INSTALLED | Optional Groq; Ollama for local | **Record only** — do not install; `:3001` + tray + extension; Mem0 primary |
+| **Hostinger Connector** | C (74) | **SKIP** | NOT_INSTALLED | Same `HOSTINGER_API_TOKEN` | Do **not** install — duplicates IN USE `hostinger-*` + can rewrite `mcp.json` |
+| **OpenMausBot** | B- (81) | WATCH | NOT_INSTALLED | Optional Composio / Box / ElevenLabs | Windows `.exe` unsigned (SmartScreen); ports `:5199` `:8799` `:8800`; never host-control on this PC |
+| **fx** | B- (80) | WATCH | NOT_INSTALLED | Vercel Gateway / Codex / Grok OAuth | Do **not** `curl https://fx.sh/setup.sh \| bash`; Zig 0.16 to build from source |
+| **Token Harbor** | C (76) | **SKIP** | NOT_INSTALLED | `thk_` key if ever trialed by hand | **Never** `irm https://tokenharbor.ai/connect.ps1 \| iex` or Connect ALL |
+| **VoxCPM** | B+ (85) | WATCH | NOT_INSTALLED | CUDA 12 + ~8 GB VRAM (VoxCPM2) | Unload Comfy/LMS first; separate venv; Edge Liam stays ritual |
+| **BetterWright** | B- (80) | WATCH | NOT_INSTALLED | Optional Codex/Grok OAuth for `exec` | **Never** `betterwright init` or `skill --install --all` |
+| **Ramp Router** | C (74) | **SKIP** | NOT_INSTALLED | Ramp account + API key | **Never** `curl https://agents.ramp.com/install.sh \| sh` |
 | **AgentsView** | B+ (87) | IN USE | **READY** | None | Sessions `:8080` — 2026-07-04 |
 | **TokenTracker** | B+ (87) | IN USE | **READY** | None | Primary spend dashboard `:7680` |
 | **ccusage** | B+ (86) | WATCH | **READY** | None | Demoted 2026-07-04 — optional `npx ccusage hermes daily` |
@@ -257,8 +296,11 @@ Run after install or when flipping Setup → **READY**. Add a row here when a ne
 | **Agent-Reach** | `npm run agent-reach:doctor` | Optional channel logins |
 | **Claude Watch** | `npm run watch:check` | Optional `GROQ_API_KEY` |
 | **Mem0** | `npm run mem0:preflight` | LM Studio :1234 |
+| **Kokoro-82M** | `npm run kokoro:status` · `npm run kokoro:test` | On-deck `D:\Hermes\apps\kokoro` — not Draven |
 | **cinematic-scroll-skill** | `npm run vault:cinematic-scroll-skill` + doctor in vault | ≥ 80 gate |
 | **emilkowalski/skills** | `npm run skills:emil:status` | 5 skills in shared library + `.cursor/skills` after `sync:skills` |
+| **obsidian-skills** | `Test-Path .cursor\skills\obsidian-markdown\SKILL.md` and `json-canvas\SKILL.md` | After `sync:skills` / `fleet:sync` |
+| **AgentMail (Grok Bot)** | Grok Bot → Plugins → AgentMail = Connected + tools on | **READY** — `jonbeatz-clerk@agentmail.to` send+receive PASS 2026-08-27 |
 | **Handy** | `npm run handy:status` | Model: `npm run handy:model` if in-app HF download fails (content-range bug) |
 | **Wan2.1** | `npm run wan21:status` | Weights on `H:\AI_Models\Wan2.1`; ComfyUI Wan workflows |
 | **Tabby** | `winget list Eugeny.Tabby` + SSH smoke test | Optional daily-driver terminal — not fleet-required |

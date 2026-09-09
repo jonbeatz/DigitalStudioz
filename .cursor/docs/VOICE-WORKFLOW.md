@@ -2,7 +2,7 @@
 
 **Last updated:** 2026-08-08  
 **Operator:** Jon Beatz  
-**Status:** **Ritual-only** — Edge Liam primary (matches Hermes); OmniVoice installed + dialed-in for restore; NeuTTS parked for fun clone tests
+**Status:** **Ritual-only** — Edge Liam primary (matches Hermes); OmniVoice installed + dialed-in for restore; **Kokoro-82M on deck** (`npm run kokoro:test`, not wired to Draven); NeuTTS parked for fun clone tests
 
 ---
 
@@ -45,6 +45,8 @@
 | `npm run draven:voice-test` | Short test |
 | `npm run draven:omni-daemon` | Pre-warm Omni (only needed when Omni is primary) |
 | `npm run draven:omni-daemon -- -Stop` | Free Omni RAM (also on `session:stop`) |
+| `npm run kokoro:status` | On-deck Kokoro venv check (not Draven) |
+| `npm run kokoro:test` | Write `D:\Hermes\apps\kokoro\output\smoke-bm_george.wav` |
 
 `jarvis:*` aliases deprecated — use `draven:*` equivalents.
 
@@ -216,6 +218,22 @@ Details: [TOOLS-WATCHLIST.md](./TOOLS-WATCHLIST.md) · [TOOLS-REFERENCE.md](./TO
 | See TOOLS-WATCHLIST **WATCH** grade | Auto-install / wire into `draven:speak` without Jon asking |
 
 When ready to test: load the LMS GGUF **or** run the Hermes-NeuTTS scrap against `my_voice\` refs — separate from Edge/Omni.
+
+---
+
+## Kokoro-82M (on deck — not wired)
+
+**Policy (Jon 2026-09-03):** Downloaded and smokes. **Not** a `draven:speak` engine. Turn on later with the npm aliases.
+
+| Item | Path / command |
+|------|----------------|
+| App + CPU venv | `D:\Hermes\apps\kokoro` |
+| Weights cache | `%USERPROFILE%\.cache\huggingface\hub\models--hexgrad--Kokoro-82M` |
+| Smoke wav | `D:\Hermes\apps\kokoro\output\smoke-bm_george.wav` |
+| Status | `npm run kokoro:status` |
+| Generate test wav | `npm run kokoro:test` |
+
+Do **not** set `DRAVEN_VOICE=kokoro`. Do **not** use kokoroai.org.
 
 ---
 

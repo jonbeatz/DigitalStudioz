@@ -33,6 +33,8 @@ JonBeatz is the **delegation and propagation hub** — bootstrap new Hermes proj
 | `npm run sync:skills:global` | Install all shared skills machine-wide (`~/.claude/skills`) |
 | `npm run bootstrap:website` | Scaffold new `-Website` project from shared template (if aliased) |
 
+**Client invoicing (fleet):** [INVOICING.md](./INVOICING.md) — vault ledger at `H:\Vader_Vault\_attachments\invoices\JonFarrell\`. Not the same as `deepseek:billing-*`.
+
 Sibling profiles **consume** shared docs/skills; they do **not** copy the asset vault into `.cursor/`.
 
 ---
@@ -113,6 +115,9 @@ Configured in `hermes-fleet-profiles.json`:
 | DigitalStudioz | `D:\Hermes\projects\DigitalStudioz` |
 | VaderLabz | `D:\Hermes\projects\VaderLabz` |
 | JonBeatz.dev | `D:\Hermes\projects\JonBeatz.dev` |
+| **Website-Templates** | `D:\Hermes\projects\Website-Templates` |
+
+**Website-Templates** is a **self-contained recreate lab**. Open **that folder** in Cursor — do **not** require JonBeatz. Hermes Desktop stays **jonbeatz** (no `profile:align`). Cold-open: `Website-Templates/.cursor/docs/CURRENT.md`. Knowledge (WP classic, Divi 5, v0 harvest, Lightning, looks) lives in that repo’s `.cursor/docs/`. Zips: `D:\Hermes\tools\wordpress-chest\`. MCP source: `D:\Hermes\tools\wordpress-mcp\`. GitHub: `jonbeatz/Website-Templates`.
 
 Add a sibling: edit JSON + run `fleet:sync`.
 

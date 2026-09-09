@@ -20,9 +20,10 @@ All Hermes profiles share this ComfyUI install. Models live on `H:\LLM_VAULT` / 
 
 | Goal | Workflow | Smoke (1024²) |
 |------|----------|---------------|
-| Fast local default | `txt2img-z-image-turbo.json` / `gen-image-local` | ~49s PASS (8 steps) |
+| **Free local still (default)** | `txt2img-qwen-image-2512-lightning.json` / Lightning App Mode | **~22–40s warm** · 4 steps / cfg 1 |
+| Fast z-image iterate | `txt2img-z-image-turbo.json` / `gen-image-local` | ~49s PASS (8 steps) |
 | Fast lane **final quality** | `txt2img-z-image-turbo-bf16.json` | ~155s cold PASS |
-| **Best realism / text** | `txt2img-qwen-image-2512.json` | ~265s PASS |
+| **Best 2512 keep** | `txt2img-qwen-image-2512.json` | ~265s PASS · 20 steps |
 | **Local instruction edit** | `edit-image-qwen-2511.json` | PASS (unload qwen3-4b first — see VRAM rule) |
 | Flux.2 Klein **9B** (NC) | `txt2img-flux-klein-9b.json` | ~98s PASS |
 | Flux.2 Klein 4B (Apache) | `txt2img-flux-klein.json` | fast |
@@ -32,6 +33,7 @@ All Hermes profiles share this ComfyUI install. Models live on `H:\LLM_VAULT` / 
 **VRAM rule (16 GB):** before Qwen-Image-2512 / Edit-2511 renders, `lms unload qwen3-4b-instruct-2507` (else ~199 s/step thrash); restore after with `npm run mem0:preflight`. Klein + z-image are fine with it resident.
 
 ```powershell
+npm run comfy:start:qwen        # unload LMS + --lowvram — default 2512 Lightning start
 npm run comfy:start -- -UnloadLMStudio -LowVram
 npm run comfy:repair-symlinks   # hardlink recreate + verify
 npm run comfy:hardlink-check    # Fable 5 vault<->Comfy health only
@@ -53,9 +55,11 @@ npm run comfy:stop
 | **z-image-turbo** Q4_K_M | Fast default (iterate) | `H:\LLM_VAULT\jonbeatz\z-image-turbo-Q4_K_M\` |
 | **z-image-turbo BF16** (2026-08-08) | Fast lane, final quality | `ComfyUI\models\diffusion_models\z_image_turbo_bf16.safetensors` (ComfyUI-only, no vault — LMS is GGUF-only) |
 | **Qwen-Image-Edit-2511** Q4_K_M (2026-08-08) | **Local instruction edit** (nano-banana-style) | `H:\LLM_VAULT\qwen\qwen-image-edit-2511-Q4_K_M\` (reuses Qwen2.5-VL TE) |
+| **Qwen-Image-2512 Lightning 4-step LoRA** (2026-08-15) | Fast 2512 **drafts only** (cfg 1) | `ComfyUI\models\loras\Qwen-Image-2512-Lightning-4steps-V1.0-bf16.safetensors` |
 | **FLUX.2 Klein 4B** Q5 | Fast Flux / Apache | `H:\LLM_VAULT\flux\flux-2-klein-4b-Q5_K_M\` |
 | **Flux.1-dev** Q4 | Older Flux quality | vault `flux\` |
-| **4x-UltraSharp / AnimeSharp** | Upscale | `comfyui_cache\upscale_models\` |
+| **4x-UltraSharp / AnimeSharp** | Upscale (drafts) | `comfyui_cache\upscale_models\` |
+| **4x_NMKD-Siax_200k** (2026-08-15) | Painted/illustrated ESRGAN (print grow) | `comfyui_cache\upscale_models\` (hardlink into `models/upscale_models/`) |
 | **face_yolov8n.pt** (2026-08-08) | Face detailer (`img2img-face-fix.json`) | `ComfyUI\models\ultralytics\bbox\` |
 
 ### LM Studio custom loads (red dots)
@@ -87,6 +91,8 @@ See **[IMAGE-WORKFLOW.md](./IMAGE-WORKFLOW.md)** and **[VRAM-IMAGE.md](./VRAM-IM
 ---
 
 ## --- Source: IMAGE-WORKFLOW.md ---
+
+**Canonical fal tiers (2026-09-05):** see **[IMAGE-WORKFLOW.md](./IMAGE-WORKFLOW.md)** § Three-tier stills — Flux 2 Pro/Max, Nano Banana 2, Qwen Max. This ENGINEERING concat may lag; do not use it as the fal cost table.
 
 # Image Workflow — JonBeatz Complete Guide
 

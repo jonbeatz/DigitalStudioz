@@ -50,7 +50,7 @@ scripts/mem0_integration.py  →  Mem0 OSS (Qdrant local)
 | Key | Source |
 |-----|--------|
 | **user_id / collection / qdrant** | This project's `TRUTH.md` + `.env.local` |
-| **Python runtime** | Hermes venv `%LOCALAPPDATA%\hermes\hermes-agent\venv\Scripts\python.exe` (scripts pin this — **not** Python312) |
+| **Python runtime** | Hermes venv `%LOCALAPPDATA%\hermes\hermes-agent\venv\Scripts\python.exe` (interactive scripts pin this — **not** Python312). Hidden cron/watchdogs must **not** launch that folder's `pythonw.exe` (uv CUI stub). |
 | **Config file** | `hermes-desktop-profile.json` → `mem0` block (must match TRUTH) |
 
 ---
@@ -173,6 +173,7 @@ Unlike `mem0:add` which targets each project's own Qdrant collection, `draven:ad
 | Wrong collection / mixed memories | Stop — check TRUTH + `.env.local`; never use another profile's IDs |
 | "Memory recorded" but nothing stored | Fixed in v1.3.1 — `mem0:add` now uses `infer=False` by default |
 | Context length error on add | Use `mem0:add` (infer=False) or `mem0:add:infer` only for short notes |
+| `migrations_qdrant` already accessed / “error accessing memory layer” voice | Two Mem0 Python processes at once (usually `mem0:add` + `draven:add` in parallel). Local Qdrant exclusive-locks folders. Mem0 telemetry used to open a **shared** `~\.mem0\migrations_qdrant` even when collections differ. Integration now defaults `MEM0_TELEMETRY=false` and retries the lock. Run adds **one after another**. Retry if it still fails. Store is not corrupt. |
 
 ---
 
@@ -183,7 +184,7 @@ Unlike `mem0:add` which targets each project's own Qdrant collection, `draven:ad
 3. `npm run mem0:search -- "<topic>"` before planning (project memory)
 4. `npm run draven:search -- "<topic>"` — check Draven's cross-session memory
 5. `npm run mem0:add -- "<takeaway>"` at end of significant work
-6. `npm run draven:add -- "<takeaway>"` — also store in Draven's memory
+6. `npm run draven:add -- "<takeaway>"` — also store in Draven's memory (**after** mem0:add, not in parallel)
 7. `npm run mem0:delete -- <id>` / `npm run draven:delete -- <id>` — clean up stale/incorrect memories
 
 ## Recommended setup (locked 2026-07-09)

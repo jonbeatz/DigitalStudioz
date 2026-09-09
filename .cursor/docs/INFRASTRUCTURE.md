@@ -420,7 +420,7 @@ Start these from **MyStudioChannel** (`npm run msc:session:start`).
 
 | Tool | Path / command |
 |------|----------------|
-| Python (Mem0 / Draven scripts) | `%LOCALAPPDATA%\hermes\hermes-agent\venv\Scripts\python.exe` (**Hermes venv 3.11** — intentional; do **not** use Python312 for Mem0) |
+| Python (Mem0 / Draven scripts) | `%LOCALAPPDATA%\hermes\hermes-agent\venv\Scripts\python.exe` (**Hermes venv 3.11** — intentional; do **not** use Python312 for Mem0). **Hidden Windows tasks:** never that folder's `pythonw.exe` (uv CUI stub, two flashes). Use uv *home* or Python312 GUI `pythonw` + `VIRTUAL_ENV` overlay (`hermes-script-hidden.vbs`). |
 | Python (Extended Health / `hermes update` safety) | `%LOCALAPPDATA%\Programs\Python\Python312\python.exe` — only via `EXTENDED_HEALTH_PYTHON` / `start-extended-health.bat` |
 | LM Studio CLI | `lms` on PATH |
 | Mem0 model | `qwen3-4b-instruct-2507` |

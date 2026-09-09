@@ -113,7 +113,7 @@ Full PC boot — **fast path first** so the Telegram confirmation + Hermes never
 
 **Why two pings:** PC boot fires before LiteLLM is ready and often before the NIC is up. The partial ping confirms boot immediately; the ONLINE ping confirms the paid stack once `:4000` answers.
 
-**Hidden orchestrator:** Startup `Master-Startup.lnk` → **`wscript.exe`** → `Master-Startup-Hidden.vbs` → hidden PowerShell. This hides the orchestrator console even under Windows Terminal (which ignores `-WindowStyle Hidden`). The detached **LiteLLM** window may still appear — expected/wanted.
+**Hidden orchestrator:** Startup `Master-Startup.lnk` → **`wscript.exe`** → `Master-Startup-Hidden.vbs` → hidden PowerShell. This hides the orchestrator console even under Windows Terminal (which ignores `-WindowStyle Hidden`). LiteLLM runs **detached** (no desktop window); logs: `deepseek-api\logs\litellm-proxy.log`. Visible LiteLLM console only with `MSC_LITELLM_DETACHED_CONSOLE=1` or `Master-Startup.ps1 -ShowWindows`.
 
 **Gateway auto-start:** `-EnsureLoginTask` registers the **`Hermes_Gateway_jonbeatz`** Windows Scheduled Task, so the iPhone listener auto-starts on login independent of Master-Startup. Hermes' interactive install prompts are answered non-interactively (piped) so boot never hangs.
 

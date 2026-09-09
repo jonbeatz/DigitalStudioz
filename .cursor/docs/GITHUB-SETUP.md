@@ -84,4 +84,4 @@ Enable: Repo → Settings → Pages → Source: **GitHub Actions**
 
 ---
 
-*Bootstrap template — 2026-08-08*
+*Bootstrap template — 2026-09-05*

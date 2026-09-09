@@ -119,7 +119,8 @@
     "comfy:restart": "powershell -File scripts/comfy-delegate.ps1 -Action restart",
     "comfy:status": "powershell -File scripts/comfy-delegate.ps1 -Action status",
     "comfy:repair-symlinks": "powershell -NoProfile -ExecutionPolicy Bypass -File H:/AI_Models/ComfyUI/scripts/repair-comfyui-symlinks.ps1",
-    "comfy:hardlink-check": "powershell -NoProfile -ExecutionPolicy Bypass -File H:/AI_Models/ComfyUI/scripts/repair-comfyui-symlinks.ps1 -CheckOnly"
+    "comfy:hardlink-check": "powershell -NoProfile -ExecutionPolicy Bypass -File H:/AI_Models/ComfyUI/scripts/repair-comfyui-symlinks.ps1 -CheckOnly",
+    "comfy:start:qwen": "powershell -File scripts/comfy-delegate.ps1 -Action start -UnloadLMStudio -LowVram -NoVRAMCheck"
   },
   "author": "DigitalStudioz",
   "license": "MIT",

@@ -6,9 +6,10 @@
 
 | Job | Workflow |
 |-----|----------|
-| Fast iterate | `txt2img-z-image-turbo.json` (Q4) |
+| **Free local still (default)** | Lightning App Mode / `txt2img-qwen-image-2512-lightning.json` — [LOCAL-COMFY-2512-LIGHTNING.md](./LOCAL-COMFY-2512-LIGHTNING.md) |
+| Fast z-image iterate | `txt2img-z-image-turbo.json` (Q4) |
 | Fast keep | `txt2img-z-image-turbo-bf16.json` |
-| Best quality | `txt2img-qwen-image-2512.json` |
+| Best 2512 quality | `txt2img-qwen-image-2512.json` (20-step keep) |
 | Local edit | `edit-image-qwen-2511.json` |
 | Flux quality (NC) | `txt2img-flux-klein-9b.json` |
 | Flux speed / Apache | `txt2img-flux-klein.json` |
